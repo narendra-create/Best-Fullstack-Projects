@@ -1,6 +1,7 @@
 import OrderModel from "../models/OrderSchema.js";
 import { nanoid } from "nanoid";
 import Vendor from "../models/VendorSchema.js";
+import Product from "../models/ProductSchema.js";
 
 
 const generateOrderReference = () => {
@@ -18,23 +19,44 @@ const generateOrderReference = () => {
 
 const placeOrder = async (req, res) => {
     try {
-        const { vendorId } = req.user;
-        const { vendor, items, totalprice } = req.body;
-        if (!vendor || !items || !totalprice) return res.status(400).json({ message: "Missing required fields !" })
+        const { user } = req.user;
+        const { vendor, items } = req.body;
+
+        if (!vendor || !items || items.length === 0) return res.status(400).json({ message: "Missing required fields !" })
         //check if product exists and amount available in future 
 
+        const vendorexists = await Vendor.findOne({ _id: vendor })
+        if (!vendorexists) {
+            return res.status(404).json({ message: "Vendor Not Found" })
+        }
+        //total price check 
+        let calculatedprice = 0;
+        const productids = items.map(item => item.product)
+        const productsfromdb = await Product.find({ _id: { $in: productids } })
+        let itemsforDB = [];
+        for (const item of items) {
+            const product = productsfromdb.find(p => p._id.toString() === item.product)
+            if (product) {
+                calculatedprice += product.price * item.quantity;
+                itemsforDB.push({
+                    product: item.product,
+                    quantity: item.quantity,
+                    price: product.price
+                })
+            }
+        }
         const orderidref = generateOrderReference();
 
         //make order 
         const neworder = new OrderModel({
-            vendor: vendorId,
-            items: items,
-            totalprice: totalprice,
+            user: user,
+            vendor: vendor,
+            items: itemsforDB,
+            totalprice: calculatedprice,
             status: "PENDING",
             orderid: orderidref
         })
         const savedorder = await neworder.save();
-        console.log("order", savedorder)
         res.status(201).json({ message: "Order placed, status - PENDING", OrderId: orderidref })
     }
     catch (err) {
@@ -51,12 +73,21 @@ const updateorder = async (req, res) => {
         if (role !== "vendor") return res.status(401).json({ message: "Only vendor can modify order status" })
 
         const { OrderId } = req.params;
+        const validvendor = req.user.user;
         const { status } = req.body;
 
         if (!status || !OrderId) return res.status(400).json({ message: "Please provide OrderId and status (eg. PENDING, ACCEPTED, PREPARING, OUT FOR DELIVERY, COMPLETED, CANCELLED )" }) //(`Pending`, `Accepted`, `Preparing`, `Out for Delivery`, `Completed`, `Cancelled`)
 
-        const updatedOrder = await OrderModel.findByIdAndUpdate(
-            OrderId,
+        const vendorprofile = await Vendor.findOne({ user: validvendor })
+        if (!vendorprofile) {
+            return res.status(403).json({ message: "Don't Interfare with other orders" })
+        }
+
+        const updatedOrder = await OrderModel.findOneAndUpdate(
+            {
+                orderid: OrderId,
+                vendor: vendorprofile._id
+            },
             { status: status },
             { new: true }
         );
@@ -64,7 +95,7 @@ const updateorder = async (req, res) => {
         if (!updatedOrder) {
             return res.status(404).json({ message: "Order Not Found !!" })
         }
-        return res.status(200).json({ message: "Status Updated Successfully", updated })
+        return res.status(200).json({ message: "Status Updated Successfully", updatedOrder })
     } catch (err) {
         return res.status(500).json({ message: "Server Error" })
     }
@@ -77,12 +108,12 @@ const orderHistory = async (req, res) => {
         const { user, role } = req.user;
         let orders;
         if (role === "customer") {
-            orders = await OrderModel.find({ user: user }).populate('Vendor', 'name imageUrl').populate('items.product', 'name price')
+            orders = await OrderModel.find({ user: user }).populate('vendor', 'name imageUrl').populate('items.product', 'name price')
         }
         else if (role === "vendor") {
             const vendorprofile = await Vendor.findOne({ user: user })
             if (!vendorprofile) return res.status(404).json({ message: "Vendor Not Found" })
-            orders = await OrderModel.find({ user: user }).populate('User', 'name email').sort({ createdAt: -1 })
+            orders = await OrderModel.find({ vendor: vendorprofile._id }).populate('user', 'name email').sort({ createdAt: -1 })
         }
 
         if (!orders || orders.length === 0) {
@@ -91,6 +122,7 @@ const orderHistory = async (req, res) => {
         return res.status(200).json({ message: "Order History Fetched", orders })
     }
     catch (err) {
+        console.log(err)
         return res.status(500).json({ message: "Server Error" })
     }
 }

@@ -1,4 +1,4 @@
-import { userregister, userlogin } from "../controllers/UserController.js";
+import { userregister, userlogin, userlogout } from "../controllers/UserController.js";
 import express from 'express';
 
 const userroutes = express.Router();
@@ -7,5 +7,7 @@ const userroutes = express.Router();
 userroutes.post('/', userregister);
 //For login
 userroutes.post('/login', userlogin);
+//For Logout
+userroutes.get('/logout', userlogout);
 
 export default userroutes;

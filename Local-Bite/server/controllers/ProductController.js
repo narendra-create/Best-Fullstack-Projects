@@ -1,4 +1,5 @@
 import Product from "../models/ProductSchema.js";
+import UserModel from "../models/UserSchema.js";
 import Vendor from "../models/VendorSchema.js";
 
 const AddProduct = async (req, res) => {
@@ -11,7 +12,7 @@ const AddProduct = async (req, res) => {
         if (!name || !description || !price) {
             return res.status(400).json({ message: "Please provide all required fields." });
         }
-        const vendorprofile = await Vendor.findOne({ _id: user });
+        const vendorprofile = await Vendor.findOne({ user: user });
         console.log(vendorprofile, user)
         if (!vendorprofile) {
             return res.status(404).json({ message: "Vendor Not Found" })
@@ -32,7 +33,8 @@ const AddProduct = async (req, res) => {
 
 const getProductbyVendor = async (req, res) => {
     try {
-        const { vendorId } = req.params.vendorId;
+        const { vendorId } = req.params;
+        console.log(vendorId)
         const ven = await Product.find({ vendor: vendorId });
         res.json(ven);
     } catch (error) {

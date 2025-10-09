@@ -28,7 +28,8 @@ app.get('/', (req, res) => {
         },
         user: {
             register: '/api/auth/',
-            login: "/api/auth/login"
+            login: "/api/auth/login",
+            logout: "/api/auth/logout"
         },
         orders: {
             place: '/api/order/place',

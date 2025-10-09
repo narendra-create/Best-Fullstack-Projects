@@ -29,6 +29,7 @@ const userregister = async (req, res) => {
         if (role === "vendor") {
             if (!vendorDetails) return res.status(400).json({ message: "vendor details missing - category and imageUrl" })
             const { category, imageUrl } = vendorDetails;
+            console.log(vendorDetails)
             if (!category) return res.status(400).json({ message: "Vendor details required" })
 
             const newvendor = new Vendor({
@@ -40,10 +41,11 @@ const userregister = async (req, res) => {
             await newvendor.save();
 
         }
-        return res.status(201).json({ message: "Vendor Account created successfully ✔️" })
+        return res.status(201).json({ message: "Account created successfully ✔️" })
 
     }
     catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Server Error" })
     }
 }
@@ -87,4 +89,13 @@ const userlogin = async (req, res) => {
     }
 }
 
-export { userlogin, userregister };
+const userlogout = async (req, res) => {
+    try {
+        return res.clearCookie('token').status(200).json({ message: "Logout  Successfull" })
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { userlogin, userregister, userlogout };
