@@ -1,6 +1,6 @@
 import Vendor from "../models/VendorSchema.js";
 import mongoose from "mongoose";
-import { Model } from "mongoose";
+
 
 
 const getAllVendors = async (req, res) => {
@@ -29,7 +29,6 @@ const getVendorbyId = async (req, res) => {
 }
 const AddVendor = async (req, res) => {
     try {
-
         const { name, category, imageUrl } = req.body;
         if (!name || !category) {
             throw new Error("Missing Required fields: name, category");

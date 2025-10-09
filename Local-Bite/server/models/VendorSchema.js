@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const vendorSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     name: { type: String, required: true },
     category: { type: String, required: true },
     imageUrl: { type: String, required: true },
