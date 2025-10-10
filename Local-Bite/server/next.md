@@ -21,14 +21,14 @@
 
 ## Routine Api Checks after changing code
 
-- [x] addven: "/"
-- [x] getallven: "/all"
-- [x] getvenbyid: "/:id"
-- [x] addproduct: "/:vendorId"
-- [x] getprobyid: "/product/:vendorId"
-- [x] register: '/api/auth/'
-- [x] login: "/api/auth/login"
-- [x] logout: "/api/auth/logout
-- [x] place: '/api/order/place'
-- [x] update: '/api/order/updatestatus/:OrderId'
-- [x] history: '/api/order/history'
+- [ ] addven: "/"
+- [ ] getallven: "/all"
+- [ ] getvenbyid: "/:id"
+- [ ] addproduct: "/:vendorId"
+- [ ] getprobyid: "/product/:vendorId"
+- [ ] register: '/api/auth/'
+- [ ] login: "/api/auth/login"
+- [ ] logout: "/api/auth/logout"
+- [ ] place: '/api/order/place'
+- [ ] update: '/api/order/updatestatus/:OrderId'
+- [ ] history: '/api/order/history'
