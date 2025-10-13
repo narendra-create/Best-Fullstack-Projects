@@ -34,17 +34,17 @@ const AddProduct = async (req, res) => {
 const getProductbyVendor = async (req, res) => {
     try {
         const { vendorId } = req.params;
-        console.log(vendorId)
-        const ven = await Product.find({ vendor: vendorId });
-        res.json(ven);
+        const pro = await Product.find({ vendor: vendorId });
+        if (!pro) return res.status(404).json({ message: "Products not found" })
+        res.json({ pro });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
 }
 const getAllProducts = async (req, res) => {
     try {
-        const ven = await Product.find({});
-        res.json(ven);
+        const pro = await Product.find({});
+        res.json({pro});
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }

@@ -16,7 +16,7 @@ const getVendorbyId = async (req, res) => {
         const venid = req.params.id;
         const vendor = await Vendor.findById(venid);
         if (vendor) {
-            res.status(201).json(vendor);
+            res.status(201).json({vendor});
         }
         else {
             res.status(404).json({ message: "Vendor Not Found" });
