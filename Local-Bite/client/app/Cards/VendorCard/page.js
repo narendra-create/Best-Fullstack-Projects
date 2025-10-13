@@ -3,7 +3,7 @@ import React from 'react'
 const VendorCard = ({ vendor }) => {
     return (
         <div>
-            <section className='overflow-hidden mx-auto w-96 h-72 text-black bg-white rounded-3xl'>
+            <section className='transition-all ease-in-out duration-150 hover:scale-102 cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden mx-auto w-96 h-72 text-black bg-white rounded-3xl'>
                 <img className='text-center text-xl font-bold object-cover object-center h-52 w-full' src={vendor.imageUrl} alt="vendor restaurent" />
                 <div className='flex w-full h-20 justify-between px-3 pt-2'>
                     <div className='flex flex-col w-68'>
