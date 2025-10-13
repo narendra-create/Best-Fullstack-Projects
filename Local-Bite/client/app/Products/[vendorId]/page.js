@@ -1,19 +1,19 @@
 import React from 'react'
 import ProductCard from '@/app/Cards/ProductCard/page'
 
-const Products = () => {
-    const Product = [{
-        "name": "Quantum Laptop Pro",
-        "description": "The fastest laptop in the universe. Perfect for coding your way to a million bucks.",
-        "price": 1299.99,
-        "imageUrl": "https://placehold.co/600x400/000000/FFFFFF/png?text=Laptop+Pro",
-        "vendor": "444444"
-    }]
+const Products = async ({ params }) => {
+    const vendorId = await params.vendorId;
     return (
         <div>
-            {Product.map((product) => {
-                return <ProductCard product={product} key={product.name} />
-            })}
+            <div className='flex items-center justify-center font-bold text-4xl bg-neutral-300 text-black w-full h-118'>reserved space for vendor restaurent or stall picture
+            </div>
+            <hr className='bg-black w-full h-1' />
+            <div className='text-5xl font-bold text-black ml-12 mt-10 font-sans'>Our Menu-</div>
+            <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mt-44 w-422'>
+                {Product.map((product) => {
+                    return <ProductCard product={product} key={product.name} />
+                })}
+            </div>
         </div>
     )
 }
