@@ -9,7 +9,6 @@ const Navbar = () => {
     const pathname = usePathname();
     const isDarkpage = pathname === `/components/Register`
     const isLoginpage = pathname === `/components/Login`
-    console.log(isDarkpage, pathname)
     const bgcolor = isDarkpage ? "white" : "black"
 
     return (

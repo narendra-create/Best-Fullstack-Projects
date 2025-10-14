@@ -1,14 +1,15 @@
 import React from 'react'
+import Link from 'next/link'
 
 const VendorCard = ({ vendor }) => {
     return (
-        <div>
+        <Link href={`/Products/${vendor._id}`}>
             <section className='transition-all ease-in-out duration-150 hover:scale-102 cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden mx-auto w-96 h-72 text-black bg-white rounded-3xl'>
                 <img className='text-center text-xl font-bold object-cover object-center h-52 w-full' src={vendor.imageUrl} alt="vendor restaurent" />
                 <div className='flex w-full h-20 justify-between px-3 pt-2'>
                     <div className='flex flex-col w-68'>
                         <div className='text-3xl font-bold truncate'>{vendor.name}</div>
-                        <div className='text-zinc-800 pl-1'>Type <span>|</span> {vendor.category}</div>
+                        <div className='text-zinc-800 pl-1'>{vendor.type} <span>|</span> {vendor.category}</div>
                     </div>
                     <div className='text-white text-sm px-2 py-1 bg-chili-red mt-2 font-semibold w-20 h-9 flex gap-1 items-center justify-center rounded-2xl'>₹150
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -17,7 +18,7 @@ const VendorCard = ({ vendor }) => {
                     </div>
                 </div>
             </section>
-        </div>
+        </Link>
     )
 }
 

@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useState } from 'react'
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 const Register = () => {
     const [role, setrole] = useState("customer")
@@ -12,17 +13,73 @@ const Register = () => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-
-        // Converting  FormData object into a JavaScript object
         const formProps = Object.fromEntries(formData);
 
-        
-        // console.log("Form Data Submitted:", formProps);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: formProps.name,
+                email: formProps.email,
+                password: formProps.password,
+                role: formProps.role,
+                vendorDetails: {
+                    category: formProps.category,
+                    imageUrl: formProps.imageUrl,
+                    type: formProps.type
+                }
+            })
+        }).then(async res => {
+            const data = await res.json();
+            if (res.ok) {
+                console.log("success")
+                toast.success('Account Created✔️', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+            }
+            else {
+                toast.error(`${data.message}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+            }
+        }).catch(err => {
+            console.log("Error", err)
+        })
 
     }
 
     return (
         <div className='w-full h-screen mt-40'>
+            <ToastContainer position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Slide} />
+
             <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
             <div className='text-white mx-auto w-188 flex items-center justify-center mb-16 text-6xl font-bold'>Login to get full access</div>
             <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
