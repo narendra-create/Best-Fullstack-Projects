@@ -28,21 +28,20 @@ const userregister = async (req, res) => {
 
         if (role === "vendor") {
             if (!vendorDetails) return res.status(400).json({ message: "vendor details missing - category and imageUrl" })
-            const { category, imageUrl } = vendorDetails;
-            console.log(vendorDetails)
+            const { category, imageUrl, type } = vendorDetails;
             if (!category) return res.status(400).json({ message: "Vendor details required" })
 
             const newvendor = new Vendor({
                 user: newuser._id,
                 name: newuser.name,
                 category: category,
-                imageUrl: imageUrl
+                imageUrl: imageUrl,
+                type: type
             })
             await newvendor.save();
 
         }
         return res.status(201).json({ message: "Account created successfully ✔️" })
-
     }
     catch (error) {
         console.log(error)

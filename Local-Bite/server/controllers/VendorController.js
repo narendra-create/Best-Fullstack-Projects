@@ -16,7 +16,7 @@ const getVendorbyId = async (req, res) => {
         const venid = req.params.id;
         const vendor = await Vendor.findById(venid);
         if (vendor) {
-            res.status(201).json({vendor});
+            res.status(201).json({ vendor });
         }
         else {
             res.status(404).json({ message: "Vendor Not Found" });
@@ -29,9 +29,9 @@ const getVendorbyId = async (req, res) => {
 }
 const AddVendor = async (req, res) => {
     try {
-        const { name, category, imageUrl } = req.body;
-        if (!name || !category) {
-            throw new Error("Missing Required fields: name, category");
+        const { name, category, imageUrl, type } = req.body;
+        if (!name || !category || !type) {
+            throw new Error("Missing Required fields: name, category, type");
         }
         const currentName = await Vendor.findOne({ name: name })
         if (!currentName) {
@@ -40,6 +40,7 @@ const AddVendor = async (req, res) => {
                 category: category,
                 imageUrl: imageUrl,
                 isOpen: true,
+                type: type
             })
             await newVendor.save();
             return res.status(200).json({ message: "vendor added successfully" })

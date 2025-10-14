@@ -7,6 +7,12 @@ const vendorSchema = new Schema({
     category: { type: String, required: true },
     imageUrl: { type: String, required: true },
     isOpen: { type: Boolean, default: true },
+    type: {
+        type: String, required: true, enum: {
+            values: ["veg", "non-veg", "veg/non-veg"],
+            message: 'Type must be either veg, non-veg or veg/non-veg'
+        }
+    }
 })
 
 const Vendor = mongoose.models.Vendor || mongoose.model("Vendor", vendorSchema);

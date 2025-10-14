@@ -24,7 +24,6 @@ await connectdb();
 
 app.get('/', (req, res) => {
     let allapis = {
-        addven: "/",
         getallven: "/api/vendor/all",
         getvenbyid: "/:id",
         product: {
