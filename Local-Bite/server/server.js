@@ -7,6 +7,7 @@ import orderrouter from "./routes/OrderRoutes.js";
 import userroutes from "./routes/UserRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
+import authMiddleware from "./middlewares/jwtcheck.js";
 
 
 const app = express();
@@ -45,11 +46,19 @@ app.get('/', (req, res) => {
 })
 //User routes
 app.use('/api/auth', userroutes);
+app.get('/api/verify', authMiddleware, (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "User is authenticated.",
+        user: req.user
+    });
+})
 
-//TELL Express to use your vendor routes for any request starting with /api/vendor
+//TELL Express to use vendor routes for any request starting with /api/vendor
 app.use('/api/vendor', VendorRoutes)
 app.use('/api/product', ProductRoutes)
 app.use('/api/order', orderrouter)
+
 
 
 app.listen(port, () => {

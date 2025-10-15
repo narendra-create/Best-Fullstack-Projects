@@ -72,7 +72,7 @@ const userlogin = async (req, res) => {
             });
             res.cookie("token", token, {
                 httpOnly: true, // <-- CRITICAL: Prevents JS access
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production only (HTTPS)
+                // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production only (HTTPS)
                 sameSite: 'strict', // Helps prevent CSRF attacks
                 maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
             });
