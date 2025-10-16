@@ -106,7 +106,7 @@ const Login = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src='/vendorbg.jpg' alt="Background image" className='-z-20 opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
+            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src='/vendorbg.jpg' alt="Background image" className='-z-20 opacity-80 blur-xs object-cover' /></div>
             {User === null ? <div className='text-white mx-auto w-188 flex items-center justify-center mb-16 text-6xl font-bold'>Login to get full access</div> : <div className='text-white mx-auto w-192 flex items-center justify-center mb-16 text-6xl font-bold'>You Are Already Logged in</div>}
             {User === null ? <form className="max-w-sm mx-auto" onSubmit={handleLogin}>
                 <div className="mb-5">

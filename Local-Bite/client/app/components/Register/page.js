@@ -80,7 +80,7 @@ const Register = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
+            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-full opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
             <div className='text-white mx-auto w-188 flex items-center justify-center mb-16 text-6xl font-bold'>Login to get full access</div>
             <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
                 <div className="mb-5 ">

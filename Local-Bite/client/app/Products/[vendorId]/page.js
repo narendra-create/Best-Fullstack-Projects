@@ -27,7 +27,6 @@ const Products = ({ params }) => {
         staleTime: 1000 * 60 * 2, // (2 min) refresh time
         cacheTime: 1000 * 60 * 15 // keep cache in memory
     });
-    console.log(products)
 
     if (isLoading) {
         return <div role="status">
