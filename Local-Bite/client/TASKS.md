@@ -11,7 +11,9 @@
 - [x] make the vendor cards clicable and redirect to products page
 - [ ] Make quantity counter and price calculator in the order page
 - [ ] Add to cart instead of buy now button
-- [ ] Add product page and vendor dashboard
-- [ ] Add Login cookie check to register also
-- [ ] Fix the background image of register and login page from bottom
-- [ ] Homepage background
+- [x] Add product page 
+- [ ] Add vendor dashboard
+- [x] Add Login cookie check to register also
+- [x] Fix the background image of register and login page from bottom
+- [x] Homepage background
+- [ ] Fix hompage bg fade
