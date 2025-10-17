@@ -8,7 +8,6 @@ const Login = () => {
 
     const [User, setUser] = useState(null);
     const [isLoading, setisLoading] = useState(true);
-
     useEffect(() => {
         const verifyUser = async () => {
             try {
