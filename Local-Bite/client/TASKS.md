@@ -17,4 +17,4 @@
 - [x] Fix the background image of register and login page from bottom
 - [x] Homepage background
 - [ ] Fix hompage bg fade
-- [ ] Add more buttons in navbar
+- [x] Add more buttons in navbar
