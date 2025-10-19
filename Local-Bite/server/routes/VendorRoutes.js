@@ -1,5 +1,6 @@
-import { getAllVendors, getVendorbyId, AddVendor } from '../controllers/VendorController.js'
+import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid } from '../controllers/VendorController.js'
 import express from 'express';
+import authMiddleware from '../middlewares/jwtcheck.js';
 
 const router = express.Router();
 //get all vendors
@@ -8,5 +9,6 @@ router.get('/all', getAllVendors);
 router.post('/', AddVendor);
 //get vendor by id
 router.get('/:id', getVendorbyId);
+router.get('/user', authMiddleware, getVendorByUserid)
 
 export default router;

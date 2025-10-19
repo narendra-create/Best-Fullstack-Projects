@@ -54,4 +54,17 @@ const AddVendor = async (req, res) => {
     }
 }
 
-export { getAllVendors, getVendorbyId, AddVendor };
+const getVendorByUserid = async (req, res) => {
+   try{
+     const { user, role } = req.user;
+    if (!role === 'vendor') return res.status(401).json({ message: "User does not have vendor account" })
+    const vendor = await Vendor.findOne({ user: user })
+    return res.status(200).json({ vendor })
+   }
+   catch(err){
+    console.log(err)
+    return res.status(500).json({message: "Server error"})
+   }
+}
+
+export { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid };

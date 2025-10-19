@@ -8,8 +8,8 @@ const AddProduct = async (req, res) => {
         if (role !== "vendor") {
             return res.status(403).json({ message: "Only Vendors Can add products" })
         }
-        const { name, description, price, imageUrl } = req.body;
-        if (!name || !description || !price) {
+        const { name, description, price, imageUrl, quantity, type } = req.body;
+        if (!name || !description || !price || !type || !quantity) {
             return res.status(400).json({ message: "Please provide all required fields." });
         }
         const vendorprofile = await Vendor.findOne({ user: user });
@@ -22,6 +22,8 @@ const AddProduct = async (req, res) => {
             description: description,
             price: price,
             imageUrl: imageUrl,
+            quantity: quantity,
+            type: type,
             vendor: vendorprofile._id,
         })
         await newProduct.save();
@@ -38,13 +40,14 @@ const getProductbyVendor = async (req, res) => {
         if (!pro) return res.status(404).json({ message: "Products not found" })
         res.json({ pro });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Server Error" });
     }
 }
 const getAllProducts = async (req, res) => {
     try {
         const pro = await Product.find({});
-        res.json({pro});
+        res.json({ pro });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }

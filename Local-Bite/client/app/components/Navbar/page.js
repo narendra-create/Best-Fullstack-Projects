@@ -22,11 +22,11 @@ const Navbar = () => {
                     <div>
                         {isLoginpage ? (
                             <Link href={'/components/Register'} id='newuser'>
-                                <button className='text-white'>New user?</button>
+                                <button className='text-white pl-50'>New user?</button>
                             </Link>
                         ) : (
                             <Link href={'/components/Login'} id='Existinguser'>
-                                <button className='text-white'>Already Registered?</button>
+                                <button className='text-white pl-50'>Already Registered?</button>
                             </Link>
                         )}
                     </div>
