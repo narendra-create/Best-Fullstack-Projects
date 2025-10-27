@@ -2,6 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import Link from 'next/link';
 
 const Register = () => {
     const [role, setrole] = useState("customer")
@@ -71,6 +72,7 @@ const Register = () => {
                     theme: "colored",
                     transition: Slide,
                 });
+                e.target.reset();
             }
             else {
                 toast.error(`${data.message}`, {
@@ -116,8 +118,8 @@ const Register = () => {
                 transition={Slide} />
 
             <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-full opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
-            {User === null ? <div className='text-white mx-auto w-265 flex items-center justify-center mb-16 text-6xl font-bold'>Register now To take massive orders</div> : <div className='text-white mx-auto w-192 flex items-center justify-center mb-16 text-6xl font-bold'>You Are Already Registered</div>}
-            <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
+            {User === null ? <div className='text-white mx-auto w-265 flex items-center justify-center mb-16 text-6xl font-bold'>Register now To take massive orders</div> : <div className='text-white mx-auto w-full flex items-center justify-center mb-16 text-6xl font-bold'>You Are Already Registered</div>}
+            {User === null ? <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
                 <div className="mb-5 ">
                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                     <input type="text" id="name" name='name' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
@@ -165,7 +167,10 @@ const Register = () => {
                     </>}
 
                 <button type="submit" className="transition-all ease-in-out duration-200 text-white font-bold bg-chili-red hover:bg-chili-red focus:ring-4 focus:outline-none focus:ring-red-300 font-sans rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:chili-red dark:hover:bg-red-700 dark:focus:ring-red-800">Submit</button>
-            </form>
+            </form> : <div className='flex w-full items-center justify-center gap-3'>
+                <Link href={'/'} className='bg-chili-red h-16 w-64 rounded-4xl flex items-center justify-center font-bold border-2 border-red-800 text-xl hover:bg-red-900 hover:text-lg transition-all ease-in-out duration-300'>Go To HomePage</Link>
+                <Link href={'/VendorTools/Dashboard'} className='bg-chili-red h-16 w-64 rounded-4xl flex items-center justify-center border-2 border-red-800 font-bold text-xl hover:bg-red-900 hover:text-lg transition-all ease-in-out duration-300'>Dashboard</Link>
+            </div>}
 
         </div>
     )

@@ -63,6 +63,7 @@ const Login = () => {
                     theme: "colored",
                     transition: Slide,
                 });
+                e.target.reset();
             }
             else {
                 toast.error(`${data.message}`, {
@@ -117,7 +118,7 @@ const Login = () => {
                     <input type="password" id="password" name='password' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
                 <button type="submit" className="transition-all ease-in-out duration-200 text-white font-bold bg-chili-red hover:bg-chili-red focus:ring-4 focus:outline-none focus:ring-red-300 font-sans rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:chili-red dark:hover:bg-red-700 dark:focus:ring-red-800">Submit</button>
-            </form> : <div className='w-full h-full flex items-top justify-center'><Link href={'/'} className='bg-chili-red h-16 w-64 rounded-4xl flex items-center justify-center font-bold text-xl'>Return to Homepage</Link></div>}
+            </form> : <div className='w-full h-full flex items-top justify-center'><Link href={'/'} className='hover:bg-red-900 hover:text-lg transition-all ease-in-out duration-300 bg-chili-red h-16 w-64 rounded-4xl flex items-center justify-center font-bold text-xl'>Return to Homepage</Link></div>}
         </div>
     )
 }
