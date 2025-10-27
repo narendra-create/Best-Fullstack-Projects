@@ -53,4 +53,22 @@ const getAllProducts = async (req, res) => {
     }
 }
 
-export { getProductbyVendor, AddProduct, getAllProducts };
+const getProductsbyUser = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const vendorfound = await Vendor.findOne({ user })
+        if (!vendorfound) {
+            return res.status(404).json({ message: "Vendor Not Found" })
+        }
+        const products = await Product.find({ vendor: vendorfound._id });
+        if (!products || products.length === 0) {
+            return res.status(404).json({ message: "Your Product Catelog is Empty" })
+        }
+        return res.status(200).json({ products })
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Server Error - Location Productcontroller" })
+    }
+}
+
+export { getProductbyVendor, AddProduct, getAllProducts, getProductsbyUser };

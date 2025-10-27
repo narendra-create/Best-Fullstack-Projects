@@ -13,24 +13,24 @@ const AddProducts = () => {
 
     const getVendorData = async () => {
         try {
-            let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/user`, { credentials: 'include' })
+            let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor`, { credentials: 'include' })
             if (!res.ok) {
                 throw new Error("Problem in fetching")
             }
             const data = await res.json();
-            console.log("coming from vendordata", data.vendor, "And the data =", data);
             return data.vendor;
         }
         catch (err) {
             console.log(err)
+            return null;
         }
     }
 
     const getVendorProducts = async (vendorId) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/MyProducts`, { credentials: "include" });
         if (!res.ok) throw new Error("Fetch failed")
         const data = await res.json();
-        return data.pro;
+        return data.products;
     }
 
     const handleChange = (e) => {
@@ -106,6 +106,7 @@ const AddProducts = () => {
     const { data: user, isLoading: userLoading } = useQuery({
         queryKey: ["vendor"],
         queryFn: getVendorData,
+        retry: 1,
     });
 
     const { data: products, isLoading: productsLoading } = useQuery({
@@ -114,10 +115,10 @@ const AddProducts = () => {
         enabled: !!user, // only run after user is fetched
     });
 
-    useEffect(() => {
-        console.log(user)
-        console.log(products)
-    }, [products])
+    // useEffect(() => {
+    //     console.log(user)
+    //     console.log(products)
+    // }, [products])
 
 
     if (userLoading) {
@@ -129,6 +130,8 @@ const AddProducts = () => {
             <span className="sr-only">Loading...</span>
         </div>
     }
+
+    if (!user) return <div className='mx-auto w-107 mt-54 text-black font-bold text-4xl'>No vendor found 😅</div>;
 
     return (
         <div className='mt-38'>
@@ -166,7 +169,7 @@ const AddProducts = () => {
                         <div className='my-5 flex gap-5'>
                             <div className='w-157'>
                                 <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Food Image URL</label>
-                                <input type="text" required onChange={handleimage} id="imageUrl" name='imageUrl' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder='https://' />
+                                <input type="text" required onChange={handleimage} id="imageUrl" name='imageUrl' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder='https://' />
                             </div>
                             <button onClick={imageclick} className='self-end hover:scale-103 transition-all ease-in-out duration-200 font-semibold text-white bg-chili-red rounded-full h-12 w-38 text-sm'>Preview Image</button>
                         </div>
@@ -176,25 +179,25 @@ const AddProducts = () => {
                         <form className="max-w-sm mx-auto" onSubmit={(e) => addFood(e, user.user)}>
                             <div className="mb-5">
                                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Product Name</label>
-                                <input required type="text" onChange={handleChange} id="name" name='name' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder="CheeseCake" />
+                                <input required type="text" onChange={handleChange} id="name" name='name' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder="CheeseCake" />
                             </div>
                             <div className="mb-5 flex gap-10">
                                 <div>
                                     <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Price</label>
-                                    <input required type="number" onChange={handleChange} id="price" name='price' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" />
+                                    <input required type="number" onChange={handleChange} id="price" name='price' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" />
                                 </div>
                                 <div>
                                     <label htmlFor="quantity" className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'>Quantity</label>
-                                    <input required type="text" onChange={handleChange} placeholder='eg.1 Plate or 200gm' id='quantity' name='quantity' className='shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light' />
+                                    <input required type="text" onChange={handleChange} placeholder='eg.1 Plate or 200gm' id='quantity' name='quantity' className='shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light' />
                                 </div>
                             </div>
                             <div className='mb-5'>
                                 <label htmlFor="description" className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'>Description</label>
-                                <textarea required name="description" onChange={handleChange} id="description" placeholder='Define your product' className='break-words whitespace-normal shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light'></textarea>
+                                <textarea required name="description" onChange={handleChange} id="description" placeholder='Define your product' className='break-words whitespace-normal shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light'></textarea>
                             </div>
                             <div className='mb-5'>
                                 <label htmlFor="type" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Food Type</label>
-                                <select required id="type" name='type' onChange={handleChange} className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select required id="type" name='type' onChange={handleChange} className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option value="">Select-Food-Type</option>
                                     <option value="veg">Veg</option>
                                     <option value="non-veg">Non-Veg</option>

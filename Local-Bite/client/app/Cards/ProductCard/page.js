@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
         // i will change this div into Link tag later
         <div>
             <section className='shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-200 bg-white text-black mx-auto rounded-2xl flex h-57 gap-4 transition-all ease-in-out duration-200 hover:scale-102'>
-                <img src={product.imageUrl} alt="Food image" className='shadow-[0_8px_30px_rgb(0,0,0,0.12)] h-55 w-83 self-center ml-1 rounded-xl text-center text-xl font-bold object-cover object-center' />
+                <img src={product.imageUrl || '/food-placeholder.jpeg'} alt="Food image" className='shadow-[0_8px_30px_rgb(0,0,0,0.12)] h-55 w-83 self-center ml-1 rounded-xl text-center text-xl font-bold object-cover object-center' />
                 <div className='flex flex-col h-full justify-center'>
                     <div className='flex items-center justify-between h-18'>
                         <span className='text-3xl h-4 font-bold'>{product.name}</span>
