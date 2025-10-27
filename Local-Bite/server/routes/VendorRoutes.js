@@ -8,7 +8,7 @@ router.get('/all', getAllVendors);
 //Add vendor
 router.post('/', AddVendor);
 //get vendor by id
+router.get('/uservendor', authMiddleware, getVendorByUserid);
 router.get('/:id', getVendorbyId);
-router.get('/user', authMiddleware, getVendorByUserid)
 
 export default router;
