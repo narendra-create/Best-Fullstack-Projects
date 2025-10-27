@@ -16,5 +16,5 @@
 - [x] Add Login cookie check to register also
 - [x] Fix the background image of register and login page from bottom
 - [x] Homepage background
-- [ ] Fix hompage bg fade
+- [x] Fix hompage bg fade
 - [x] Add more buttons in navbar
