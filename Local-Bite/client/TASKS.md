@@ -18,3 +18,10 @@
 - [x] Homepage background
 - [x] Fix hompage bg fade
 - [x] Add more buttons in navbar
+- [x] Fix text center in register page and more pages
+- [x] Add all buttons in drawr 
+- [x] Add the drawr trigger button in navbar instead of dashboard
+- [x] fix inputs and reset them in login and register after login 
+- [x] Add home button and remove inputs in register when user is logged in
+- [ ] redirect user to homepage after logout
+- [ ] check if user is logged in before showing the navigation buttons that require login like dashboard or addproducts and hide them if user is logged out
