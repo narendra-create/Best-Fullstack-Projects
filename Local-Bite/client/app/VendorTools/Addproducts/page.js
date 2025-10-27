@@ -18,7 +18,7 @@ const AddProducts = () => {
                 throw new Error("Problem in fetching")
             }
             const data = await res.json();
-            console.log("coming from vendordata",data.vendor);
+            console.log("coming from vendordata", data.vendor, "And the data =", data);
             return data.vendor;
         }
         catch (err) {
@@ -54,7 +54,7 @@ const AddProducts = () => {
     const addFood = async (e, vendorId) => {
         e.preventDefault();
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId.user}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId}`, {
             credentials: 'include',
             method: 'POST',
             headers: {
@@ -131,7 +131,7 @@ const AddProducts = () => {
     }
 
     return (
-        <div className='mt-26'>
+        <div className='mt-38'>
             <ToastContainer position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
@@ -144,7 +144,7 @@ const AddProducts = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div id='add-area' className='w-full h-154 bg-black'>
+            <div id='add-area' className='w-464 h-154 text-black bg-zinc-100 mx-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.18)]'>
                 <h1 id='heading' className='text-4xl font-bold pl-10 pt-10 pb-10'>Add Products Here 👇</h1>
                 <div id='addcard' className='flex items-center justify-between px-20'>
                     <div>
@@ -165,32 +165,32 @@ const AddProducts = () => {
                         </section>
                         <div className='my-5 flex gap-5'>
                             <div className='w-157'>
-                                <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Food Image URL</label>
-                                <input type="text" required onChange={handleimage} id="imageUrl" name='imageUrl' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder='https://' />
+                                <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Food Image URL</label>
+                                <input type="text" required onChange={handleimage} id="imageUrl" name='imageUrl' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder='https://' />
                             </div>
-                            <button onClick={imageclick} className='self-end hover:scale-103 transition-all ease-in-out duration-200 font-semibold bg-chili-red rounded-full h-12 w-38 text-sm'>Preview Image</button>
+                            <button onClick={imageclick} className='self-end hover:scale-103 transition-all ease-in-out duration-200 font-semibold text-white bg-chili-red rounded-full h-12 w-38 text-sm'>Preview Image</button>
                         </div>
                     </div>
                     {/* the add section */}
                     <section className='h-96 w-215'>
-                        <form className="max-w-sm mx-auto" onSubmit={(e) => addFood(e, user)}>
+                        <form className="max-w-sm mx-auto" onSubmit={(e) => addFood(e, user.user)}>
                             <div className="mb-5">
-                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                                <input required type="text" onChange={handleChange} id="name" name='name' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder="CheeseCake" />
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Product Name</label>
+                                <input required type="text" onChange={handleChange} id="name" name='name' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder="CheeseCake" />
                             </div>
                             <div className="mb-5 flex gap-10">
                                 <div>
-                                    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input required type="number" onChange={handleChange} id="price" name='price' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" />
+                                    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Price</label>
+                                    <input required type="number" onChange={handleChange} id="price" name='price' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" />
                                 </div>
                                 <div>
-                                    <label htmlFor="quantity" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Quantity</label>
-                                    <input required type="text" onChange={handleChange} placeholder='eg.1 Plate or 200gm' id='quantity' name='quantity' className='shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light' />
+                                    <label htmlFor="quantity" className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'>Quantity</label>
+                                    <input required type="text" onChange={handleChange} placeholder='eg.1 Plate or 200gm' id='quantity' name='quantity' className='shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light' />
                                 </div>
                             </div>
                             <div className='mb-5'>
-                                <label htmlFor="description" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Description</label>
-                                <textarea required name="description" onChange={handleChange} id="description" placeholder='Define your product' className='break-words whitespace-normal shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light'></textarea>
+                                <label htmlFor="description" className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'>Description</label>
+                                <textarea required name="description" onChange={handleChange} id="description" placeholder='Define your product' className='break-words whitespace-normal shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light'></textarea>
                             </div>
                             <div className='mb-5'>
                                 <label htmlFor="type" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Food Type</label>
@@ -205,7 +205,7 @@ const AddProducts = () => {
                     </section>
                 </div >
             </div>
-            <div id='show-area' className='w-full h-188 overflow-y-auto bg-amber-400'>
+            <div id='show-area' className='w-full h-188 overflow-y-auto'>
                 <div className='font-bold text-4xl font-sans border-b-3 border-black pb-8 text-black mx-auto mt-20 mb-20 w-full text-center'>Your Restaurent foods</div>
                 <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mb-30 w-422'>
                     {products ? products.map((products, key) => {
