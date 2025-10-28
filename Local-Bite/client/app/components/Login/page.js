@@ -3,11 +3,15 @@ import Link from 'next/link';
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
 
     const [User, setUser] = useState(null);
     const [isLoading, setisLoading] = useState(true);
+    const router = useRouter();
+
+
     useEffect(() => {
         const verifyUser = async () => {
             try {
@@ -64,6 +68,9 @@ const Login = () => {
                     transition: Slide,
                 });
                 e.target.reset();
+                setTimeout(() => {
+                    router.push('/VendorTools/Dashboard')
+                }, 2000);
             }
             else {
                 toast.error(`${data.message}`, {

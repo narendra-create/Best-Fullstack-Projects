@@ -3,8 +3,10 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
+    const router = useRouter();
     const [role, setrole] = useState("customer")
     const [User, setUser] = useState(null);
     const [isLoading, setisLoading] = useState(true);
@@ -73,6 +75,9 @@ const Register = () => {
                     transition: Slide,
                 });
                 e.target.reset();
+                setTimeout(() => {
+                    router.push('/components/Login')
+                }, 2000);
             }
             else {
                 toast.error(`${data.message}`, {
