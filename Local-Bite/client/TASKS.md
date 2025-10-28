@@ -25,3 +25,4 @@
 - [x] Add home button and remove inputs in register when user is logged in
 - [x] redirect user to homepage after logout
 - [x] check if user is logged in before showing the navigation buttons that require login like dashboard or addproducts and hide them if user is logged out
+- [ ] make current orders page for vendor

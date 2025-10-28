@@ -135,7 +135,7 @@ const Drawer = ({ isOpen, onClose }) => {
                                     <DrawerLink href="/">Home</DrawerLink>
                                 </li>
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
-                                    <DrawerLink href="#">Your Orders</DrawerLink>
+                                    <DrawerLink href="/VendorTools/CurrentOrders">Your Orders</DrawerLink>
                                 </li>
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                     <DrawerLink href="/VendorTools/Addproducts">Add Products</DrawerLink>
