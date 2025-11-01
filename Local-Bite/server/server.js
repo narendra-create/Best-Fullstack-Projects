@@ -8,6 +8,7 @@ import userroutes from "./routes/UserRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import authMiddleware from "./middlewares/jwtcheck.js";
+import cartrouter from "./routes/CartRoutes.js";
 
 
 const app = express();
@@ -58,6 +59,7 @@ app.get('/api/verify', authMiddleware, (req, res) => {
 app.use('/api/vendor', VendorRoutes)
 app.use('/api/product', ProductRoutes)
 app.use('/api/order', orderrouter)
+app.use('/api/cart', cartrouter)
 
 
 
