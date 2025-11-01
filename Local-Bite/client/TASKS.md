@@ -9,10 +9,7 @@
 - [x] Placeholder images if the vendor did't upload the food image or user did't upload the profile picture
 - [x] Crop the image and show the names dynamically
 - [x] make the vendor cards clicable and redirect to products page
-- [ ] Make quantity counter and price calculator in the order page
-- [ ] Add to cart instead of buy now button
 - [x] Add product page
-- [ ] Add vendor dashboard
 - [x] Add Login cookie check to register also
 - [x] Fix the background image of register and login page from bottom
 - [x] Homepage background
@@ -25,4 +22,11 @@
 - [x] Add home button and remove inputs in register when user is logged in
 - [x] redirect user to homepage after logout
 - [x] check if user is logged in before showing the navigation buttons that require login like dashboard or addproducts and hide them if user is logged out
-- [ ] make current orders page for vendor
+- [x] make current orders page for vendor
+- [ ] logic for current orders page 
+- [x] build cart api schema
+- [ ] build cart api controllers
+- [ ] create logic for cart api in frontend
+- [ ] Add to cart instead of buy now button
+- [ ] Make quantity counter and price calculator in the order page
+- [ ] Add vendor dashboard

@@ -11,7 +11,7 @@ const Orders = () => {
             </div>
             <div className='flex flex-col'>
                 <div className='pl-10 '>
-                    <h2 className='text-4xl font-semibold mb-5'>New Orders:</h2>
+                    <h2 className='text-4xl font-semibold mb-5 w-417 mx-auto'>New Orders:</h2>
                     <div className='h-full mx-auto w-[78%] bg-gray-300 grid gap-8 grid-cols-3 items-center justify-center'>
                         {testobj.map((OneOrder) => {
                             return <VendorProductsCard theme={'amber'} key={OneOrder} />
