@@ -1,11 +1,13 @@
 import express from 'express'
 import authMiddleware from '../middlewares/jwtcheck.js'
+import { getCart, Additems, Deleteitems, Clearcart } from '../controllers/CartController.js';
 
 const cartrouter = express.Router();
 
 //now the routes as usual
 cartrouter.post('/add', authMiddleware, Additems);
-
-cartrouter.post('/delete', authMiddleware, Deleteitems);
+cartrouter.get('/get', authMiddleware, getCart);
+cartrouter.get('/clear', authMiddleware, Clearcart);
+cartrouter.post('/delete/:productid', authMiddleware, Deleteitems);
 
 export default cartrouter;
