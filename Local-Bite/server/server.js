@@ -56,13 +56,13 @@ app.get('/api/verify', authMiddleware, (req, res) => {
 })
 
 //TELL Express to use vendor routes for any request starting with /api/vendor
-app.use('/api/vendor', VendorRoutes)
-app.use('/api/product', ProductRoutes)
-app.use('/api/order', orderrouter)
-app.use('/api/cart', cartrouter)
+app.use('/api/vendor', VendorRoutes);
+app.use('/api/product', ProductRoutes);
+app.use('/api/order', orderrouter);
+app.use('/api/cart', cartrouter);
 
 
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-})
+});

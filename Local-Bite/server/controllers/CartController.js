@@ -21,19 +21,19 @@ const Additems = async (req, res) => {
     try {
         const { user } = req.user;
         const { productid, quantity } = req.body;
-        const product = await Product.findById(productid)
+        const product = await Product.findById(productid);
 
         if (!product) {
-            res.status(401).json({ message: "Product Not Found" })
-        }
-        const cart = await Cart.findOne({ user: user })
+            res.status(401).json({ message: "Product Not Found" });
+        };
+        const cart = await Cart.findOne({ user: user });
         //cart items
         const newitems = {
             product: product._id,
             quantity: quantity || 1,
             price: product.price,
             name: product.name
-        }
+        };
 
         if (!cart) {
             //create new cart
