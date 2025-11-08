@@ -41,6 +41,12 @@ app.get('/', (req, res) => {
             place: '/api/order/place',
             update: '/api/order/updatestatus/:OrderId',
             history: '/api/order/history'
+        },
+        cart: {
+            add: '/api/cart/add with product id and quantity in body',
+            getcart: '/api/cart/get',
+            clearcart: "/clear",
+            delete: "/delete/:productid"
         }
     }
     res.send(allapis);

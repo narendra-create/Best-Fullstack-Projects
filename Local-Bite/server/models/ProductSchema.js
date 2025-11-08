@@ -10,6 +10,7 @@ const ProductSchema = new Schema({
     quantity: {
         type: String, required: true,
     },
+    stock: { type: Boolean, default: true },
     type: {
         type: String, required: true, enum: {
             values: ["veg", "non-veg"],

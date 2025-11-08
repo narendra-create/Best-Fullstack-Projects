@@ -35,7 +35,7 @@ const CartSchema = new Schema({
         ref: 'Vendor',
         default: null
     },
-    item: [CartItems],
+    items: [CartItems],
 
     subTotal: {
         type: Number,
@@ -43,7 +43,7 @@ const CartSchema = new Schema({
     }
 }, { timestamps: true });
 
-Cart.pre('save', function (next) {
+CartSchema.pre('save', function (next) {
     let total = 0;
     // Calculate the total by iterating over the items
     if (this.items.length > 0) {
@@ -59,7 +59,8 @@ Cart.pre('save', function (next) {
 
     this.subTotal = total;
     next();
-});
+})
+
 
 const Cart = mongoose.models.Cart || mongoose.model("Cart", CartSchema);
 

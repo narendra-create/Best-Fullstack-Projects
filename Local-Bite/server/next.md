@@ -14,21 +14,21 @@
     - create update status --done
 - create new routes --done
 - update server.js for routes --done
-- add quantity available on productschema and addproduct
+- add quantity available on productschema and addproduct --done
 - check if product is in stock in frontend and disable order button if stock out or order quantity exeeds available quantity
-- test new schemas 
-- use bcrypt and jwt in site for security
+- test new schemas --done
+- use bcrypt and jwt in site for security --done
 
 ## Routine Api Checks after changing code
 
-- [ ] addven: "/"
-- [ ] getallven: "/all"
-- [ ] getvenbyid: "/:id"
-- [ ] addproduct: "/:vendorId"
-- [ ] getprobyid: "/product/:vendorId"
-- [ ] register: '/api/auth/'
-- [ ] login: "/api/auth/login"
-- [ ] logout: "/api/auth/logout"
-- [ ] place: '/api/order/place'
-- [ ] update: '/api/order/updatestatus/:OrderId'
-- [ ] history: '/api/order/history'
+- [x] addven: "/"
+- [x] getallven: "/all"
+- [x] getvenbyid: "/:id"
+- [x] addproduct: "/:vendorId"
+- [x] getprobyid: "/product/:vendorId"
+- [x] register: '/api/auth/'
+- [x] login: "/api/auth/login"
+- [x] logout: "/api/auth/logout"
+- [x] place: '/api/order/place'
+- [x] update: '/api/order/updatestatus/:OrderId'
+- [x] history: '/api/order/history'
