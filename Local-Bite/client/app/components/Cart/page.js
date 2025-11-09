@@ -1,17 +1,59 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import CartProduct from '@/app/Cards/CartProduct/page'
 import Checkout from '@/app/Cards/CheckoutCard/page'
 
 const Cart = () => {
-  const test = [1, 2, 3, 4, 5]
+  const [items, setitems] = useState([])
+
+  useEffect(() => {
+    const localitems = JSON.parse(localStorage.getItem("items")) || []
+    console.log("getting done", localitems)
+    setitems(localitems)
+    console.log(typeof items)
+  }, [])
+
+  const handleRemove = (cartid) => {
+    try {
+      const existing = JSON.parse(localStorage.getItem("items")) || [];
+      const updated = existing.filter((item) => item.cartid !== cartid);
+      localStorage.setItem("items", JSON.stringify(updated));
+      setitems(updated);
+      console.log(`🗑️ Removed ${cartid}`);
+    } catch (err) {
+      console.error("Error removing item:", err);
+    }
+  };
+
+  const plus = (cartid) => {
+    const updated = items.map((item) =>
+      item.cartid === cartid ? { ...item, qty: item.qty + 1 } : item
+    );
+    setitems(updated);
+    localStorage.setItem("items", JSON.stringify(updated));
+  };
+
+  const minus = (cartid) => {
+    const updated = items
+      .map((item) =>
+        item.cartid === cartid
+          ? { ...item, qty: item.qty > 1 ? item.qty - 1 : 0 }
+          : item
+      )
+      .filter((item) => item.qty > 0); // remove if qty hits 0
+
+    setitems(updated);
+    localStorage.setItem("items", JSON.stringify(updated));
+  };
+
   return (
     <div className='flex text-black w-[80%] h-full mt-24 mx-auto'>
       <div className='w-[70%] flex flex-col p-5'>
         <h4 className='font-extrabold font-sans text-4xl'>Your Cart</h4>
         <div className='mt-10 h-[54%] overflow-auto'>
-          {test.map((i, item) => {
-            return <CartProduct key={i} />
-          })}
+          {items && items.length > 0 ? items.map((item, i) => {
+            return <CartProduct key={i} items={item} handleremove={handleRemove} plus={plus} minus={minus} />
+          }) : <div className='text-black'>Your cart is empty</div>}
         </div>
         <div className='mx-12.5 rounded-2xl gap-1 flex mt-5'>
           <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='bg-white pl-5 w-113 h-full focus:outline-1 outline-gray-400 rounded-lg' />
@@ -19,7 +61,7 @@ const Cart = () => {
         </div>
         <div className='flex flex-col mx-12 mt-5'>
           <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
-          <textarea placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-lg font-serif w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal'/>
+          <textarea placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-lg font-serif w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
         </div>
       </div>
       <div className='w-[30%] p-5'>
