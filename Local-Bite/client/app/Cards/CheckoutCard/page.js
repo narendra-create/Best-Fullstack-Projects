@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Checkout = () => {
+    
     return (
         <section className='bg-white rounded-xl'>
             <div className='pt-6'>
