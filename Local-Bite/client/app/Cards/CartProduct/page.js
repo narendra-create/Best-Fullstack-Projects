@@ -2,7 +2,7 @@ import React from 'react'
 
 const CartProduct = () => {
     return (
-        <div className='relative shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-black mt-4 mx-auto w-[90%] h-40 bg-white flex rounded-xl gap-5'>
+        <div className='relative shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-black mt-4 mx-auto w-[90%] h-40 bg-white flex rounded-lg gap-5'>
             <img src="/food-placeholder.jpeg" alt="food image" className='w-30 m-5 object-cover object-center rounded-full h-29' />
             <div className='relative flex flex-col w-full  p-1 justify-between my-2'>
                 <div className='h-[60%]  flex flex-col pl-4 mt-2'>
