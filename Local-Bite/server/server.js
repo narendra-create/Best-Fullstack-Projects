@@ -46,7 +46,8 @@ app.get('/', (req, res) => {
             add: '/api/cart/add with product id and quantity in body',
             getcart: '/api/cart/get',
             clearcart: "/clear",
-            delete: "/delete/:productid"
+            delete: "/delete/:productid",
+            update: '/updateqty with productid and operation in body'
         }
     }
     res.send(allapis);

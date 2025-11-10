@@ -103,4 +103,44 @@ const Clearcart = async (req, res) => {
     }
 }
 
-export { getCart, Additems, Deleteitems, Clearcart };
+const updatequantity = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { productid, operation } = req.body;
+        const cart = await Cart.findOne({ user: user })
+
+        if (!cart) {
+            return res.status(404).json({ message: "Cart Not found" })
+        }
+
+        const itemindex = cart.items.findIndex((item) => item.product.toString() === productid);
+        
+        if (itemindex === -1) {
+            return res.status(404).json({ message: "Item Not found in Cart" })
+        }
+        const item = cart.items[itemindex];
+
+        if (operation === 'increase') {
+            item.quantity += 1
+
+        } else if (operation === 'decrease') {
+
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+            }
+            else {
+                cart.items.pull(item._id);
+            }
+
+        } else {
+            return res.status(400).json({ message: "Invalid operation , must be 'increase' or 'decrease'" })
+        }
+
+        const updatedcart = await cart.save();
+        return res.status(200).json({ message: "Quantity Updated", data: updatedcart })
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error At Cart" })
+    }
+}
+
+export { getCart, Additems, Deleteitems, Clearcart, updatequantity };
