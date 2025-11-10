@@ -14,15 +14,24 @@ const ProductCard = ({ product }) => {
             const itemsArray = Array.isArray(existing) ? existing : [existing];
 
             const existingItem = itemsArray.find(
-                (item) => item._id === product._id
+                (item) => item.product._id === product._id
             );
 
             if (existingItem) {
-                existingItem.qty = (existingItem.qty || 1) + 1;
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
                 console.log("qty increased")
             }
             else {
-                const newItem = { ...product, cartid: uuid(), qty: 1 };
+                const newItem = {
+                    cartid: uuid(),
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,             
+                    product: {             
+                        _id: product._id,
+                        imageUrl: product.imageUrl
+                    }
+                };
                 itemsArray.push(newItem);
                 console.log(`🆕 Added new product: ${product.name}`);
             }
