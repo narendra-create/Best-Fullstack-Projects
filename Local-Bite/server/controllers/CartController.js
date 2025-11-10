@@ -80,6 +80,9 @@ const Deleteitems = async (req, res) => {
         //update the cart.item then push the new cart.item into cart - leave only items that does't match with productid
         cart.items = cart.items.filter((item) => item.product.toString() !== productid);
         const updatedcart = await cart.save();
+
+        await updatedcart.populate('items.product', 'name imageUrl')
+
         return res.status(200).json({ message: "Item removed", data: updatedcart })
     }
     catch (err) {
@@ -114,7 +117,7 @@ const updatequantity = async (req, res) => {
         }
 
         const itemindex = cart.items.findIndex((item) => item.product.toString() === productid);
-        
+
         if (itemindex === -1) {
             return res.status(404).json({ message: "Item Not found in Cart" })
         }
@@ -137,6 +140,8 @@ const updatequantity = async (req, res) => {
         }
 
         const updatedcart = await cart.save();
+
+        await updatedcart.populate('items.product', 'name imageUrl')
         return res.status(200).json({ message: "Quantity Updated", data: updatedcart })
     } catch (err) {
         return res.status(500).json({ message: "Server Error At Cart" })

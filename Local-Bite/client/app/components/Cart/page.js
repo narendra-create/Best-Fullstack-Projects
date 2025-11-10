@@ -9,28 +9,28 @@ const Cart = () => {
   const { User, isLoading: isAuthLoading } = useAuth();
   const [CartLoading, setCartLoading] = useState(true)
 
-  const loadcart = async () => {
-    setCartLoading(true)
-    if (isAuthLoading) return;
-    if (User) {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/get`, { credentials: 'include' })
-        const data = await res.json();
-        setitems(data.data.items || [])
-      }
-      catch (err) {
-        console.log("Error while getting cart", err)
-        setitems([])
-      }
-    }
-    else {
-      const localitems = JSON.parse(localStorage.getItem("items")) || [];
-      setitems(localitems);
-    }
-    setCartLoading(false);
-  }
-
   useEffect(() => {
+    const loadcart = async () => {
+      setCartLoading(true)
+      if (isAuthLoading) return;
+      if (User) {
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/get`, { credentials: 'include' })
+          const data = await res.json();
+          setitems(data.data.items || [])
+        }
+        catch (err) {
+          console.log("Error while getting cart", err)
+          setitems([])
+        }
+      }
+      else {
+        const localitems = JSON.parse(localStorage.getItem("items")) || [];
+        setitems(localitems);
+      }
+      setCartLoading(false);
+    }
+
     loadcart();
   }, [User, isAuthLoading])
 
@@ -41,7 +41,8 @@ const Cart = () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/delete/${productid}`, { credentials: "include", method: "DELETE" })
         if (res.ok) {
-          loadcart();
+          const data = await res.json();
+          setitems(data.data.items)
         }
         else {
           console.log("Cannot remove item", res.data.message)
@@ -80,7 +81,8 @@ const Cart = () => {
           })
         })
         if (res.ok) {
-          loadcart();
+          const data = await res.json();
+          setitems(data.data.items);
         }
         else {
           console.log("Cannot increase item")
@@ -115,7 +117,8 @@ const Cart = () => {
           })
         })
         if (res.ok) {
-          loadcart();
+          const data = await res.json();
+          setitems(data.data.items)
         }
         else {
           console.log("Cannot decrease the item")
