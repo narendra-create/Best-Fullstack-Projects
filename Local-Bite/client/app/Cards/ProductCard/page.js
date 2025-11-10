@@ -1,12 +1,14 @@
 "use client"
 import React from 'react'
 import { v4 as uuid } from 'uuid'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 const ProductCard = ({ product }) => {
     //hooks
+    const { User, isLoading } = useAuth();
     //functions
 
-    const handleadd = async () => {
+    const handleLocal = () => {
         try {
             const existing = JSON.parse(localStorage.getItem("items")) || [];
             const itemsArray = Array.isArray(existing) ? existing : [existing];
@@ -30,6 +32,38 @@ const ProductCard = ({ product }) => {
         }
         catch (err) {
             console.log("error", err)
+        }
+    }
+
+    const handleDbCart = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/add`, {
+            credentials: "include",
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productid: product._id,
+                quantity: 1
+            })
+        }).then(async res => {
+            if (res.ok) {
+                console.log("SUCCESS ✔️")
+            }
+            else {
+                console.log("Error in server response of adding product")
+            }
+        }).catch(err => {
+            console.log("Error while fetching", err)
+        })
+    }
+
+    const handleadd = () => {
+        if (isLoading) return;
+        if (User) {
+            handleDbCart();
+        } else {
+            handleLocal();
         }
     }
 
