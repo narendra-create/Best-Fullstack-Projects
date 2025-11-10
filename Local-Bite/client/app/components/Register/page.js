@@ -4,35 +4,12 @@ import { useState, useEffect } from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 const Register = () => {
     const router = useRouter();
     const [role, setrole] = useState("customer")
-    const [User, setUser] = useState(null);
-    const [isLoading, setisLoading] = useState(true);
-
-    useEffect(() => {
-        const verifyUser = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/verify`, { credentials: 'include' })
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data.user);
-                }
-                else {
-                    console.log("Authentication failed server responded with", res.status)
-                    setUser(null)
-                }
-            } catch (err) {
-                console.log("Network error", err)
-                setUser(null)
-            }
-            finally {
-                setisLoading(false);
-            }
-        }
-        verifyUser();
-    }, [])
+    const { User, isLoading } = useAuth();
 
     const handlerole = (e) => {
         setrole(e.target.value)

@@ -5,36 +5,15 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast, Slide, ToastContainer } from 'react-toastify'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 const Drawer = ({ isOpen, onClose }) => {
     const router = useRouter();
     const pathname = usePathname();
     const isHomePage = pathname === '/'
-    const [isLoading, setisLoading] = useState(true);
-    const [user, setuser] = useState(null)
+    const { User, isLoading } = useAuth();
 
-    useEffect(() => {
-        const verifyUser = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/verify`, { credentials: 'include' })
-                if (res.ok) {
-                    const data = await res.json();
-                    setuser(data.user);
-                }
-                else {
-                    console.log("Authentication failed server responded with", res.status)
-                    setuser(null)
-                }
-            } catch (err) {
-                console.log("Network error", err)
-                setuser(null)
-            }
-            finally {
-                setisLoading(false);
-            }
-        }
-        verifyUser();
-    }, [pathname])
+
 
 
     const handleLogout = async () => {
@@ -121,7 +100,7 @@ const Drawer = ({ isOpen, onClose }) => {
                         <h5 className="font-semibold uppercase text-2xl text-gray-500 mb-12 ml-2 mt-2">
                             Menu
                         </h5>
-                        {user === null && <ul className="space-y-2 text-lg pl-2 text-center text-black">
+                        {User === null && <ul className="space-y-2 text-lg pl-2 text-center text-black">
                             <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                 <DrawerLink href="/">Home</DrawerLink>
                             </li>
@@ -129,7 +108,7 @@ const Drawer = ({ isOpen, onClose }) => {
                                 <div>User Not Logged in.</div>
                             </li>
                         </ul>}
-                        {user && user.role === "vendor" && (
+                        {User && User.role === "vendor" && (
                             <ul className="space-y-2 text-lg pl-2 text-center text-black">
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                     <DrawerLink href="/">Home</DrawerLink>
@@ -145,7 +124,7 @@ const Drawer = ({ isOpen, onClose }) => {
                                 </li>
                             </ul>
                         )}
-                        {user && user.role === "customer" && (
+                        {User && User.role === "customer" && (
                             <ul className="space-y-2 text-lg pl-2 text-center text-black">
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                     <DrawerLink href="/">Home</DrawerLink>
@@ -161,7 +140,7 @@ const Drawer = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* Drawer bottom logout */}
-                    {user ? <div className="border-t-2 border-slate-200 pt-4 text-center">
+                    {User ? <div className="border-t-2 border-slate-200 pt-4 text-center">
                         <button className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-all" onClick={handleLogout}>
                             Logout
                         </button>
