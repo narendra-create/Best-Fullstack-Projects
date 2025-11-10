@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Providers from "./Providers/CachingProvider";
 // import Navbar from "./components/Navbar/page";
+import { AuthProvider } from "./contexts/AuthContext";
 import Drawrwrapper from "./components/Drawrwrapper/page";
 import "./globals.css";
 
@@ -28,9 +29,11 @@ export default function RootLayout({ children }) {
       >
         {/* <Navbar /> */}
         <Drawrwrapper></Drawrwrapper>
-        <Providers>
-          {children}
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            {children}
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

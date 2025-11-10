@@ -1,39 +1,15 @@
 "use client"
 import Link from 'next/link';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { useAuth } from '@/app/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
 
-    const [User, setUser] = useState(null);
-    const [isLoading, setisLoading] = useState(true);
+    const { User, isLoading } = useAuth();
     const router = useRouter();
-
-
-    useEffect(() => {
-        const verifyUser = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/verify`, { credentials: 'include' })
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data.user);
-                }
-                else {
-                    console.log("Authentication failed server responded with", res.status)
-                    setUser(null)
-                }
-            } catch (err) {
-                console.log("Network error", err)
-                setUser(null)
-            }
-            finally {
-                setisLoading(false);
-            }
-        }
-        verifyUser();
-    }, [])
 
 
     const handleLogin = async (e) => {
