@@ -2,26 +2,59 @@
 import React, { useEffect, useState } from 'react'
 import CartProduct from '@/app/Cards/CartProduct/page'
 import Checkout from '@/app/Cards/CheckoutCard/page'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 const Cart = () => {
   const [items, setitems] = useState([])
+  const { User, isLoading: isAuthLoading } = useAuth();
+  const [CartLoading, setCartLoading] = useState(true)
 
   useEffect(() => {
-    const localitems = JSON.parse(localStorage.getItem("items")) || []
-    console.log("getting done", localitems)
-    setitems(localitems)
-    console.log(typeof items)
-  }, [])
+    const loadcart = async () => {
+      setCartLoading(true)
+      if (isAuthLoading) return;
+      if (User) {
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/get`)
+          const data = await res.json();
+          setitems(data.data.items || [])
+        }
+        catch (err) {
+          console.log("Error while getting cart", err)
+          setitems([])
+        }
+      }
+      else {
+        const localitems = JSON.parse(localStorage.getItem("items")) || [];
+        setitems(localitems);
+      }
+      setCartLoading(false);
+    }
+    loadcart();
+  }, [User, isAuthLoading])
 
-  const handleRemove = (cartid) => {
-    try {
-      const existing = JSON.parse(localStorage.getItem("items")) || [];
-      const updated = existing.filter((item) => item.cartid !== cartid);
-      localStorage.setItem("items", JSON.stringify(updated));
-      setitems(updated);
-      console.log(`🗑️ Removed ${cartid}`);
-    } catch (err) {
-      console.error("Error removing item:", err);
+
+  const handleRemove = async (item) => {
+    if (User) {
+      const productid = item.product._id;
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/delete/${productid}`, { credentials: "include", method: "DELETE" })
+        const data = await res.json();
+        setitems(data.data.items);
+      } catch (err) {
+        console.log("Error while deleting the item", err)
+      }
+    }
+    else {
+      try {
+        const existing = JSON.parse(localStorage.getItem("items")) || [];
+        const updated = existing.filter((itemf) => itemf.cartid !== item.cartid);
+        localStorage.setItem("items", JSON.stringify(updated));
+        setitems(updated);
+        console.log(`🗑️ Removed ${item.cartid}`);
+      } catch (err) {
+        console.error("Error removing item:", err);
+      }
     }
   };
 
