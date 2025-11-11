@@ -26,7 +26,7 @@
 - [ ] logic for current orders page 
 - [x] build cart api schema
 - [x] build cart api controllers
-- [ ] Add to cart instead of buy now button
+- [x] Add to cart instead of buy now button
 - [ ] Make quantity counter and price calculator in the order page
 - [ ] Add vendor dashboard
 - [ ] create logic for cart api in frontend
