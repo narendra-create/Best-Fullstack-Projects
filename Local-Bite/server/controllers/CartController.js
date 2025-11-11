@@ -151,7 +151,7 @@ const updatequantity = async (req, res) => {
 const getsubtotal = async (req, res) => {
     try {
         const { items } = req.body;
-        if (!items || Array.isArray(items)) {
+        if (!items || !Array.isArray(items)) {
             return res.status(400).json({ message: "Invalid items data" })
         }
         let subtotal = 0;
