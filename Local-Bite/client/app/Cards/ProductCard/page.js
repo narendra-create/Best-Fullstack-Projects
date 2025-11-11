@@ -23,14 +23,9 @@ const ProductCard = ({ product }) => {
             }
             else {
                 const newItem = {
+                    productid: product._id,
                     cartid: uuid(),
-                    name: product.name,
-                    price: product.price,
                     quantity: 1,             
-                    product: {             
-                        _id: product._id,
-                        imageUrl: product.imageUrl
-                    }
                 };
                 itemsArray.push(newItem);
                 console.log(`🆕 Added new product: ${product.name}`);

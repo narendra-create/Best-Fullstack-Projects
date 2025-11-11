@@ -175,10 +175,18 @@ const getsubtotal = async (req, res) => {
                 })
             }
         }
+        const deliverycharge = 40;
+        const platformfee = 2.4;
+        const discount = 20;
+        const grandtotal = subtotal + deliverycharge + platformfee + discount;
         return res.status(200).json({
             data: {
                 items: populateditems,
-                subtotal: subtotal
+                subTotal: subtotal,
+                deliverycharge: deliverycharge,
+                platformfee: platformfee,
+                discount: discount,
+                grandtotal: grandtotal
             }
         });
     }

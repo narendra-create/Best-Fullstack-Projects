@@ -1,14 +1,14 @@
 import React from 'react'
 
-const Checkout = () => {
-    
+const Checkout = ({ subTotal }) => {
+
     return (
         <section className='bg-white rounded-xl'>
             <div className='pt-6'>
                 <div className='flex flex-col gap-2 mb-5 text-gray-600'>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>subtotal</div>
-                        <div>100</div>
+                        <div>{subTotal}</div>
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>delivery charge</div>
@@ -41,11 +41,11 @@ const Checkout = () => {
                     <div className='flex items-center gap-2 text-2xl pb-5'>
                         <img src="/mastercard-png.png" alt="MASTERCARD" />
                         •
-                        <img src="/visa.png" alt="VISA" className='w-[73px]'/>
+                        <img src="/visa.png" alt="VISA" className='w-[73px]' />
                         •
-                        <img src="/UPI-01.png" alt="UPI" className='w-[75px]'/>
+                        <img src="/UPI-01.png" alt="UPI" className='w-[75px]' />
                         •
-                        <img src="/money.svg" alt="COD" className='w-[45px]'/>
+                        <img src="/money.svg" alt="COD" className='w-[45px]' />
                     </div>
                 </div>
             </div>

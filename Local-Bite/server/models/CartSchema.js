@@ -40,11 +40,27 @@ const CartSchema = new Schema({
     subTotal: {
         type: Number,
         default: 0
+    },
+    deliverycharge: {
+        type: Number,
+        default: 40
+    },
+    platformfee: {
+        type: Number,
+        default: 2
+    },
+    discount: {
+        type: Number,
+        default: 0
     }
+
 }, { timestamps: true });
 
 CartSchema.pre('save', function (next) {
     let total = 0;
+    const deliverycharge = 40;
+    const discount = 20;
+    const platformfee = 2.4;
     // Calculate the total by iterating over the items
     if (this.items.length > 0) {
         total = this.items
@@ -57,7 +73,13 @@ CartSchema.pre('save', function (next) {
         this.vendor = null;
     }
 
+    const grandtotal = deliverycharge + discount + platformfee + total;
+
+    this.deliverycharge = deliverycharge;
+    this.platformfee = platformfee;
+    this.discount = discount;
     this.subTotal = total;
+    this.grandtotal = grandtotal;
     next();
 })
 
