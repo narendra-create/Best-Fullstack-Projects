@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Checkout = ({ subTotal }) => {
+const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal }) => {
 
     return (
         <section className='bg-white rounded-xl'>
@@ -12,20 +12,20 @@ const Checkout = ({ subTotal }) => {
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>delivery charge</div>
-                        <div>45</div>
+                        <div>{deliverycharge}</div>
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>platform fee</div>
-                        <div>2.40</div>
+                        <div>{platformfee}</div>
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>discount</div>
-                        <div>20</div>
+                        <div>{discount}</div>
                     </div>
                 </div>
                 <div className='flex justify-between mx-5 text-2xl font-semibold bg-gray-100 mb-6'>
                     <div>Total -</div>
-                    <div>500</div>
+                    <div>{grandtotal}</div>
                 </div>
                 <button className='rounded-2xl mx-7 py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white'>CheckOut</button>
             </div>

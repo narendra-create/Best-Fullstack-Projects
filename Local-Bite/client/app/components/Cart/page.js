@@ -34,7 +34,9 @@ const Cart = () => {
       }
     }
     else {
-      const localitems = JSON.parse(localStorage.getItem("items")) || [];
+      const localData = JSON.parse(localStorage.getItem("items")) || [];
+      let localitems = Array.isArray(localData) ? localData : [localData];
+      console.log(localitems)
       if (localitems.length === 0) {
         setitems([]);
         setsubtotal(0);
@@ -52,6 +54,7 @@ const Cart = () => {
             items: localitems
           })
         })
+        console.log(res)
         if (!res.ok) throw new Error("Failed to calculate total price of cart");
         const data = await res.json();
         setitems(data.data.items || []);
@@ -81,6 +84,8 @@ const Cart = () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/delete/${productid}`, { credentials: "include", method: "DELETE" })
         if (res.ok) {
+          const data = await res.json();
+          console.log("remove data", data)
           loadcart();
         }
         else {
@@ -119,6 +124,8 @@ const Cart = () => {
           })
         })
         if (res.ok) {
+          const data = await res.json();
+          console.log("plus data", data)
           loadcart();
         }
         else {
@@ -159,6 +166,8 @@ const Cart = () => {
           })
         })
         if (res.ok) {
+          const data = await res.json();
+          console.log("minus data", data)
           loadcart();
         }
         else {
@@ -209,7 +218,7 @@ const Cart = () => {
       </div>
       <div className='w-[30%] p-5'>
         <h3 className='mb-12 font-extrabold text-4xl'>Order Summary</h3>
-        <Checkout subTotal={subtotal} />
+        <Checkout subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
       </div>
     </div>
   )

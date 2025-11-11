@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
             const itemsArray = Array.isArray(existing) ? existing : [existing];
 
             const existingItem = itemsArray.find(
-                (item) => item.product._id === product._id
+                (item) => item.productid === product._id
             );
 
             if (existingItem) {
