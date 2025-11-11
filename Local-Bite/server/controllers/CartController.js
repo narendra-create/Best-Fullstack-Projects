@@ -147,5 +147,45 @@ const updatequantity = async (req, res) => {
         return res.status(500).json({ message: "Server Error At Cart" })
     }
 }
+//total amount counter for guest
+const getsubtotal = async (req, res) => {
+    try {
+        const { items } = req.body;
+        if (!items || Array.isArray(items)) {
+            return res.status(400).json({ message: "Invalid items data" })
+        }
+        let subtotal = 0;
+        const populateditems = [];
 
-export { getCart, Additems, Deleteitems, Clearcart, updatequantity };
+        for (const item of items) {
+            const product = await Product.findById(item.productid);
+            if (product && product.stock) {
+                const itemprice = product.price;
+                const itemqty = item.quantity || 1;
+                subtotal += itemprice * itemqty;
+                populateditems.push({
+                    cartid: item.cartid,
+                    quantity: item.quantity,
+                    name: product.name,
+                    price: product.price,
+                    product: {
+                        _id: product._id,
+                        imageUrl: product.imageUrl
+                    }
+                })
+            }
+        }
+        return res.status(200).json({
+            data: {
+                items: populateditems,
+                subtotal: subtotal
+            }
+        });
+    }
+    catch (err) {
+        console.log("Error in Guestcart - getsubtotal")
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { getCart, Additems, Deleteitems, Clearcart, updatequantity, getsubtotal };
