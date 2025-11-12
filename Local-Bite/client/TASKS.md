@@ -23,10 +23,10 @@
 - [x] redirect user to homepage after logout
 - [x] check if user is logged in before showing the navigation buttons that require login like dashboard or addproducts and hide them if user is logged out
 - [x] make current orders page for vendor
-- [ ] logic for current orders page 
 - [x] build cart api schema
 - [x] build cart api controllers
 - [x] Add to cart instead of buy now button
-- [ ] Make quantity counter and price calculator in the order page
+- [x] Make quantity counter and price calculator in the order page
+- [x] create logic for cart api in frontend
+- [ ] logic for current orders page 
 - [ ] Add vendor dashboard
-- [ ] create logic for cart api in frontend
