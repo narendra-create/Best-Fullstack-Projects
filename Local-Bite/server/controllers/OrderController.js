@@ -2,6 +2,7 @@ import OrderModel from "../models/OrderSchema.js";
 import { nanoid } from "nanoid";
 import Vendor from "../models/VendorSchema.js";
 import Product from "../models/ProductSchema.js";
+import instance from '../config/razorpay.js'
 
 
 const generateOrderReference = () => {
@@ -47,6 +48,18 @@ const placeOrder = async (req, res) => {
         }
         const orderidref = generateOrderReference();
 
+        //create razorpay order 
+        const options = {
+            amount: Number(calculatedprice * 100),
+            currency: 'INR',
+            receipt: orderidref
+        }
+
+        const razorpayorder = await instance.orders.create(options);
+
+        if (!razorpayorder) {
+            return res.status(500).json({ message: "Error Creating Razorpay order" })
+        }
         //make order 
         const neworder = new OrderModel({
             user: user,
@@ -54,10 +67,18 @@ const placeOrder = async (req, res) => {
             items: itemsforDB,
             totalprice: calculatedprice,
             status: "PENDING",
-            orderid: orderidref
+            orderid: orderidref,
+            paymentStatus: "PENDING",
+            razorpay_order_id: razorpayorder.id
         })
         const savedorder = await neworder.save();
-        res.status(201).json({ message: "Order placed, status - PENDING", OrderId: orderidref })
+        res.status(201).json({
+            success: true,
+            message: "Order created, proceed to payment",
+            razorpayorder,
+            orderId: savedorder.orderid,
+            razorpayKeyId: process.env.RAZORPAY_ID
+        });
     }
     catch (err) {
         res.status(500).json({ message: "Server Error" })
