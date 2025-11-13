@@ -15,6 +15,20 @@ const Order = new Schema({
         enum: ['PENDING', 'ACCEPTED', 'PREPARING', 'OUT FOR DELIVERY', 'COMPLETED', 'CANCELLED'],//Accepted', 'Preparing', 'Out for Delivery', 'Completed', 'Cancelled
         default: 'PENDING'
     },
+    paymentStatus: {
+        type: String,
+        enum: ['PENDING', 'PAID', 'FAILED'],
+        default: 'PENDING',
+    },
+    razorpay_order_id: {
+        type: String,
+    },
+    razorpay_payment_id: {
+        type: String,
+    },
+    razorpay_signature: {
+        type: String,
+    },
     orderid: { type: String },
     createdAt: { type: Date, default: Date.now }
 })
