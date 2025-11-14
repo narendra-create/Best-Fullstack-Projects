@@ -25,7 +25,7 @@ const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal 
                 </div>
                 <div className='flex justify-between mx-5 text-2xl font-semibold bg-gray-100 mb-6'>
                     <div>Total -</div>
-                    <div>{grandtotal}</div>
+                    <div>{subTotal > 0 ? grandtotal : 0}</div>
                 </div>
                 <button className='rounded-2xl mx-7 py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white'>CheckOut</button>
             </div>
