@@ -30,3 +30,5 @@
 - [x] create logic for cart api in frontend
 - [ ] logic for current orders page 
 - [ ] Add vendor dashboard
+- [ ] make handlecheckout inside the cart more alive 
+- [ ] send items and vendor id to placeorder api
