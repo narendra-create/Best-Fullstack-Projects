@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal }) => {
+const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal, isCartEmpty, CheckoutClick }) => {
 
     return (
         <section className='bg-white rounded-xl'>
@@ -12,22 +12,22 @@ const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal 
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>delivery charge</div>
-                        <div>{deliverycharge}</div>
+                        <div>{subTotal > 0 ? deliverycharge : 0}</div>
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>platform fee</div>
-                        <div>{platformfee}</div>
+                        <div>{subTotal > 0 ? platformfee : 0}</div>
                     </div>
                     <div className='flex justify-between mx-5 bg-amber-50 text-xl'>
                         <div className='font-semibold font-serif'>discount</div>
-                        <div>{discount}</div>
+                        <div>{subTotal > 0 ? discount : 0}</div>
                     </div>
                 </div>
                 <div className='flex justify-between mx-5 text-2xl font-semibold bg-gray-100 mb-6'>
                     <div>Total -</div>
                     <div>{subTotal > 0 ? grandtotal : 0}</div>
                 </div>
-                <button className='rounded-2xl mx-7 py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white'>CheckOut</button>
+                <button onClick={CheckoutClick} className={`rounded-2xl mx-7 py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white`} disabled={isCartEmpty || subTotal <= 0} >CheckOut</button>
             </div>
             <hr className='mx-5 mt-8 mb-3 border-t-4 border-gray-200' />
             <div className='mx-5 mt-5'>

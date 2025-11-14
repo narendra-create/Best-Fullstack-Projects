@@ -193,6 +193,15 @@ const Cart = () => {
     }
   };
 
+  const handleCheckout = async () => {
+    if (!User) {
+      alert("Please Log in first ❌")
+      //redirect to login page here
+      return;
+    }
+    if (items.length === 0 || !items.vendorid){}
+  }
+
   if (CartLoading || isAuthLoading) {
     return <div className='text-black text-center mt-48 text-3xl'>Loading Cart...</div>
   }
@@ -218,7 +227,7 @@ const Cart = () => {
       </div>
       <div className='w-[30%] p-5'>
         <h3 className='mb-12 font-extrabold text-4xl'>Order Summary</h3>
-        <Checkout subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
+        <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
       </div>
     </div>
   )

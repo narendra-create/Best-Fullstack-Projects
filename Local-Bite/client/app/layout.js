@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-        {/* <Navbar /> */}
-        <Drawrwrapper></Drawrwrapper>
+          {/* <Navbar /> */}
+          <Drawrwrapper></Drawrwrapper>
           <Providers>
             {children}
           </Providers>
