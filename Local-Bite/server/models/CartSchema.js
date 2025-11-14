@@ -21,10 +21,6 @@ const CartItems = new Schema({
         type: String,
         required: true,
     },
-    vendor: {
-        type: String,
-        required: true
-    }
 });
 
 const CartSchema = new Schema({

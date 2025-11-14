@@ -42,15 +42,17 @@ const placeOrder = async (req, res) => {
                 itemsforDB.push({
                     product: item.product,
                     quantity: item.quantity,
-                    price: product.price
+                    price: product.price * item.quantity
                 })
             }
         }
         const orderidref = generateOrderReference();
+        const withtaxprice = calculatedprice + 40 + 2.4 - 20
+        //for delivery  charge , platform fee and discount
 
-        //create razorpay order 
+        //create razorpay order
         const options = {
-            amount: Number(calculatedprice * 100),
+            amount: Number(withtaxprice * 100),
             currency: 'INR',
             receipt: orderidref
         }

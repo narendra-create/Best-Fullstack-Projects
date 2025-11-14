@@ -36,18 +36,23 @@ const Additems = async (req, res) => {
             quantity: quantity || 1,
             price: product.price,
             name: product.name,
-            vendor: product.vendor
         };
 
         if (!cart) {
             //create new cart
             const newcart = await Cart.create({
                 user: user,
-                items: [newitems]
+                items: [newitems],
+                vendor: product.vendor
             });
             return res.status(201).json({ message: "Cart Created", data: newcart });
         }
-
+        if (cart.vendor && cart.vendor.toString() !== product.vendor.toString()) {
+            return res.status(400).json({ message: "Cannot add item from a different vendor. Clear cart first." })
+        }
+        if (cart.items.length === 0) {
+            cart.vendor = product.vendor;
+        }
         //find index of existing item
         const existingitemIndex = cart.items.findIndex((item) => item.product.toString() === productid);
         if (existingitemIndex > -1) {
