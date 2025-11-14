@@ -1,13 +1,15 @@
 import crypto from 'crypto';
+import OrderModel from '../models/OrderSchema.js'
+import instance from '../config/razorpay.js'
 
 export const verifypayment = async (req, res) => {
     try {
-        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature, db_order_id } = req.body;
 
-        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !db_order_id) {
             return res.status(400).json({ success: false, message: 'Missing payment details' });
         }
-        body = razorpay_order_id + '|' + razorpay_payment_id;
+        const body = razorpay_order_id + '|' + razorpay_payment_id;
 
         const demosignature = crypto
             .createHmac('sha256', process.env.RAZORPAY_SECRET)
@@ -18,7 +20,22 @@ export const verifypayment = async (req, res) => {
 
         if (isAuthentic) {
             //this is where i store things in database
-            res.status(200).json({ success: true, message: "Payment Successfull" })
+            const updatedorder = await OrderModel.findOneAndUpdate({ orderid: db_order_id },
+                {
+                    $set: {
+                        paymentStatus: 'PAID',
+                        status: 'ACCEPTED',
+                        razorpay_payment_id: razorpay_payment_id,
+                        razorpay_signature: razorpay_signature
+                    }
+                },
+                { new: true }
+            )
+
+            if (!updatedorder) {
+                return res.status(404).json({ success: false, message: "Order Not Found!" })
+            }
+            res.status(200).json({ success: true, message: "Payment Successfull", orderid: updatedorder.orderid })
         }
         else {
             res.status(400).json({ success: false, message: "Payment Verification Failed" })
