@@ -14,6 +14,8 @@ const Cart = () => {
   const [platformFee, setPlatformFee] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [instructions, setinstructions] = useState("");
+  const [vendordb, setvendordb] = useState()
 
   const loadcart = async () => {
     setCartLoading(true)
@@ -28,6 +30,7 @@ const Cart = () => {
         setDiscount(data.data.discount);
         setPlatformFee(data.data.platformfee);
         setGrandTotal(data.data.grandtotal);
+        setvendordb(data.data.vendor)
       }
       catch (err) {
         console.log("Error while getting cart", err)
@@ -97,11 +100,15 @@ const Cart = () => {
     loadcart();
   }, [User, isAuthLoading])
 
-  useEffect(() => {
-    // console.log(items, "This is items")
-    // console.log(User, "This is User")
-    // console.log(grandTotal, "This is grandtotal")
-  }, [items])
+  // useEffect(() => {
+  //   // console.log(items, "This is items")
+  //   // console.log(User, "This is User")
+  //   // console.log(grandTotal, "This is grandtotal")
+  // }, [items])
+
+  const handlechange = (e) => {
+    setinstructions(e.target.value)
+  }
 
 
   const handleRemove = async (item) => {
@@ -225,7 +232,8 @@ const Cart = () => {
       //redirect to login page here
       return;
     }
-    if (items.length === 0 || !items[0].vendor) {
+    if (items.length === 0 || vendordb.length === 0) {
+      console.log(items, vendordb)
       alert("Your cart is empty or vendor missing")
       return;
     }
@@ -237,8 +245,9 @@ const Cart = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          vendor: items[0].vendor,
-          items: items
+          vendor: vendordb,
+          items: items,
+          instructions: instructions
         })
       })
       if (!placeorderres.ok) {
@@ -283,7 +292,6 @@ const Cart = () => {
               clearcart();
               //for redirecting into success page
               window.location.href = `/Status/order-success/${verifyresult.orderid}`;
-              alert("Payment Successfull");
               loadcart();
             }
             else {
@@ -332,7 +340,7 @@ const Cart = () => {
         </div>
         <div className='flex flex-col mx-12 mt-5'>
           <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
-          <textarea placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-lg font-serif w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
+          <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-lg font-serif w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
         </div>
       </div>
       <div className='w-[30%] p-5'>
