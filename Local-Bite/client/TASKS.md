@@ -28,7 +28,8 @@
 - [x] Add to cart instead of buy now button
 - [x] Make quantity counter and price calculator in the order page
 - [x] create logic for cart api in frontend
+- [x] make handlecheckout inside the cart more alive 
+- [x] send items and vendor id to placeorder api
 - [ ] logic for current orders page 
 - [ ] Add vendor dashboard
-- [ ] make handlecheckout inside the cart more alive 
-- [ ] send items and vendor id to placeorder api
+- [ ] make current orders page for customers
