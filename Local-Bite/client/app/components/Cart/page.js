@@ -37,7 +37,7 @@ const Cart = () => {
     else {
       const localData = JSON.parse(localStorage.getItem("items")) || [];
       let localitems = Array.isArray(localData) ? localData : [localData];
-      console.log(localitems)
+      // console.log(localitems)
       if (localitems.length === 0) {
         setitems([]);
         setsubtotal(0);
@@ -55,7 +55,7 @@ const Cart = () => {
             items: localitems
           })
         })
-        console.log(res)
+        // console.log(res)
         if (!res.ok) throw new Error("Failed to calculate total price of cart");
         const data = await res.json();
         setitems(data.data.items || []);
@@ -74,14 +74,33 @@ const Cart = () => {
     setCartLoading(false);
   }
 
+  const clearcart = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/clear`, {
+        credentials: 'include',
+        method: 'DELETE'
+      })
+      if (!res.ok) {
+        throw new Error("Cannot Clear the cart")
+        return;
+      }
+      const data = await res.json();
+      // console.log(data, "This is clear cart data")
+      setitems(data.data)
+    }
+    catch (err) {
+      console.log(err, "Error in clearcart")
+    }
+  }
+
   useEffect(() => {
     loadcart();
   }, [User, isAuthLoading])
 
   useEffect(() => {
-    console.log(items, "This is items")
-    console.log(User, "This is User")
-    console.log(grandTotal, "This is grandtotal")
+    // console.log(items, "This is items")
+    // console.log(User, "This is User")
+    // console.log(grandTotal, "This is grandtotal")
   }, [items])
 
 
@@ -92,7 +111,7 @@ const Cart = () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/delete/${productid}`, { credentials: "include", method: "DELETE" })
         if (res.ok) {
           const data = await res.json();
-          console.log("remove data", data)
+          // console.log("remove data", data)
           loadcart();
         }
         else {
@@ -132,7 +151,7 @@ const Cart = () => {
         })
         if (res.ok) {
           const data = await res.json();
-          console.log("plus data", data)
+          // console.log("plus data", data)
           loadcart();
         }
         else {
@@ -174,7 +193,7 @@ const Cart = () => {
         })
         if (res.ok) {
           const data = await res.json();
-          console.log("minus data", data)
+          // console.log("minus data", data)
           loadcart();
         }
         else {
@@ -223,7 +242,7 @@ const Cart = () => {
         })
       })
       if (!placeorderres.ok) {
-        console.log(placeorderres)
+        // console.log(placeorderres)
         throw new Error("Failed to Create Order")
       }
       const data = await placeorderres.json();
@@ -255,12 +274,13 @@ const Cart = () => {
               body: JSON.stringify(verificationData)
             })
             if (!verifyres.ok) {
-              console.log(verifyres)
+              // console.log(verifyres)
               throw new Error("Payment Verification Failed")
             }
             const verifyresult = await verifyres.json();
 
             if (verifyresult.success) {
+              clearcart();
               //for redirecting into success page
               // window.location.href = `/order-success/${verificationResult.orderid}`;
               alert("Payment Successfull");
