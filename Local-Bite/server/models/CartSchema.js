@@ -77,13 +77,13 @@ CartSchema.pre('save', function (next) {
         this.vendor = null;
     }
 
-    const grandtotal = deliverycharge + discount + platformfee + total;
+    const grandtotal = deliverycharge + platformfee + total - discount;
 
     this.deliverycharge = deliverycharge;
     this.platformfee = platformfee;
     this.discount = discount;
     this.subTotal = total;
-    this.grandtotal = grandtotal;
+    this.grandtotal = Number((grandtotal).toFixed(2));
     next();
 })
 

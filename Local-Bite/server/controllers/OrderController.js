@@ -32,11 +32,12 @@ const placeOrder = async (req, res) => {
         }
         //total price check 
         let calculatedprice = 0;
-        const productids = items.map(item => item.product)
+        const productids = items.map(item => item.product._id)
         const productsfromdb = await Product.find({ _id: { $in: productids } })
         let itemsforDB = [];
         for (const item of items) {
-            const product = productsfromdb.find(p => p._id.toString() === item.product)
+            const productid = item.product._id.toString();
+            const product = productsfromdb.find(p => p._id.toString() === productid);
             if (product) {
                 calculatedprice += product.price * item.quantity;
                 itemsforDB.push({
@@ -47,7 +48,7 @@ const placeOrder = async (req, res) => {
             }
         }
         const orderidref = generateOrderReference();
-        const withtaxprice = calculatedprice + 40 + 2.4 - 20
+        const withtaxprice = Number(calculatedprice + 40 + 2.4 - 20).toFixed(2)
         //for delivery  charge , platform fee and discount
 
         //create razorpay order
@@ -56,7 +57,7 @@ const placeOrder = async (req, res) => {
             currency: 'INR',
             receipt: orderidref
         }
-
+        // console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
         const razorpayorder = await instance.orders.create(options);
 
         if (!razorpayorder) {
@@ -77,12 +78,13 @@ const placeOrder = async (req, res) => {
         res.status(201).json({
             success: true,
             message: "Order created, proceed to payment",
-            razorpayorder,
+            razorpayorder: razorpayorder,
             orderId: savedorder.orderid,
             razorpayKeyId: process.env.RAZORPAY_ID
         });
     }
     catch (err) {
+        console.log(err)
         res.status(500).json({ message: "Server Error" })
     }
 }
