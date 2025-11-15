@@ -282,12 +282,12 @@ const Cart = () => {
             if (verifyresult.success) {
               clearcart();
               //for redirecting into success page
-              // window.location.href = `/order-success/${verificationResult.orderid}`;
+              window.location.href = `/Status/order-success/${verifyresult.orderid}`;
               alert("Payment Successfull");
               loadcart();
             }
             else {
-              alert("Payment Failed")
+              window.location.href = `/Status/order-failure`;
             }
           }
           catch (err) {
