@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import cors from 'cors';
 import authMiddleware from "./middlewares/jwtcheck.js";
 import cartrouter from "./routes/CartRoutes.js";
+import verifyrouter from "./routes/PaymentRoutes.js";
 
 
 const app = express();
@@ -67,6 +68,7 @@ app.use('/api/vendor', VendorRoutes);
 app.use('/api/product', ProductRoutes);
 app.use('/api/order', orderrouter);
 app.use('/api/cart', cartrouter);
+app.use('/api/payment', verifyrouter);
 
 
 

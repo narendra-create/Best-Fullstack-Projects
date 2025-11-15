@@ -1,8 +1,7 @@
 import crypto from 'crypto';
 import OrderModel from '../models/OrderSchema.js'
-import instance from '../config/razorpay.js'
 
-export const verifypayment = async (req, res) => {
+const verifypayment = async (req, res) => {
     try {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature, db_order_id } = req.body;
 
@@ -46,3 +45,5 @@ export const verifypayment = async (req, res) => {
         return res.status(500).json({ message: "Server Error" })
     }
 }
+
+export default verifypayment;
