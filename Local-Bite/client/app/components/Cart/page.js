@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CartProduct from '@/app/Cards/CartProduct/page'
 import Checkout from '@/app/Cards/CheckoutCard/page'
 import { useAuth } from '@/app/contexts/AuthContext'
+import Script from 'next/script'
 
 const Cart = () => {
   const [items, setitems] = useState([])
@@ -76,6 +77,12 @@ const Cart = () => {
   useEffect(() => {
     loadcart();
   }, [User, isAuthLoading])
+
+  useEffect(() => {
+    console.log(items, "This is items")
+    console.log(User, "This is User")
+    console.log(grandTotal, "This is grandtotal")
+  }, [items])
 
 
   const handleRemove = async (item) => {
@@ -199,7 +206,89 @@ const Cart = () => {
       //redirect to login page here
       return;
     }
-    if (items.length === 0 || !items.vendorid){}
+    if (items.length === 0 || !items[0].vendor) {
+      alert("Your cart is empty or vendor missing")
+      return;
+    }
+    try {
+      const placeorderres = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/place`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vendor: items[0].vendor,
+          items: items
+        })
+      })
+      if (!placeorderres.ok) {
+        console.log(placeorderres)
+        throw new Error("Failed to Create Order")
+      }
+      const data = await placeorderres.json();
+      const { razorpayKeyId, orderId, razorpayorder } = data;
+
+      const options = {
+        key: razorpayKeyId,
+        amount: razorpayorder.amount,
+        currency: 'INR',
+        name: 'Local-Bite',
+        description: 'Food Order Payment',
+        order_id: razorpayorder.id,
+
+        handler: async function (response) {
+          try {
+            const verificationData = {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              db_order_id: orderId
+            };
+
+            const verifyres = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/payment/verify-payment`, {
+              credentials: 'include',
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(verificationData)
+            })
+            if (!verifyres.ok) {
+              console.log(verifyres)
+              throw new Error("Payment Verification Failed")
+            }
+            const verifyresult = await verifyres.json();
+
+            if (verifyresult.success) {
+              //for redirecting into success page
+              // window.location.href = `/order-success/${verificationResult.orderid}`;
+              alert("Payment Successfull");
+              loadcart();
+            }
+            else {
+              alert("Payment Failed")
+            }
+          }
+          catch (err) {
+            console.log("Error in handlecheckout", err)
+            alert("Payment verification failed")
+          }
+        },
+        prefill: {
+          email: User.email
+        },
+        theme: {
+          color: "#F37254"
+        }
+      }
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    }
+    catch (error) {
+      console.error("Order creation failed:", error);
+      alert("Error creating order. Please try again.");
+    }
   }
 
   if (CartLoading || isAuthLoading) {
@@ -208,6 +297,7 @@ const Cart = () => {
 
   return (
     <div className='flex text-black w-[80%] h-full mt-24 mx-auto'>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
       <div className='w-[70%] flex flex-col p-5'>
         <h4 className='font-extrabold font-sans text-4xl'>Your Cart</h4>
         <div className='mt-10 h-[54%] overflow-auto'>
