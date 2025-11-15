@@ -30,6 +30,9 @@ const Order = new Schema({
         type: String,
     },
     orderid: { type: String },
+    instructions: {
+        type: String
+    },
     createdAt: { type: Date, default: Date.now }
 })
 

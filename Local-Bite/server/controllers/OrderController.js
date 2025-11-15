@@ -21,7 +21,7 @@ const generateOrderReference = () => {
 const placeOrder = async (req, res) => {
     try {
         const { user } = req.user;
-        const { vendor, items } = req.body;
+        const { vendor, items, instructions } = req.body;
 
         if (!vendor || !items || items.length === 0) return res.status(400).json({ message: "Missing required fields !" })
         //check if product exists and amount available in future 
@@ -71,6 +71,7 @@ const placeOrder = async (req, res) => {
             totalprice: calculatedprice,
             status: "PENDING",
             orderid: orderidref,
+            instructions: instructions,
             paymentStatus: "PENDING",
             razorpay_order_id: razorpayorder.id
         })
