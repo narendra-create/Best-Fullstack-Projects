@@ -32,4 +32,7 @@
 - [x] send items and vendor id to placeorder api
 - [ ] logic for current orders page
 - [ ] Add vendor dashboard
-- [ ] make current orders page for customers
+- [x] make current orders page for customers
+- [ ] Make grouped orders card 
+- [ ] Type logic for grouped orders 
+- [ ] type logic for currentorders page
