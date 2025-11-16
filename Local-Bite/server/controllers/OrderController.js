@@ -48,16 +48,16 @@ const placeOrder = async (req, res) => {
             }
         }
         const orderidref = generateOrderReference();
-        const withtaxprice = Number(calculatedprice + 40 + 2.4 - 20).toFixed(2)
+        const withtaxprice = calculatedprice + 40 + 2.4 - 20
         //for delivery  charge , platform fee and discount
 
         //create razorpay order
         const options = {
-            amount: Number(withtaxprice * 100),
+            amount: Math.round(withtaxprice * 100),
             currency: 'INR',
             receipt: orderidref
         }
-        // console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
+        console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
         const razorpayorder = await instance.orders.create(options);
 
         if (!razorpayorder) {
