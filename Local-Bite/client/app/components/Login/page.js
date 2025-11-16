@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const Login = () => {
 
-    const { User, isLoading } = useAuth();
+    const { User, isLoading, refreshUser } = useAuth();
     const router = useRouter();
 
 
@@ -45,6 +45,8 @@ const Login = () => {
                 });
                 e.target.reset();
                 setTimeout(() => {
+                    refreshUser();
+                    router.refresh();
                     router.push('/VendorTools/Dashboard')
                 }, 2000);
             }

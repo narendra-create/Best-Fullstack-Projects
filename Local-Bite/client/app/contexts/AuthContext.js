@@ -5,8 +5,11 @@ const Authcontext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
+    const [reload, setReload] = useState(false);
     const [User, setUser] = useState(null)
     const [isLoading, setisLoading] = useState(true)
+
+    const refreshUser = () => setReload(prev => !prev);
 
     useEffect(() => {
         const verifyUser = async () => {
@@ -30,11 +33,11 @@ export const AuthProvider = ({ children }) => {
             }
         }
         verifyUser();
-    }, [])
+    }, [reload])
 
 
     return (
-        <Authcontext.Provider value={{ User, isLoading }}>
+        <Authcontext.Provider value={{ User, isLoading, refreshUser }}>
             {children}
         </Authcontext.Provider>
     )
