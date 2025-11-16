@@ -57,7 +57,7 @@ const placeOrder = async (req, res) => {
             currency: 'INR',
             receipt: orderidref
         }
-        console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
+        // console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
         const razorpayorder = await instance.orders.create(options);
 
         if (!razorpayorder) {
