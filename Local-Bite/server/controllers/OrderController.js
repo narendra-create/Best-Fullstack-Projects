@@ -153,4 +153,33 @@ const orderHistory = async (req, res) => {
     }
 }
 
-export { placeOrder, updateorder, orderHistory };
+const getcurrentorders = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        if (!user || !role) {
+            return res.status(400).json({ message: "Unable to get role and userid, please log in" })
+        }
+        let currentorders;
+
+        if (role === 'customer') {
+            currentorders = await OrderModel.find({ user: user, status: { $ne: 'COMPLETED' } }).populate('items.product', 'name price imageUrl').populate('vendor', 'name imageUrl')
+        }
+        if (role === 'vendor') {
+            const vendorprofile = await Vendor.findOne({ user: user })
+            if (!vendorprofile) {
+                return res.status(404).json({ message: "Vendor Not Found" })
+            }
+            currentorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID' }).populate('user', 'name email').sort({ createdAt: -1 })
+        }
+        if (!currentorders || currentorders.length === 0) {
+            return res.status(404).json({ message: "No Orders found" })
+        }
+        res.status(200).json({ message: "Current Orders Fetched", orders: currentorders })
+    }
+    catch (err) {
+        console.log("Error in getcurrentorders", err)
+        return res.status(500).json({ message: "Error in Server" })
+    }
+}
+
+export { placeOrder, updateorder, orderHistory, getcurrentorders };

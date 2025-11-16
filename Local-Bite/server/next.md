@@ -18,7 +18,8 @@
 - check if product is in stock in frontend and disable order button if stock out or order quantity exeeds available quantity
 - test new schemas --done
 - use bcrypt and jwt in site for security --done
-- make function to verify payment on paymentcontroller
+- make function to verify payment on paymentcontroller --done
+- make a function to get current paid orders in ordercontroller
 
 ## Routine Api Checks after changing code
 
