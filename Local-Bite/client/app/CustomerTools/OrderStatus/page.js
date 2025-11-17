@@ -1,10 +1,41 @@
-import React from 'react'
+"use client"
+import React, { useState, useEffect } from 'react'
 import Group from '@/app/Cards/CurrentOrder/Group'
+import Link from 'next/link'
 
 const OrderStatus = () => {
+    const [Loading, setLoading] = useState(true)
+    const [Orders, setOrders] = useState([])
+
+    const loadorders = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/current`, { credentials: 'include' })
+            if (!res.ok) {
+                console.log("Error fetching current orders")
+            }
+            const data = await res.json();
+            console.log(data, data.orders)
+            setOrders(data.orders);
+            setLoading(false);
+        }
+        catch (err) {
+            console.log("Fetching Error", err)
+            setLoading(false)
+            setOrders([])
+        }
+    }
+
+    useEffect(() => {
+        loadorders();
+    }, [])
+    useEffect(() => {
+        console.log(Orders)
+    }, [])
+
+
     return (
         <div className='text-black md:mx-28 relative h-screen'>
-            <div className='absolute top-0 -z-30 h-full'>
+            <div className='absolute top-0 -z-30 h-screen'>
                 <img src="/blured.jpg" alt="." className='h-full object-cover object-center' /></div>
             <div className='h-24 bg-white rounded-b-3xl opacity-40'></div>
             <h1 className='md:font-bold md:text-5xl font-semibold text-3xl mb-2 pl-4 pt-8'>
@@ -15,7 +46,9 @@ const OrderStatus = () => {
                 <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Unpaid</button>
             </div>
             <div className='md:mx-18 mx-1.5 h-full'>
-                <Group />
+                {Orders && Orders.map((Order) => {
+                    return <Link href={`/CustomerTools/${Order.orderid}`}> <Group order={Order} key={Order._id} /></Link>
+                })}
             </div>
         </div>
     )
