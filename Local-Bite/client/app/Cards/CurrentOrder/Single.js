@@ -1,25 +1,39 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 
 const SingleCard = ({ order }) => {
+    const [Loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        console.log("this is single order", order, "and this is type ", typeof order)
+        if (order) {
+            setLoading(false)
+        }
+    }, [order])
+
+
+    if (Loading) {
+        return <div>Loading...</div>
+    }
     return (
         <section className='text-black bg-white w-full h-full flex flex-col rounded-2xl'>
             <div className='text-center font-bold text-2xl mt-10 mb-6'>Order Summery</div>
-            <div className='text-center  py-5 my-2 border-y-2 border-gray-500 font-semibold text-2xl'>----- ORDER IS ACCEPTED -----</div>
+            <div className='text-center  py-5 my-2 border-y-2 border-gray-500 font-semibold text-2xl'>----- ORDER IS {order.status} -----</div>
             <div className='bg-gray-100 rounded-3xl mx-2'>
                 <div className='flex items-center mt-5 mb-1 pb-4 mx-3 gap-4 border-b-2 border-gray-300'>
                     <span>
-                        <img src="/vendorbg.jpg" alt="•" className='w-10 h-10 rounded-full object-center object-cover' />
+                        <img src={order.vendor.imageUrl ? order.vendor.imageUrl : '/vendorbg.jpg'} alt="•" className='w-10 h-10 rounded-full object-center object-cover' />
                     </span>
-                    <span className='font-semibold text-xl'> Domino's Pizza</span>
+                    <span className='font-semibold text-xl'> {order.vendor.name}</span>
                 </div>
                 <div className='mt-3 pb-3'>
-                    <div className='pl-3 mb-2 text-lg font-sans'>Order Id: 121212121212212</div>
-                    {test.map((item) => {
+                    <div className='pl-3 mb-2 text-lg font-sans'>Order Id: {order.orderid}</div>
+                    {order && order.items.map((item) => {
                         return <div className='flex justify-between px-5 mb-3 text-md items-center'>
                             <div className='flex items-center'>
-                                🫑 1 x Margereta Pizza
+                                🫑 {item.quantity} x {item.product.name}
                             </div>
-                            <div className='font-semibold'>₹540</div>
+                            <div className='font-semibold'>₹{item.quantity * item.product.price}</div>
                         </div>
                     })}
                 </div>
@@ -32,11 +46,11 @@ const SingleCard = ({ order }) => {
                     <span className='font-semibold text-xl'>Bill Summery:</span>
                 </div>
                 <div className='mx-8 mt-4 flex flex-col gap-2 text-md font-sans'>
-                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Item Total - </span> <span className='font-semibold'>₹90</span></div>
+                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Item Total - </span> <span className='font-semibold'>₹{order.totalprice}</span></div>
                     <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Delivery Charge -</span><span className='font-semibold'>₹40</span></div>
                     <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Platform Fee - </span><span className='font-semibold'>₹2.4</span></div>
                     <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Discount - </span><span className='font-semibold'>₹20</span></div>
-                    <div className='flex justify-between items-center mt-1 pt-4 pb-4 border-t-2 border-gray-300'><span className='flex items-center font-semibold'>Grand Total - </span><span className='font-semibold'>₹112.4</span></div>
+                    <div className='flex justify-between items-center mt-1 pt-4 pb-4 border-t-2 border-gray-300'><span className='flex items-center font-semibold'>Grand Total - </span><span className='font-semibold'>₹{order.totalprice + 40 + 2.4 - 20}</span></div>
                 </div>
             </div>
             <div className='bg-gray-100 rounded-2xl mx-2 mt-3 pb-3'>
@@ -47,8 +61,8 @@ const SingleCard = ({ order }) => {
                         </svg>
                     </span>
                     <span>
-                        <div className='font-semibold text-lg'>Narendra Modi</div>
-                        <div className='text-sm text-gray-500'>narendramodi@gmail.com</div>
+                        <div className='font-semibold text-lg'>{order.user.name}</div>
+                        <div className='text-sm text-gray-500'>{order.user.email}</div>
                     </span>
                 </div>
                 <div className='flex gap-2 pt-3 items-center mx-5 border-b-2 border-gray-300 pb-5'>
