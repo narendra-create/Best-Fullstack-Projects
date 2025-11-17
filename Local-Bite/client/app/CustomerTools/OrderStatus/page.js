@@ -45,11 +45,13 @@ const OrderStatus = () => {
                 <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Paid</button>
                 <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Unpaid</button>
             </div>
-            <div className='md:mx-18 mx-1.5 h-full'>
+            {Orders && Orders.length > 0 ? <div className='md:mx-18 mx-1.5 h-full'>
                 {Orders && Orders.map((Order) => {
-                    return <Link href={`/CustomerTools/${Order.orderid}`}> <Group order={Order} key={Order._id} /></Link>
+                    return <Link href={`/CustomerTools/${Order.orderid}`} key={Order.orderid}> <Group order={Order} /></Link>
                 })}
-            </div>
+            </div> : <div className='md:mx-18 mx-1.5 h-full'>
+                You don't have Any Active Orders</div>
+            }
         </div>
     )
 }

@@ -6,10 +6,11 @@ const OrderDetail = ({ params }) => {
     //load order values here
     const [Order, setOrder] = useState()
     const [Loading, setLoading] = useState(true)
+    const { order_id } = React.use(params);
 
     const loadorder = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/currentsingle/${params.order_id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/currentsingle/${order_id}`, {
                 credentials: 'include'
             }
             )
