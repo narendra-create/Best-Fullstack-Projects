@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SingleCard = () => {
+const SingleCard = ({ order }) => {
     const test = [1, 2, 3, 4, 5]
 
     return (
