@@ -30,9 +30,10 @@
 - [x] create logic for cart api in frontend
 - [x] make handlecheckout inside the cart more alive 
 - [x] send items and vendor id to placeorder api
-- [ ] logic for current orders page
+- [x] logic for current orders page
 - [ ] Add vendor dashboard
 - [x] make current orders page for customers
-- [ ] Make grouped orders card 
-- [ ] Type logic for grouped orders 
-- [ ] type logic for currentorders page
+- [x] Make grouped orders card 
+- [x] Type logic for grouped orders 
+- [x] type logic for currentorders page
+- [ ] fix the grandtotal amount in current orders , and make controller for all prices
