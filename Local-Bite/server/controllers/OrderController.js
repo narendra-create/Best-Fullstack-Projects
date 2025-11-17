@@ -68,7 +68,6 @@ const placeOrder = async (req, res) => {
             user: user,
             vendor: vendor,
             items: itemsforDB,
-            totalprice: withtaxprice,
             status: "PENDING",
             orderid: orderidref,
             instructions: instructions,

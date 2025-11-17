@@ -9,7 +9,26 @@ const Order = new Schema({
         quantity: { type: Number, required: true, min: 1 },
         price: { type: Number, required: true }
     }], // quantity and price
-    totalprice: { type: Number, required: true }, //total price of all items
+    subTotal: {
+        type: Number,
+        default: 0
+    },
+    deliverycharge: {
+        type: Number,
+        default: 40
+    },
+    platformfee: {
+        type: Number,
+        default: 2
+    },
+    discount: {
+        type: Number,
+        default: 0
+    },
+    grandtotal: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: String,
         enum: ['PENDING', 'ACCEPTED', 'PREPARING', 'OUT FOR DELIVERY', 'COMPLETED', 'CANCELLED'],//Accepted', 'Preparing', 'Out for Delivery', 'Completed', 'Cancelled
@@ -34,6 +53,25 @@ const Order = new Schema({
         type: String
     },
     createdAt: { type: Date, default: Date.now }
+})
+
+Order.pre('save', function (next) {
+    let total = 0;
+    const delivery = 40;
+    const platform = 2.4;
+    const discount = 20;
+
+    if (this.items.length > 0) {
+        total = this.items.map((item) => item.price).reduce((acc, current) => acc + current, 0);
+    }
+    const grandtotal = total + delivery + platform - discount;
+
+    this.deliverycharge = delivery;
+    this.platformfee = platform;
+    this.discount = discount;
+    this.subTotal = total;
+    this.grandtotal = Math.round(grandtotal)
+    next();
 })
 
 const OrderModel = mongoose.models.Order || mongoose.model("Order", Order);
