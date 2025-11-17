@@ -23,7 +23,7 @@ const Group = ({ order }) => {
       <div className='w-full flex items-center justify-start gap-15 py-0.5 bg-red-50'>
         <span className='pl-10 text-lg font-sans'>Total Amount</span>
         <span className='text-4xl self-start'>-</span>
-        <span className='pr-10 font-semibold'>₹{order.totalprice + 40 + 2.4 - 20}</span>
+        <span className='pr-10 font-semibold'>₹{order.grandtotal}</span>
       </div>
       <div className='w-full flex items-center justify-center py-3'>
         <button className='w-[94%] px-3 py-2 focus:bg-red-600 border-2 transition-all ease-in-out duration-200 border-red-500 bg-chili-red text-white font-bold text-xl rounded-xl'>Pay Now</button>

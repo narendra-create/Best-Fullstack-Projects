@@ -28,12 +28,12 @@ const SingleCard = ({ order }) => {
                 </div>
                 <div className='mt-3 pb-3'>
                     <div className='pl-3 mb-2 text-lg font-sans'>Order Id: {order.orderid}</div>
-                    {order && order.items.map((item) => {
-                        return <div className='flex justify-between px-5 mb-3 text-md items-center'>
+                    {order && order.items.map((item, index) => {
+                        return <div key={index} className='flex justify-between px-5 mb-3 text-md items-center'>
                             <div className='flex items-center'>
                                 🫑 {item.quantity} x {item.product.name}
                             </div>
-                            <div className='font-semibold'>₹{item.quantity * item.product.price}</div>
+                            <div className='font-semibold'>₹{item.price}</div>
                         </div>
                     })}
                 </div>
@@ -46,11 +46,11 @@ const SingleCard = ({ order }) => {
                     <span className='font-semibold text-xl'>Bill Summery:</span>
                 </div>
                 <div className='mx-8 mt-4 flex flex-col gap-2 text-md font-sans'>
-                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Item Total - </span> <span className='font-semibold'>₹{order.totalprice}</span></div>
-                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Delivery Charge -</span><span className='font-semibold'>₹40</span></div>
-                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Platform Fee - </span><span className='font-semibold'>₹2.4</span></div>
-                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Discount - </span><span className='font-semibold'>₹20</span></div>
-                    <div className='flex justify-between items-center mt-1 pt-4 pb-4 border-t-2 border-gray-300'><span className='flex items-center font-semibold'>Grand Total - </span><span className='font-semibold'>₹{order.totalprice + 40 + 2.4 - 20}</span></div>
+                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Item Total - </span> <span className='font-semibold'>₹{order.subTotal}</span></div>
+                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Delivery Charge -</span><span className='font-semibold'>₹{order.deliverycharge}</span></div>
+                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Platform Fee - </span><span className='font-semibold'>₹{order.platformfee}</span></div>
+                    <div className='flex justify-between items-center text-gray-500'><span className='flex items-center'>Discount - </span><span className='font-semibold'>₹{order.discount}</span></div>
+                    <div className='flex justify-between items-center mt-1 pt-4 pb-4 border-t-2 border-gray-300'><span className='flex items-center font-semibold'>Grand Total - </span><span className='font-semibold'>₹{order.grandtotal}</span></div>
                 </div>
             </div>
             <div className='bg-gray-100 rounded-2xl mx-2 mt-3 pb-3'>
