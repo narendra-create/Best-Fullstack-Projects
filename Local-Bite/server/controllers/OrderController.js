@@ -68,12 +68,12 @@ const placeOrder = async (req, res) => {
             user: user,
             vendor: vendor,
             items: itemsforDB,
-            totalprice: calculatedprice,
+            totalprice: withtaxprice,
             status: "PENDING",
             orderid: orderidref,
             instructions: instructions,
             paymentStatus: "PENDING",
-            razorpay_order_id: razorpayorder.id
+            razorpay_order_id: razorpayorder.id,
         })
         const savedorder = await neworder.save();
         res.status(201).json({
@@ -185,12 +185,12 @@ const getcurrentorders = async (req, res) => {
 const getsingleorder = async (req, res) => {
     try {
         const { role } = req.user;
-        const { orderid } = req.body;
+        const { orderid } = req.params;
         if (!orderid) {
             res.status(400).json({ message: "Please give valid orderid" })
         }
         if (role === 'customer') {
-            const find = await OrderModel.findOne({ orderid: orderid }).populate('vendor', 'imageUrl name').populate('items.product', 'name price imageUrl')
+            const find = await OrderModel.findOne({ orderid: orderid }).populate('vendor', 'imageUrl name').populate('items.product', 'name price imageUrl').populate('user', 'name email')
             return res.status(200).json({ message: "Fetch successfull", order: find })
         }
         else {
