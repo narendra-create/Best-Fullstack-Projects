@@ -31,9 +31,11 @@
 - [x] make handlecheckout inside the cart more alive 
 - [x] send items and vendor id to placeorder api
 - [x] logic for current orders page
-- [ ] Add vendor dashboard
 - [x] make current orders page for customers
 - [x] Make grouped orders card 
 - [x] Type logic for grouped orders 
 - [x] type logic for currentorders page
-- [ ] fix the grandtotal amount in current orders , and make controller for all prices
+- [x] fix the grandtotal amount in current orders , and make controller for all prices
+- [ ] Add vendor dashboard
+- [ ] Make current orders and new orders for vendor
+- [ ] make the layout responsive for vendor orders
