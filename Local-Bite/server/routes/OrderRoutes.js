@@ -1,5 +1,5 @@
 import express from 'express'
-import { placeOrder, updateorder, orderHistory, getcurrentorders } from '../controllers/OrderController.js'
+import { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder } from '../controllers/OrderController.js'
 import authMiddleware from '../middlewares/jwtcheck.js'
 
 const orderrouter = express.Router();
@@ -7,6 +7,7 @@ const orderrouter = express.Router();
 //now the routes as usual
 orderrouter.post('/place', authMiddleware, placeOrder);
 orderrouter.get('/current', authMiddleware, getcurrentorders);
+orderrouter.get('/currentsingle', authMiddleware, getsingleorder);
 orderrouter.patch('/updatestatus/:OrderId', authMiddleware, updateorder);
 orderrouter.get('/history', authMiddleware, orderHistory);
 

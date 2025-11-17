@@ -182,4 +182,24 @@ const getcurrentorders = async (req, res) => {
     }
 }
 
-export { placeOrder, updateorder, orderHistory, getcurrentorders };
+const getsingleorder = async (req, res) => {
+    try {
+        const { role } = req.user;
+        const { orderid } = req.body;
+        if (!orderid) {
+            res.status(400).json({ message: "Please give valid orderid" })
+        }
+        if (role === 'customer') {
+            const find = await OrderModel.findOne({ orderid: orderid }).populate('vendor', 'imageUrl name').populate('items.product', 'name price imageUrl')
+            return res.status(200).json({ message: "Fetch successfull", order: find })
+        }
+        else {
+            return res.status(404).json({ message: "Only customer can see detailed status" })
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder };
