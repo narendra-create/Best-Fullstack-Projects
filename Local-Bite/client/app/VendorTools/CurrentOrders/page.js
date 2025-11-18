@@ -31,12 +31,21 @@ const Orders = () => {
     useEffect(() => {
         loadorders();
     }, [])
-    useEffect(() => {
-        console.log(neworders, "new and - ", currentorders)
-    }, [neworders, currentorders])
+    // useEffect(() => {
+    //     console.log(neworders, "new and - ", currentorders)
+    // }, [neworders, currentorders])
 
     const primaryhandler = async (Orderid, status) => {
         try {
+            if (status === "ACCEPTED") {
+                const order = neworders.find(o => o.orderid === Orderid);
+                if (order) {
+                    order.status = "ACCEPTED";
+                    setneworders(prev => prev.filter(o => o.orderid !== Orderid));
+                    setcurrentorders(prev => [...prev, order]);
+                }
+            }
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/updatestatus/${Orderid}`, {
                 credentials: 'include',
                 method: 'PATCH',
@@ -50,10 +59,7 @@ const Orders = () => {
             if (!res.ok) {
                 alert("Unable to accept order")
             }
-            const data = await res.json();
-            console.log("this is data", data, "and this is res ", res)
-            setneworders(data.neworders)
-            setcurrentorders(data.ongoingorders)
+            loadorders();
             setLoading(false)
         }
         catch (err) {
