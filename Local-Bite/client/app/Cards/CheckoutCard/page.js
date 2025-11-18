@@ -27,10 +27,10 @@ const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal,
                     <div>Total -</div>
                     <div>{subTotal > 0 ? grandtotal : 0}</div>
                 </div>
-                <button onClick={CheckoutClick} className={`rounded-2xl mx-7 py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white`} disabled={isCartEmpty || subTotal <= 0} >CheckOut</button>
+                <button onClick={CheckoutClick} className={`rounded-2xl mx-[5%] py-3 hover:bg-lime-800 transition-all ease-in-out duration-150 bg-lime-600 font-bold w-88 text-white`} disabled={isCartEmpty || subTotal <= 0} >CheckOut</button>
             </div>
             <hr className='mx-5 mt-8 mb-3 border-t-4 border-gray-200' />
-            <div className='mx-5 mt-5'>
+            <div className='md:mx-5 mt-5'>
                 <div className='flex justify-between mx-15 items-center'>
                     <div className='font-normal text-lg text-gray-500'>Estimated delivery time</div>
                     <div className='font-semibold text-md'>45 min</div>
