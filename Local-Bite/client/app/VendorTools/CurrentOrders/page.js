@@ -35,6 +35,36 @@ const Orders = () => {
         console.log(neworders, "new and - ", currentorders)
     }, [neworders, currentorders])
 
+    const primaryhandler = async (Orderid, status) => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/updatestatus/${Orderid}`, {
+                credentials: 'include',
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: status
+                })
+            })
+            if (!res.ok) {
+                alert("Unable to accept order")
+            }
+            const data = await res.json();
+            console.log("this is data", data, "and this is res ", res)
+            setneworders(data.neworders)
+            setcurrentorders(data.ongoingorders)
+            setLoading(false)
+        }
+        catch (err) {
+            console.log("Function Error", err)
+            setneworders([])
+            setcurrentorders([])
+            setLoading(false)
+            return;
+        }
+    }
+
     if (Loading) {
         return <div>Loading ...</div>
     }
@@ -49,7 +79,7 @@ const Orders = () => {
                     <h2 className='text-3xl md:text-4xl font-semibold mb-2 md:w-417 md:mx-auto text-center bg-amber-50 py-3'>New Orders</h2>
                     <div className='h-full md:mx-auto md:w-[78%] bg-gray-300 md:grid md:gap-8 md:grid-cols-3 flex flex-col gap-5 items-center justify-center'>
                         {neworders && neworders.map((OneOrder) => {
-                            return <VendorProductsCard theme={'amber'} key={OneOrder} Order={OneOrder} />
+                            return <VendorProductsCard theme={'amber'} key={OneOrder.orderid} Order={OneOrder} dbhandler={primaryhandler} />
                         })}
                     </div>
                 </div>
@@ -58,7 +88,7 @@ const Orders = () => {
                     <h2 className='text-3xl py-4 mx-5 mt-2 rounded-md bg-amber-50 md:text-4xl font-semibold mb-8 text-center md:text-left w-[90%] md:mx-auto md:w-417'>Current Orders</h2>
                     <div className='h-full md:mx-auto md:w-[78%] bg-gray-300 md:grid md:gap-x-18 grid-cols-3 items-center flex flex-col gap-3 md:justify-center'>
                         {currentorders && currentorders.map((OneOrder) => {
-                            return <VendorProductsCard theme={'blue'} key={OneOrder} Order={currentorders} />
+                            return <VendorProductsCard theme={'blue'} key={OneOrder.orderid} Order={OneOrder} dbhandler={primaryhandler} />
                         })}
                     </div>
                 </div>

@@ -1,9 +1,24 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
-const VendorProductsCard = ({ theme, Order }) => {
+const VendorProductsCard = ({ theme, Order, dbhandler }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(Order.status);
 
-    const handlestatus = async () => {
-     
+    const handleaccept = () => {
+        dbhandler(Order.orderid, 'ACCEPTED')
+    }
+
+    const handleformsubmit = (e) => {
+        e.preventDefault();
+
+        if (!selectedStatus || selectedStatus === 'Select Status') {
+            alert("Please Select a valid status")
+            return;
+        }
+
+        dbhandler(Order.orderid, selectedStatus);
+        setIsEditing(false);
     }
 
     const themeStyles = {
@@ -44,7 +59,7 @@ const VendorProductsCard = ({ theme, Order }) => {
                 <div className='md:w-[60%] w-[90%] mx-2'>
                     <div className='flex flex-col md:mt-1'>
                         <div className='font-semibold text-2xl md:text-3xl'>{Order.orderid}</div>
-                        <div className='md:mt-1 pl-1 text-md font-sans font-medium'>{Order.user.name}</div>
+                        {/* <div className='md:mt-1 pl-1 text-md font-sans font-medium'>{Order.user.name}</div> */}
                     </div>
                     <div className='mt-2 w-[98%] ml-1 text-xl font-serif'>
                         {Order.items && Order.items.map((item) => {
@@ -53,11 +68,38 @@ const VendorProductsCard = ({ theme, Order }) => {
                     </div>
                 </div>
                 <div className={`absolute top-8 right-7 text-sm md:text-lg font-medium font-mono border-2 ${color.border} px-3 py-1 rounded-xl`}>{Order.status}</div>
-                <div className='w-full flex mt-5 md:mt-8'>
-                    <button onClick={handlestatus} className={`mx-auto w-[98%] ${color.border} focus:text-white ${color.focusbg} border-3 rounded-2xl hover:text-white ${color.hoverBg} transition-all ease-in-out duration-200 ${color.text} px-4 text-2xl font-normal py-2`}>
+                {isEditing === false ? <div className='w-full flex mt-5 md:mt-8'>
+                    <button onClick={() => {
+                        if (Order.status === 'PENDING') {
+                            handleaccept();
+                        }
+                        else {
+                            setIsEditing(true);
+                        }
+                    }} className={`mx-auto w-[98%] ${color.border} focus:text-white ${color.focusbg} border-3 rounded-2xl hover:text-white ${color.hoverBg} transition-all ease-in-out duration-200 ${color.text} px-4 text-2xl font-normal py-2`}>
                         {Order.status === 'PENDING' ? 'ACCEPT' : "Update Status"}
                     </button>
+                </div> : <div className='w-full flex mt-5 md:mt-8'>
+                    <form onSubmit={handleformsubmit} className="max-w-sm mx-auto">
+                        <label htmlFor="statusinput" className="block mb-2.5 text-sm font-medium text-heading">Select status</label>
+                        <select onChange={(e) => setSelectedStatus(e.target.value)} id="statusinput" className="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                            <option defaultValue={'Select Status'} value="Select Status">Select Status</option>
+                            <option value="PREPARING">Preparing</option>
+                            <option value="OUT FOR DELIVERY">Out for delivery</option>
+                            <option value="CANCELLED">Cancelled</option>
+                            <option value="COMPLETED">Completed</option>
+                        </select>
+                        <div className='flex gap-2'>
+                            <button type="submit">
+                                Update
+                            </button>
+                            <button type='button' onClick={() => setIsEditing(false)}>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
                 </div>
+                }
             </div>
         </div>
 
