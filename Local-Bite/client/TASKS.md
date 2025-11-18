@@ -33,7 +33,7 @@
 - [x] logic for current orders page
 - [x] make current orders page for customers
 - [x] Make grouped orders card 
-- [x] Type logic for grouped orders 
+- [x] Type logic for grouped orders
 - [x] type logic for currentorders page
 - [x] fix the grandtotal amount in current orders , and make controller for all prices
 - [ ] Add vendor dashboard

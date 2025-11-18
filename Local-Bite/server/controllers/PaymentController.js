@@ -23,7 +23,6 @@ const verifypayment = async (req, res) => {
                 {
                     $set: {
                         paymentStatus: 'PAID',
-                        status: 'ACCEPTED',
                         razorpay_payment_id: razorpay_payment_id,
                         razorpay_signature: razorpay_signature
                     }
