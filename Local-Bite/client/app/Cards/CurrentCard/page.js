@@ -1,6 +1,10 @@
 import React from 'react'
 
-const VendorProductsCard = ({ theme }) => {
+const VendorProductsCard = ({ theme, Order }) => {
+
+    const handlestatus = async () => {
+     
+    }
 
     const themeStyles = {
         amber: {
@@ -39,21 +43,19 @@ const VendorProductsCard = ({ theme }) => {
             <div className="bg-white rounded-[1rem] text-black p-5">
                 <div className='md:w-[60%] w-[90%] mx-2'>
                     <div className='flex flex-col md:mt-1'>
-                        <div className='font-semibold text-2xl md:text-4xl'>order and</div>
-                        <div className='md:mt-1 pl-1 text-md font-sans font-medium'>customer name</div>
+                        <div className='font-semibold text-2xl md:text-3xl'>{Order.orderid}</div>
+                        <div className='md:mt-1 pl-1 text-md font-sans font-medium'>{Order.user.name}</div>
                     </div>
-                    <div className='mt-2 w-[98%] ml-1 text-xl font-serif'>quantity x name
-                        quantity x name
-                        quantity x name
-                        quantity x name
-                        quantity x name
-                        quantity x name
+                    <div className='mt-2 w-[98%] ml-1 text-xl font-serif'>
+                        {Order.items && Order.items.map((item) => {
+                            return <div key={item._id}>{item.product.name} x {item.quantity}</div>
+                        })}
                     </div>
                 </div>
-                <div className={`absolute top-8 right-7 text-sm md:text-lg font-medium font-mono border-2 ${color.border} px-3 py-1 rounded-xl`}>Preparing</div>
+                <div className={`absolute top-8 right-7 text-sm md:text-lg font-medium font-mono border-2 ${color.border} px-3 py-1 rounded-xl`}>{Order.status}</div>
                 <div className='w-full flex mt-5 md:mt-8'>
-                    <button className={`mx-auto w-[98%] ${color.border} focus:text-white ${color.focusbg} border-3 rounded-2xl hover:text-white ${color.hoverBg} transition-all ease-in-out duration-200 ${color.text} px-4 text-2xl font-normal py-2`}>
-                        Mark Preparing
+                    <button onClick={handlestatus} className={`mx-auto w-[98%] ${color.border} focus:text-white ${color.focusbg} border-3 rounded-2xl hover:text-white ${color.hoverBg} transition-all ease-in-out duration-200 ${color.text} px-4 text-2xl font-normal py-2`}>
+                        {Order.status === 'PENDING' ? 'ACCEPT' : "Update Status"}
                     </button>
                 </div>
             </div>

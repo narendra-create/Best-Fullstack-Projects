@@ -36,6 +36,7 @@
 - [x] Type logic for grouped orders
 - [x] type logic for currentorders page
 - [x] fix the grandtotal amount in current orders , and make controller for all prices
+- [x] Make current orders and new orders for vendor
+- [x] make the layout responsive for vendor orders
 - [ ] Add vendor dashboard
-- [ ] Make current orders and new orders for vendor
-- [ ] make the layout responsive for vendor orders
+- [ ] make handle status in currentcard
