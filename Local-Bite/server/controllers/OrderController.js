@@ -94,11 +94,11 @@ const placeOrder = async (req, res) => {
 const updateorder = async (req, res) => {
     try {
         //check if it was really a vendor or customer
-        const { role } = req.user;
+        const { role, user } = req.user;
         if (role !== "vendor") return res.status(401).json({ message: "Only vendor can modify order status" })
 
         const { OrderId } = req.params;
-        const validvendor = req.user.user;
+        const validvendor = user;
         const { status } = req.body;
 
         if (!status || !OrderId) return res.status(400).json({ message: "Please provide OrderId and status (eg. PENDING, ACCEPTED, PREPARING, OUT FOR DELIVERY, COMPLETED, CANCELLED )" }) //(`Pending`, `Accepted`, `Preparing`, `Out for Delivery`, `Completed`, `Cancelled`)
@@ -169,7 +169,7 @@ const getcurrentorders = async (req, res) => {
                 return res.status(404).json({ message: "Vendor Not Found" })
             }
             const neworders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: 'PENDING' }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
-            const ongoingorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: { $nin: ['PENDING' , 'COMPLETED'] } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
+            const ongoingorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: { $nin: ['PENDING', 'CANCELLED', 'COMPLETED'] } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
             return res.status(200).json({ message: "Current orders and new orders fetched", ongoingorders, neworders })
         }
         if (!currentorders || currentorders.length === 0) {
