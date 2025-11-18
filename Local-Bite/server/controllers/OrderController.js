@@ -133,12 +133,12 @@ const orderHistory = async (req, res) => {
         const { user, role } = req.user;
         let orders;
         if (role === "customer") {
-            orders = await OrderModel.find({ user: user }).populate('vendor', 'name imageUrl').populate('items.product', 'name price')
+            orders = await OrderModel.find({ user: user, status: { $in: ['COMPLETED', 'CANCELLED'] } }).populate('vendor', 'name imageUrl').populate('items.product', 'name price')
         }
         else if (role === "vendor") {
             const vendorprofile = await Vendor.findOne({ user: user })
             if (!vendorprofile) return res.status(404).json({ message: "Vendor Not Found" })
-            orders = await OrderModel.find({ vendor: vendorprofile._id }).populate('user', 'name email').sort({ createdAt: -1 })
+            orders = await OrderModel.find({ vendor: vendorprofile._id, status: { $in: ['COMPLETED', 'CANCELLED'] } }).populate('user', 'name email').sort({ createdAt: -1 })
         }
 
         if (!orders || orders.length === 0) {
@@ -168,9 +168,9 @@ const getcurrentorders = async (req, res) => {
             if (!vendorprofile) {
                 return res.status(404).json({ message: "Vendor Not Found" })
             }
-            const neworders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: 'ACCEPTED' }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
-            currentorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: { $ne: 'ACCEPTED' } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
-            return res.status(200).json({ message: "Current orders and new orders fetched", neworders: neworders, orders: currentorders })
+            const neworders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: 'PENDING' }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
+            const ongoingorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: { $nin: ['PENDING' , 'COMPLETED'] } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
+            return res.status(200).json({ message: "Current orders and new orders fetched", ongoingorders, neworders })
         }
         if (!currentorders || currentorders.length === 0) {
             return res.status(404).json({ message: "No Orders found" })

@@ -6,7 +6,7 @@ import Cart from "../models/CartSchema.js";
 const getCart = async (req, res) => {
     try {
         const { user } = req.user;
-        const cart = await Cart.findOne({ user: user }).populate('items.product', 'name imageUrl')
+        const cart = await Cart.findOne({ user: user }).populate('items.product', 'name imageUrl').populate('vendor', 'name')
         if (!cart) {
             return res.status(401).json({ message: "Your Cart is Empty" })
         }
