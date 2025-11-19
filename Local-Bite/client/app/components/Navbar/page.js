@@ -17,10 +17,10 @@ const Navbar = ({ toggleDrawer }) => {
     return (
         <nav className='w-full h-24 absolute z-40 top-0'>
             <div className='w-full md:px-10 px-6 mx-auto h-24 flex justify-between items-center'>
-                <div><Link href={'/components/Register'} ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={bgcolor} className='cursor-pointer transition-all ease-in-out duration-200 hover:scale-108 size-10'>
+                {!isDashboard && <div><Link href={'/components/Register'} ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={bgcolor} className='cursor-pointer transition-all ease-in-out duration-200 hover:scale-108 size-10'>
                     <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
                 </svg></Link>
-                </div>
+                </div>}
                 {(isLoginpage || isRegisterpage) && (
                     <div>
                         {isLoginpage ? (
