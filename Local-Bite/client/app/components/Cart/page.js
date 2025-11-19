@@ -4,6 +4,7 @@ import CartProduct from '@/app/Cards/CartProduct/page'
 import Checkout from '@/app/Cards/CheckoutCard/page'
 import { useAuth } from '@/app/contexts/AuthContext'
 import Script from 'next/script'
+import Protect from '@/app/CustomerGuard/page'
 
 const Cart = () => {
   const [items, setitems] = useState([])
@@ -16,6 +17,7 @@ const Cart = () => {
   const [grandTotal, setGrandTotal] = useState(0);
   const [instructions, setinstructions] = useState("");
   const [vendordb, setvendordb] = useState()
+
 
   const loadcart = async () => {
     setCartLoading(true)
@@ -324,30 +326,32 @@ const Cart = () => {
   }
 
   return (
-    <div className='flex md:flex-row flex-col text-black md:w-[80%] h-full mt-24 w-full md:px-0 md:mx-auto'>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
-      <div className='md:w-[70%] w-full  flex flex-col p-5'>
-        <h4 className='font-extrabold font-sans text-4xl'>Your Cart</h4>
-        <div className='mt-10 w-full h-[54%] overflow-auto'>
-          {items && items.length > 0 ? items.map((item, i) => {
-            const key = User ? item._id : item.cartid
-            return <CartProduct key={key} items={item} vendor={vendordb.name} handleremove={handleRemove} plus={plus} minus={minus} />
-          }) : <div className='text-black'>Your cart is empty</div>}
+    <Protect>
+      <div className='flex md:flex-row flex-col text-black md:w-[80%] h-full mt-24 w-full md:px-0 md:mx-auto'>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+        <div className='md:w-[70%] w-full  flex flex-col p-5'>
+          <h4 className='font-extrabold font-sans text-4xl'>Your Cart</h4>
+          <div className='mt-10 w-full h-[54%] overflow-auto'>
+            {items && items.length > 0 ? items.map((item, i) => {
+              const key = User ? item._id : item.cartid
+              return <CartProduct key={key} items={item} vendor={vendordb.name} handleremove={handleRemove} plus={plus} minus={minus} />
+            }) : <div className='text-black'>Your cart is empty</div>}
+          </div>
+          <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center mt-5'>
+            <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='bg-white pl-5 md:py-0 py-4 md:w-113 h-full focus:outline-1 outline-gray-400 rounded-lg' />
+            <button className='bg-sev-yellow py-3 transition-all ease-in-out duration-150 hover:bg-yellow-700 hover:text-gray-100 px-3 rounded-xl text-gray-900 font-semibold focus:outline-1 outline-gray-400'>Apply</button>
+          </div>
+          <div className='flex flex-col md:mx-12 mt-5'>
+            <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
+            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
+          </div>
         </div>
-        <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center mt-5'>
-          <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='bg-white pl-5 md:py-0 py-4 md:w-113 h-full focus:outline-1 outline-gray-400 rounded-lg' />
-          <button className='bg-sev-yellow py-3 transition-all ease-in-out duration-150 hover:bg-yellow-700 hover:text-gray-100 px-3 rounded-xl text-gray-900 font-semibold focus:outline-1 outline-gray-400'>Apply</button>
-        </div>
-        <div className='flex flex-col md:mx-12 mt-5'>
-          <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
-          <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
+        <div className='md:w-[30%] w-[100%] p-5'>
+          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
+          <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
         </div>
       </div>
-      <div className='md:w-[30%] w-[100%] p-5'>
-        <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
-        <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
-      </div>
-    </div>
+    </Protect>
   )
 }
 

@@ -1,12 +1,15 @@
 "use client"
+import Protect from '@/app/CustomerGuard/page'
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import VendorCard from '../../Cards/VendorCard/page'
+import { useAuth } from '@/app/contexts/AuthContext'
+import { useRouter } from 'next/navigation'
+
 
 const HomePage = () => {
   //space for hooks 
-
 
   //space for functions
   const getallvendors = async () => {
@@ -44,20 +47,22 @@ const HomePage = () => {
   if (isError) { return <p>Error: {error.message}</p> }
   //main app
   return (
-    <div className='relative'>
-      <img src="/newhome-bg.png" className='object-cover object-center h-full flex items-center justify-center text-2xl font bold w-full top-0' alt="Local-Bite" />
-      {/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
-      <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
-        <div className='bg-hero-bg pt-28 mx-1 rounded-t-3xl'>
-          <div className='text-black mx-auto w-449 text-3xl mb-16 font-bold'>All Nearby Vendors 🔻</div>
-          <div className='grid grid-cols-4 w-400 mx-auto gap-8'>
-            {Vendors && Vendors.map((vendor) => {
-              return <VendorCard key={vendor._id} vendor={vendor} />
-            })}
+    <Protect>
+      <div className='relative'>
+        <img src="/newhome-bg.png" className='object-cover object-center h-full flex items-center justify-center text-2xl font bold w-full top-0' alt="Local-Bite" />
+        {/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
+        <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
+          <div className='bg-hero-bg pt-28 mx-1 rounded-t-3xl'>
+            <div className='text-black mx-auto w-449 text-3xl mb-16 font-bold'>All Nearby Vendors 🔻</div>
+            <div className='grid grid-cols-4 w-400 mx-auto gap-8'>
+              {Vendors && Vendors.map((vendor) => {
+                return <VendorCard key={vendor._id} vendor={vendor} />
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Protect>
   )
 }
 

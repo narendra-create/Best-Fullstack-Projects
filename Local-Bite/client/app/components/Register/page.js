@@ -40,7 +40,7 @@ const Register = () => {
             const data = await res.json();
             if (res.ok) {
                 console.log("success")
-                toast.success('Account Created✔️', {
+                toast.success('Account Created✔️ Please log in', {
                     position: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
