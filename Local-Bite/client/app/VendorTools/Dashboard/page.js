@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useState } from 'react'
+import OrdersChart from '@/app/SalesChart/page'
 
 const DashBoard = () => {
   //hooks
@@ -75,7 +76,13 @@ const DashBoard = () => {
           </div>
         </div>
         <div className='w-full flex px-6 h-full pb-13 justify-between'>
-          <div className='bg-green-50 text-center w-280 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>graph</div>
+          <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
+            <h3 className='text-4xl font-bold pl-12 mb-10'>OverView</h3>
+            <div className='w-full h-[90%]'>
+              <OrdersChart />
+            </div>
+          </div>
+
           <div className='rounded-2xl overflow-auto bg-gray-100 w-152 h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
             <div className='text-3xl font-semibold mb-8'>Recent Sales</div>
             {test && test.map((user) => {

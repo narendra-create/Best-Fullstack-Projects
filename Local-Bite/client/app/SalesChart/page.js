@@ -14,36 +14,36 @@ import {
 // Your data from step 2
 const data = [
     { name: 'Mon', 'Total Orders': 400, 'Avg Value': 240 },
-    { name: 'Tue', 'Total Orders': 300, 'Avg Value': 139 },
-    { name: 'Wed', 'Total Orders': 500, 'Avg Value': 980 },
-    { name: 'Thu', 'Total Orders': 450, 'Avg Value': 390 },
+    { name: 'Tue', 'Total Orders': 1300, 'Avg Value': 39 },
+    { name: 'Wed', 'Total Orders': 500, 'Avg Value': 1980 },
+    { name: 'Thu', 'Total Orders': 450, 'Avg Value': 1390 },
 ];
 
 const OrdersChart = () => {
     return (
-        // 1. Always wrap Recharts in ResponsiveContainer to make it fit your div
-        <ResponsiveContainer width="100%" height={300}>
-            {/* 2. LineChart is the main container component, pass it your data */}
+        //wraping Recharts in ResponsiveContainer to make it fit my div
+        <ResponsiveContainer width="100%" height="100%">
+            {/* passing the data here */}
             <LineChart
                 data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
-                {/* 3. CartesianGrid draws the background lines */}
+                {/* grid size - 3x3 */}
                 <CartesianGrid strokeDasharray="3 3" />
 
-                {/* 4. XAxis maps the 'name' key from your data to the bottom */}
+                {/* bottom scale label*/}
                 <XAxis dataKey="name" />
 
-                {/* 5. YAxis handles the vertical scale */}
+                {/*vertical scale label */}
                 <YAxis />
 
-                {/* 6. Tooltip shows data when the user hovers over a point */}
+                {/*shows data when the user hovers over a point */}
                 <Tooltip />
 
-                {/* 7. Legend explains what each line color means */}
+                {/*explains what each line color means*/}
                 <Legend />
 
-                {/* 8. Line plots the actual data! dataKey matches a key in your data objects */}
+                {/* plots the actual data! dataKey matches a key in your data objects */}
                 <Line type="monotone" dataKey="Total Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="Avg Value" stroke="#82ca9d" />
             </LineChart>
