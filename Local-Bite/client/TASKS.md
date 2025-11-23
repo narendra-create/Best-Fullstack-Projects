@@ -39,5 +39,5 @@
 - [x] Make current orders and new orders for vendor
 - [x] make the layout responsive for vendor orders
 - [x] make handle status in currentcard
-- [ ] Add vendor dashboard
-- [ ] make apis for graph and reports
+- [x] Add vendor dashboard
+- [x] make apis for graph and reports

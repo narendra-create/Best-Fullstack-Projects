@@ -1,14 +1,42 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import OrdersChart from '@/app/SalesChart/page'
 
 const DashBoard = () => {
-  //hooks
-  //here
+  //hooks here
+  const [report, setreport] = useState([])
+  const [Loading, setLoading] = useState(true)
   const [isshopopen, setisshopopen] = useState(true)
   const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   //functions here
+  const loadreport = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/sales-data`, { credentials: 'include' })
+      if (!res) {
+        throw new Error("Problem in fetching api")
+      }
+      const data = await res.json();
+      console.log("this is data from api", data, "and this is res", res)
+      setreport(data.data)
+      setLoading(false);
+    }
+    catch (err) {
+      console.log("Frontend error in dashboard", err)
+      alert("Frontend error in dashboard")
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadreport()
+  }, [])
+
+
+  useEffect(() => {
+    console.log(report)
+  }, [report])
+
 
   //main page here
   return (
@@ -79,7 +107,7 @@ const DashBoard = () => {
           <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
             <h3 className='text-4xl font-bold pl-12 mb-10'>OverView</h3>
             <div className='w-full h-[90%]'>
-              <OrdersChart />
+              {report && !Loading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 

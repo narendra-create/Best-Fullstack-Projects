@@ -12,14 +12,14 @@ import {
 } from 'recharts';
 
 // Your data from step 2
-const data = [
-    { name: 'Mon', 'Total Orders': 400, 'Avg Value': 240 },
-    { name: 'Tue', 'Total Orders': 1300, 'Avg Value': 39 },
-    { name: 'Wed', 'Total Orders': 500, 'Avg Value': 1980 },
-    { name: 'Thu', 'Total Orders': 450, 'Avg Value': 1390 },
-];
+// const data = [
+//     { name: 'Mon', 'Total Orders': 400, 'Avg Value': 240 },
+//     { name: 'Tue', 'Total Orders': 1300, 'Avg Value': 39 },
+//     { name: 'Wed', 'Total Orders': 500, 'Avg Value': 1980 },
+//     { name: 'Thu', 'Total Orders': 450, 'Avg Value': 1390 },
+// ];
 
-const OrdersChart = () => {
+const OrdersChart = ({ data }) => {
     return (
         //wraping Recharts in ResponsiveContainer to make it fit my div
         <ResponsiveContainer width="100%" height="100%">
@@ -32,7 +32,7 @@ const OrdersChart = () => {
                 <CartesianGrid strokeDasharray="3 3" />
 
                 {/* bottom scale label*/}
-                <XAxis dataKey="name" />
+                <XAxis dataKey="month" name='Month' />
 
                 {/*vertical scale label */}
                 <YAxis />
@@ -44,8 +44,8 @@ const OrdersChart = () => {
                 <Legend />
 
                 {/* plots the actual data! dataKey matches a key in your data objects */}
-                <Line type="monotone" dataKey="Total Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="Avg Value" stroke="#82ca9d" />
+                <Line type="monotone" name='Total Orders' dataKey="Total_Orders" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" name='Avg Value' dataKey="Avg_Value" stroke="#82ca9d" />
             </LineChart>
         </ResponsiveContainer>
     );
