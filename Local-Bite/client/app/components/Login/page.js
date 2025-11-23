@@ -47,7 +47,7 @@ const Login = () => {
                 setTimeout(() => {
                     refreshUser();
                     router.refresh();
-                    if (User.role === 'vendor') {
+                    if (User && User.role === 'vendor') {
                         router.push('/VendorTools/Dashboard')
                     }
                     else {

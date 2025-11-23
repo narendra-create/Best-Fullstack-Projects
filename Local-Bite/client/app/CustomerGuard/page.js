@@ -7,13 +7,13 @@ const Protect = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && User) {
       if (User.role !== "customer") router.push("/VendorTools/Dashboard");
     }
   }, [User, isLoading]);
 
 
-  if (isLoading || !User) return <p>Loading...</p>;
+  if (isLoading ) return <p>Loading...</p>;
 
   return children;
 }
