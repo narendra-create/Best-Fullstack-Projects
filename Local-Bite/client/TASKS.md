@@ -41,3 +41,5 @@
 - [x] make handle status in currentcard
 - [x] Add vendor dashboard
 - [x] make apis for graph and reports
+- [ ] Make shop open and close button work
+- [ ] make new api for restaurent close and open status

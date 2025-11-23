@@ -11,13 +11,23 @@ import {
     ResponsiveContainer
 } from 'recharts';
 
-// Your data from step 2
+//data for testing 
+
 // const data = [
-//     { name: 'Mon', 'Total Orders': 400, 'Avg Value': 240 },
-//     { name: 'Tue', 'Total Orders': 1300, 'Avg Value': 39 },
-//     { name: 'Wed', 'Total Orders': 500, 'Avg Value': 1980 },
-//     { name: 'Thu', 'Total Orders': 450, 'Avg Value': 1390 },
+// { month: 'JAN', Total_Orders: 412, Avg_Value: 230 },
+// { month: 'FEB', Total_Orders: 520, Avg_Value: 180 },
+// { month: 'MAR', Total_Orders: 680, Avg_Value: 260 },
+// { month: 'APR', Total_Orders: 305, Avg_Value: 195 },
+// { month: 'MAY', Total_Orders: 750, Avg_Value: 245 },
+// { month: 'JUN', Total_Orders: 590, Avg_Value: 210 },
+// { month: 'JUL', Total_Orders: 810, Avg_Value: 275 },
+// { month: 'AUG', Total_Orders: 690, Avg_Value: 220 },
+// { month: 'SEP', Total_Orders: 430, Avg_Value: 190 },
+// { month: 'OCT', Total_Orders: 920, Avg_Value: 300 },
+// { month: 'NOV', Total_Orders: 1, Avg_Value: 200 },
+// { month: 'DEC', Total_Orders: 580, Avg_Value: 210 },
 // ];
+
 
 const OrdersChart = ({ data }) => {
     return (

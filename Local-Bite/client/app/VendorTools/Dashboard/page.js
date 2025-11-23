@@ -127,31 +127,40 @@ const DashBoard = () => {
           </div>
         </div>
         <div className='w-full flex px-6 h-full pb-13 justify-between'>
-          <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
+          <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
             <h3 className='text-4xl font-bold pl-12 mb-10'>OverView</h3>
-            <div className='w-full h-[90%]'>
+            <div className='w-full px-2 h-[90%]'>
               {report && !graphLoading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 
           <div className='rounded-2xl overflow-auto bg-gray-100 w-152 h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
             <div className='text-3xl font-semibold mb-8'>Recent Sales</div>
-            {test && test.map((user) => {
-              return <div key={user} className='flex mb-4 pb-5 border-b-3 border-gray-300 items-center w-full justify-between'>
+            {Stats && !StatsLoading ? (Stats && Stats.recentsales.map((person) => {
+              return <div key={person._id} className='flex mb-4 pb-5 border-b-3 border-gray-300 items-center w-full justify-between'>
                 <div className='flex items-center gap-2'>
                   <img src="/user-circle-fill.svg" alt="👤" className='size-12' />
                   <div className='flex flex-col'>
-                    <h3 className='text-xl'>Olivia</h3>
-                    <p className='text-sm text-gray-500'>olivia@gmail.com</p>
+                    <h3 className='text-xl'>{person.user.name}</h3>
+                    <p className='text-sm text-gray-500'>{person.user.email}</p>
                   </div>
                 </div>
-                <div className='font-semibold text-xl'>₹1835.21</div>
+                <div className='font-semibold text-xl'>₹{person.grandtotal}</div>
               </div>
-            })}
+            })
+            ) : (<div className="relative flex w-64 animate-pulse gap-2 pt-10 p-4">
+              <div className="h-12 w-12 rounded-full bg-slate-400"></div>
+              <div className="flex-1">
+                <div className="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div>
+                <div className="h-5 w-[90%] rounded-lg bg-slate-400 text-sm"></div>
+              </div>
+              <div className="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
+            </div>
+          )}
           </div>
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   )
 }
 
