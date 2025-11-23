@@ -163,7 +163,7 @@ const NumberReport = async (req, res) => {
 
         const recentsales = await OrderModel.find({
             vendor: isvendorfound._id,
-            status: "COMPLETED"
+            // status: "COMPLETED"
         }).populate("user", "name email")
             .sort({ createdAt: -1 })
             .limit(10).select("grandtotal user createdAt")
