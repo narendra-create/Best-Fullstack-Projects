@@ -5,37 +5,60 @@ import OrdersChart from '@/app/SalesChart/page'
 
 const DashBoard = () => {
   //hooks here
-  const [report, setreport] = useState([])
-  const [Loading, setLoading] = useState(true)
-  const [isshopopen, setisshopopen] = useState(true)
+  const [Stats, setStats] = useState();
+  const [StatsLoading, setStatsLoading] = useState(true);
+  const [report, setreport] = useState([]);
+  const [graphLoading, setgraphLoading] = useState(true);
+  const [isshopopen, setisshopopen] = useState(true);
   const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   //functions here
   const loadreport = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/sales-data`, { credentials: 'include' })
-      if (!res) {
+      if (!res.ok) {
         throw new Error("Problem in fetching api")
       }
       const data = await res.json();
       console.log("this is data from api", data, "and this is res", res)
       setreport(data.data)
-      setLoading(false);
+      setgraphLoading(false);
     }
     catch (err) {
       console.log("Frontend error in dashboard", err)
       alert("Frontend error in dashboard")
-      setLoading(false)
+      setgraphLoading(false)
+    }
+  }
+
+  const loadstats = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/number-data`, { credentials: 'include' })
+      if (!res.ok) {
+        alert("Can't fetch stats")
+        return;
+      }
+      const { data } = await res.json();
+      console.log(data, "This is data from db")
+      setStats(data)
+      setStatsLoading(false);
+    }
+    catch (err) {
+      console.log("Error in frontend fetch", err)
+      alert("Error in fetching")
+      setStatsLoading(false);
     }
   }
 
   useEffect(() => {
     loadreport()
+    loadstats()
   }, [])
 
 
   useEffect(() => {
     console.log(report)
-  }, [report])
+    console.log(Stats, "This is stats")
+  }, [report, Stats])
 
 
   //main page here
@@ -61,19 +84,19 @@ const DashBoard = () => {
         <div className='w-full flex mb-5 items-center justify-between px-5 mt-10'>
           <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Total Revenue</div>
-            <div className='text-4xl font-bold'>₹42,122.23</div>
+            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-4'>₹</div>
           </div>
           <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Sales</div>
-            <div className='text-4xl font-bold'>+12,558</div>
+            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-5'>
               <img src="/tag-fill.svg" alt="💰" />
             </div>
           </div>
           <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Active Orders</div>
-            <div className='text-4xl font-bold'>+524</div>
+            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-4'>
               <img src="/note-fill.svg" alt="📝" />
             </div>
@@ -107,7 +130,7 @@ const DashBoard = () => {
           <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
             <h3 className='text-4xl font-bold pl-12 mb-10'>OverView</h3>
             <div className='w-full h-[90%]'>
-              {report && !Loading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
+              {report && !graphLoading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 

@@ -135,7 +135,33 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .loader {
+    height: 4px;
+    width: 130px;
+    --c: no-repeat linear-gradient(#000000 0 0);
+    background: var(--c), var(--c), #bbbbbb;
+    background-size: 60% 100%;
+    animation: loaderAnim 3s infinite;
+  }
+
+  @keyframes loaderAnim {
+    0% {
+      background-position: -150% 0, -150% 0;
+    }
+
+    66% {
+      background-position: 250% 0, -150% 0;
+    }
+
+    100% {
+      background-position: 250% 0, 250% 0;
+    }
   }
 }
