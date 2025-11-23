@@ -123,5 +123,64 @@ const VendorAnalytics = async (req, res) => {
     }
 }
 
+const NumberReport = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        if (!role === 'vendor') {
+            return res.status(401).json({ message: "Only vendors can view report" })
+        }
 
-export { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics };
+        const isvendorfound = await Vendor.findOne({ user: user })
+        if (!isvendorfound) {
+            res.status(404).json({ message: "Vendor not found" })
+        }
+
+        const totalstats = await OrderModel.aggregate([
+            {
+                $match: {
+                    vendor: isvendorfound._id,
+                    status: { $ne: "CANCELLED" }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalRevenue: { $sum: "$grandtotal" },
+                    totalSales: { $sum: 1 }
+                }
+            }
+        ])
+
+        const totalrevenue = totalstats[0]?.totalRevenue || 0;
+        const totalsales = totalstats[0]?.totalSales || 0;
+
+        const activeorders = await OrderModel.countDocuments({
+            vendor: isvendorfound._id,
+            status: {
+                $in: ['PENDING', 'ACCEPTED', 'PREPARING', 'OUT FOR DELIVERY']
+            }
+        });
+
+        const recentsales = await OrderModel.find({
+            vendor: isvendorfound._id,
+            status: "COMPLETED"
+        }).populate("user", "name email")
+            .sort({ createdAt: -1 })
+            .limit(10).select("grandtotal user createdAt")
+
+        res.status(200).json({
+            success: true, data: {
+                totalrevenue,
+                totalsales,
+                activeorders,
+                recentsales
+            }
+        })
+    }
+    catch (err) {
+        console.log("Error in vendorcontroller number report", err)
+        return res.status(500).json({ success: false, message: "Server Error" })
+    }
+}
+
+export { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport };

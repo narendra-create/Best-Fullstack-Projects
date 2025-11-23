@@ -1,4 +1,4 @@
-import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics } from '../controllers/VendorController.js'
+import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport } from '../controllers/VendorController.js'
 import express from 'express';
 import authMiddleware from '../middlewares/jwtcheck.js';
 
@@ -9,6 +9,7 @@ router.get('/all', getAllVendors);
 router.post('/', AddVendor);
 //get reports about sales
 router.get('/sales-data', authMiddleware, VendorAnalytics);
+router.get('/number-data', authMiddleware, NumberReport);
 //get vendor by id and user id
 router.get('/uservendor', authMiddleware, getVendorByUserid);
 router.get('/:id', getVendorbyId);
