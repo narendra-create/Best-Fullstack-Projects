@@ -19,7 +19,9 @@
 - test new schemas --done
 - use bcrypt and jwt in site for security --done
 - make function to verify payment on paymentcontroller --done
-- make a function to get current paid orders in ordercontroller
+- make a function to get current paid orders in ordercontroller --done
+- make controller for analytics data 
+- make routes for analytics controller
 
 ## Routine Api Checks after changing code
 

@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
     let allapis = {
         getallven: "/api/vendor/all",
         getvenbyid: "/:id",
+        getreport: "/api/vendor/sales-data",
         product: {
             addproduct: "/:vendorId",
             getprobyid: "/product/:vendorId"
