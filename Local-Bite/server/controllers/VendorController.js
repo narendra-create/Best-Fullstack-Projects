@@ -163,7 +163,7 @@ const NumberReport = async (req, res) => {
 
         const recentsales = await OrderModel.find({
             vendor: isvendorfound._id,
-            // status: "COMPLETED"
+            status: "COMPLETED"
         }).populate("user", "name email")
             .sort({ createdAt: -1 })
             .limit(10).select("grandtotal user createdAt")
@@ -183,4 +183,32 @@ const NumberReport = async (req, res) => {
     }
 }
 
-export { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport };
+
+const shopstatus = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        if (role !== 'vendor') {
+            return res.status(401).json({ message: "Only vendors can access this function" })
+        }
+        const { isshopopen } = req.body;
+        if (isshopopen === undefined) {
+            return res.status(400).json({ message: "Please provide isshopopen, true or false" })
+        }
+        if (typeof isshopopen !== "boolean") {
+            return res.status(400).json({ message: "Value of isshopopen should be boolean" })
+        }
+        const shopstatus = await Vendor.findOneAndUpdate({ user: user }, { isOpen: isshopopen }, { new: true })
+
+        if (!shopstatus) {
+            return res.status(404).json({ message: "Vendor Not Found" })
+        }
+
+        return res.status(200).json({ success: true, data: shopstatus })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport, shopstatus };
