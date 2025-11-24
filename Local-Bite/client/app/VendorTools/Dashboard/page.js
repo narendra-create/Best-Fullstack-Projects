@@ -2,9 +2,11 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import OrdersChart from '@/app/SalesChart/page'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 const DashBoard = () => {
   //hooks here
+  const { User, isLoading, refreshUser } = useAuth();
   const [Stats, setStats] = useState();
   const [StatsLoading, setStatsLoading] = useState(true);
   const [report, setreport] = useState([]);
@@ -12,6 +14,14 @@ const DashBoard = () => {
   const [isshopopen, setisshopopen] = useState(true);
   const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   //functions here
+  if (isLoading) {
+    return <div>Loading ....</div>
+  }
+  
+  if (!User && !isLoading) {
+    return <div>Please Log in first</div>
+  }
+
   const loadreport = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/sales-data`, { credentials: 'include' })

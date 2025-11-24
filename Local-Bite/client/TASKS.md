@@ -43,3 +43,4 @@
 - [x] make apis for graph and reports
 - [x] Make shop open and close button work
 - [x] make new api for restaurent close and open status
+- [ ] tell user is not logged in if user is trying to view dashboard without login 

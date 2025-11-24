@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { ToastContainer, toast, Slide } from 'react-toastify'
 
 export default function VendorToolsLayout({ children }) {
-    const { User } = useAuth();
+    const { User, refreshUser, isLoading } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -45,6 +45,14 @@ export default function VendorToolsLayout({ children }) {
         catch (err) {
             console.log(err)
         }
+    }
+
+    if (isLoading) {
+        return <div>Loading ...</div>
+    }
+
+    if (!User && !isLoading) {
+        return <div>Please Log in First</div>
     }
 
     return (
