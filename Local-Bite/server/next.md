@@ -22,6 +22,7 @@
 - make a function to get current paid orders in ordercontroller --done
 - make controller for analytics data 
 - make routes for analytics controller
+- make isshop open validator for order and add to cart functions before ordering food see if the food is in stock and vendor is open
 
 ## Routine Api Checks after changing code
 
