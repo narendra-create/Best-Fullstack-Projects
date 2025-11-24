@@ -30,6 +30,22 @@ const DashBoard = () => {
     }
   }
 
+  const loadshopstatus = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/shopstatus`, { credentials: 'include' })
+      if (!res.ok) {
+        throw new Error("Error in fetching shopstatus")
+      }
+      const { data } = await res.json();
+      console.log(data, "data from loadshop")
+      setisshopopen(data);
+    }
+    catch (err) {
+      console.log("Frontend error", err)
+      return;
+    }
+  }
+
   const loadstats = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/number-data`, { credentials: 'include' })
@@ -49,9 +65,37 @@ const DashBoard = () => {
     }
   }
 
+  const setshop = async (Value) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/setshop`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          isshopopen: Value
+        })
+      })
+
+      if (!res.ok) {
+        throw new Error("Error setting shopstatus")
+      }
+      const { data } = await res.json();
+      console.log(data, "data from setshop")
+      setisshopopen(data)
+    }
+    catch (err) {
+      console.log("error in frontend", err)
+      return;
+    }
+  }
+
+  //use effects 
   useEffect(() => {
-    loadreport()
-    loadstats()
+    loadreport();
+    loadshopstatus();
+    loadstats();
   }, [])
 
 
@@ -110,7 +154,11 @@ const DashBoard = () => {
                   type="checkbox"
                   className="sr-only peer"
                   checked={isshopopen}
-                  onChange={() => setisshopopen(prev => !prev)}
+                  onChange={() => {
+                    const newvalue = !isshopopen
+                    setisshopopen(newvalue);
+                    setshop(newvalue)
+                  }}
                 />
                 <div className="relative mx-3 w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-full">
                 </div>
@@ -156,7 +204,7 @@ const DashBoard = () => {
               </div>
               <div className="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
             </div>
-          )}
+            )}
           </div>
         </div>
       </section >
