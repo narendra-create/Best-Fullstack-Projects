@@ -1,4 +1,4 @@
-import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport, shopstatus } from '../controllers/VendorController.js'
+import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport, shopstatus, loadshopstatus } from '../controllers/VendorController.js'
 import express from 'express';
 import authMiddleware from '../middlewares/jwtcheck.js';
 
@@ -11,7 +11,8 @@ router.post('/', AddVendor);
 router.get('/sales-data', authMiddleware, VendorAnalytics);
 router.get('/number-data', authMiddleware, NumberReport);
 //to close/open shop
-router.get('/setshop', authMiddleware, shopstatus);
+router.get('/shopstatus', authMiddleware, loadshopstatus);
+router.post('/setshop', authMiddleware, shopstatus);
 //get vendor by id and user id
 router.get('/uservendor', authMiddleware, getVendorByUserid);
 router.get('/:id', getVendorbyId);
