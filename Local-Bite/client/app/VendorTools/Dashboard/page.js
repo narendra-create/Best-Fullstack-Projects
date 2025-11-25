@@ -29,7 +29,7 @@ const DashBoard = () => {
         throw new Error("Problem in fetching api")
       }
       const data = await res.json();
-      console.log("this is data from api", data, "and this is res", res)
+      // console.log("this is data from api", data, "and this is res", res)
       setreport(data.data)
       setgraphLoading(false);
     }
@@ -47,7 +47,7 @@ const DashBoard = () => {
         throw new Error("Error in fetching shopstatus")
       }
       const { data } = await res.json();
-      console.log(data, "data from loadshop")
+      // console.log(data, "data from loadshop")
       setisshopopen(data);
     }
     catch (err) {
@@ -64,7 +64,7 @@ const DashBoard = () => {
         return;
       }
       const { data } = await res.json();
-      console.log(data, "This is data from db")
+      // console.log(data, "This is data from db")
       setStats(data)
       setStatsLoading(false);
     }
@@ -92,7 +92,7 @@ const DashBoard = () => {
         throw new Error("Error setting shopstatus")
       }
       const { data } = await res.json();
-      console.log(data, "data from setshop")
+      // console.log(data, "data from setshop")
       setisshopopen(data)
     }
     catch (err) {
@@ -109,10 +109,10 @@ const DashBoard = () => {
   }, [])
 
 
-  useEffect(() => {
-    console.log(report)
-    console.log(Stats, "This is stats")
-  }, [report, Stats])
+  // useEffect(() => {
+  //   console.log(report)
+  //   console.log(Stats, "This is stats")
+  // }, [report, Stats])
 
 
   //main page here
