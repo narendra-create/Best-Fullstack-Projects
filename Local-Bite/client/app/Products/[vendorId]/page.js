@@ -12,6 +12,7 @@ const Products = ({ params }) => {
             throw new Error("Products fetching error")
         }
         const data = await res.json();
+        console.log(data.pro, data, res)
         return data.pro || [];
     }
 

@@ -1,10 +1,31 @@
 "use client";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/page";
 import { useAuth } from "../contexts/AuthContext";
 import { ToastContainer, toast, Slide } from 'react-toastify'
 
 export default function VendorToolsLayout({ children }) {
     const { User, refreshUser, isLoading } = useAuth();
+    const [vendor, setvendor] = useState()
+
+    const vendorfind = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor/true`, {credentials: 'include'})
+            if (!res.ok) {
+                console.log(res)
+                throw new Error("Unable to fetch")
+            }
+            const { data } = await res.json();
+            setvendor(data)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        vendorfind();
+    }, [])
 
     const handleLogout = async () => {
         try {
@@ -70,7 +91,7 @@ export default function VendorToolsLayout({ children }) {
                 transition={Slide} />
             {/* Sidebar */}
             <div className="w-68 bg-gray-900 text-white fixed left-0">
-                <Sidebar User={User} handlelogout={handleLogout} />
+                <Sidebar User={User} handlelogout={handleLogout} vendor={vendor} />
             </div>
 
             {/* Page Content */}

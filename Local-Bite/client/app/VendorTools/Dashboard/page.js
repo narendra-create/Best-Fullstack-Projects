@@ -17,7 +17,7 @@ const DashBoard = () => {
   if (isLoading) {
     return <div>Loading ....</div>
   }
-  
+
   if (!User && !isLoading) {
     return <div>Please Log in first</div>
   }
