@@ -30,6 +30,11 @@ const placeOrder = async (req, res) => {
         if (!vendorexists) {
             return res.status(404).json({ message: "Vendor Not Found" })
         }
+
+
+        if (!vendorexists.isOpen) {
+            return res.status(503).json({ message: "Vendor Closed" })
+        }
         //total price check 
         let calculatedprice = 0;
         const productids = items.map(item => item.product._id)

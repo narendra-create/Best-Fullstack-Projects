@@ -6,7 +6,7 @@ const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 
 const getAllVendors = async (req, res) => {
     try {
-        const ven = await Vendor.find({});
+        const ven = await Vendor.find({ isOpen: true });
         res.status(200).json({ ven });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });

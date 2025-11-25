@@ -20,9 +20,7 @@
 - use bcrypt and jwt in site for security --done
 - make function to verify payment on paymentcontroller --done
 - make a function to get current paid orders in ordercontroller --done
-- make controller for analytics data 
-- make routes for analytics controller
-- make isshop open validator for order and add to cart functions before ordering food see if the food is in stock and vendor is open
+- make isshop open validator for order before ordering food see if the food is in stock and vendor is open --done
 
 ## Routine Api Checks after changing code
 
