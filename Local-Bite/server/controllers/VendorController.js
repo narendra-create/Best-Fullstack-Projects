@@ -58,8 +58,12 @@ const AddVendor = async (req, res) => {
 const getVendorByUserid = async (req, res) => {
     try {
         const { user, role } = req.user;
+        const { onlyid } = req.params;
         if (role !== 'vendor') return res.status(401).json({ message: "User does not have vendor account" })
         const vendor = await Vendor.findOne({ user: user })
+        if (onlyid) {
+            return res.status(200).json({ data: vendor._id })
+        }
         console.log(vendor)
         return res.status(200).json({ vendor })
     }
@@ -202,7 +206,7 @@ const shopstatus = async (req, res) => {
         if (!shopstatus) {
             return res.status(404).json({ message: "Vendor Not Found" })
         }
-        return res.status(200).json({ success: true, data: shopstatus.isOpen })
+        return res.status(200).json({ success: true, data: shopstatus.isOpen, vendor: shopstatus._id })
     }
     catch (err) {
         console.log(err)

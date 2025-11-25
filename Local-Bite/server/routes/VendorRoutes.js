@@ -14,7 +14,7 @@ router.get('/number-data', authMiddleware, NumberReport);
 router.get('/shopstatus', authMiddleware, loadshopstatus);
 router.post('/setshop', authMiddleware, shopstatus);
 //get vendor by id and user id
-router.get('/uservendor', authMiddleware, getVendorByUserid);
+router.get('/uservendor/:onlyid', authMiddleware, getVendorByUserid);
 router.get('/:id', getVendorbyId);
 
 export default router;
