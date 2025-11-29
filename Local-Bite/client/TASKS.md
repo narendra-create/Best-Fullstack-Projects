@@ -44,5 +44,6 @@
 - [x] Make shop open and close button work
 - [x] make new api for restaurent close and open status
 - [x] tell user is not logged in if user is trying to view dashboard without login
-- [ ] make hower effects for vendor dashboard buttons on sidebar
+- [x] make hower effects for vendor dashboard buttons on sidebar
+- [ ] fix add items page for vendor
 - [ ] make ui for big screen on current orders page of customer

@@ -13,8 +13,9 @@ const AddProducts = () => {
 
     const getVendorData = async () => {
         try {
-            let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor`, { credentials: 'include' })
+            let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor/true`, { credentials: 'include' })
             if (!res.ok) {
+                // console.log()
                 throw new Error("Problem in fetching")
             }
             const data = await res.json();
