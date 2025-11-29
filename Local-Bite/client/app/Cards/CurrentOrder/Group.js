@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Group = ({ order }) => {
-  const height = order.items.length <= 3 ? 'h-full pb-2' : 'h-34';
+  const height = order.items.length <= 3 ? 'h-24 pb-2' : 'h-24 overflow-auto';
   return (
     <section className='bg-white rounded-xl mb-2'>
       <div className='w-full relative border-b-2 pb-2.5 mb-1 border-gray-300 pt-4'>
@@ -13,7 +13,7 @@ const Group = ({ order }) => {
         </div>
         <div className='text-center absolute leading-7 line-clamp-1 h-10 w-28 overflow-hidden top-4 right-4 px-4 py-2 bg-chili-red text-white rounded-lg'>{order.status}</div>
       </div>
-      <div className={`${height} mt-3 overflow-hidden w-full border-b-2 border-gray-300`}>
+      <div className={`${height} mt-3 w-full border-b-2 border-gray-300`}>
         {order.items.map((item, index) => {
           return <div className='px-4 text-lg font-sans flex items-center mb-1' key={index}>
             🫑 {item.quantity}x {item.product.name}

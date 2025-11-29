@@ -34,9 +34,9 @@ const OrderStatus = () => {
 
 
     return (
-        <div className='text-black md:mx-28 relative h-screen'>
-            <div className='absolute top-0 -z-30 h-screen'>
-                <img src="/blured.jpg" alt="." className='h-full object-cover object-center' /></div>
+        <div className='text-black relative min-h-screen h-auto'>
+            <div className='absolute inset-0 -z-30 h-full w-full'>
+                <img src="/blured.jpg" alt="." className='h-full w-full object-cover' /></div>
             <div className='h-24 bg-white rounded-b-3xl opacity-40'></div>
             <h1 className='md:font-bold md:text-5xl font-semibold text-3xl mb-2 pl-4 pt-8'>
                 Current Orders:
@@ -45,7 +45,7 @@ const OrderStatus = () => {
                 <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Paid</button>
                 <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Unpaid</button>
             </div>
-            {Orders && Orders.length > 0 ? <div className='md:mx-18 mx-1.5 h-full'>
+            {Orders && Orders.length > 0 ? <div className='md:mx-18 mx-1.5 h-full md:grid grid-cols-3 items-start justify-center gap-5'>
                 {Orders && Orders.map((Order) => {
                     return <Link href={`/CustomerTools/${Order.orderid}`} key={Order.orderid}> <Group order={Order} /></Link>
                 })}
