@@ -186,7 +186,7 @@ const getsubtotal = async (req, res) => {
                 deliverycharge: deliverycharge,
                 platformfee: platformfee,
                 discount: discount,
-                grandtotal: grandtotal
+                grandtotal: Number((grandtotal).toFixed(2))
             }
         });
     }
