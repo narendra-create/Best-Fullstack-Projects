@@ -334,7 +334,7 @@ const Cart = () => {
           <div className='mt-10 w-full h-[54%] overflow-auto'>
             {items && items.length > 0 ? items.map((item, i) => {
               const key = User ? item._id : item.cartid
-              return <CartProduct key={key} items={item} vendor={vendordb.name} handleremove={handleRemove} plus={plus} minus={minus} />
+              return <CartProduct key={key} items={item} vendor={vendordb?.name ?? ''} handleremove={handleRemove} plus={plus} minus={minus} />
             }) : <div className='text-black'>Your cart is empty</div>}
           </div>
           <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center mt-5'>
