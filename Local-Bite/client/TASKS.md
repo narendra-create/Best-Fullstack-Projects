@@ -47,3 +47,9 @@
 - [x] make hower effects for vendor dashboard buttons on sidebar
 - [x] fix add items page for vendor
 - [x] make ui for big screen on current orders page of customer
+- [x] fix the user icon problem 
+- [x] fix ui of update status page
+- [ ] make update status button good on current orders page of vendor
+- [ ] Decide the layout of manage items
+- [ ] remove your items section from additems page
+- [ ] add vendor restaurent bg in vendor menu page at customer account
