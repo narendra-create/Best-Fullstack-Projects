@@ -1,21 +1,46 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '@/app/Cards/ProductCard/page'
 import { useQuery } from '@tanstack/react-query'
 
 const Products = ({ params }) => {
     const unwrapped = React.use(params);
     const vendorId = unwrapped.vendorId;
+
+    const [vendor, setvendor] = useState()
+
+    const getvendor = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/${vendorId}`, { credentials: 'include' })
+            if (!res.ok) {
+                console.log(res)
+                throw new Error("Response error")
+            }
+            const { vendor } = await res.json();
+            setvendor(vendor)
+            // console.log(vendor)
+        }
+        catch (err) {
+            console.log(err)
+            alert("Error while fetching vendor")
+        }
+    }
+
+
+
     const getproducts = async () => {
         let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId}`)
         if (!res.ok) {
             throw new Error("Products fetching error")
         }
         const data = await res.json();
-        console.log(data.pro, data, res)
+        // console.log(data.pro, data, res)
         return data.pro || [];
     }
 
+    useEffect(() => {
+        getvendor()
+    }, [])
 
     const {
         data: products,
@@ -42,7 +67,8 @@ const Products = ({ params }) => {
 
     return (
         <div>
-            <div className='flex items-center justify-center font-bold text-4xl bg-poha-cream text-black w-full h-118'>reserved space for vendor restaurent or stall picture
+            <div className='flex relative items-center justify-center font-bold text-4xl text-black w-full h-118'>
+                <img src={vendor?.imageUrl || '/restaurent-placeholder.jpg'} alt="Restaurent image" className='w-full h-full object-cover object-center opacity-90 blur-xs' />
             </div>
             <hr className='bg-black w-full h-1' />
             <div className='text-5xl font-bold text-black ml-12 mt-10 font-sans'>Our Menu-</div>
