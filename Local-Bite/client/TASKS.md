@@ -52,4 +52,4 @@
 - [x] make update status button good on current orders page of vendor
 - [ ] Decide the layout of manage items
 - [ ] remove your items section from additems page
-- [ ] add vendor restaurent bg in vendor menu page at customer account
+- [x] add vendor restaurent bg in vendor menu page at customer account
