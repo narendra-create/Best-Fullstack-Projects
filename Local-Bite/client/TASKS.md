@@ -51,5 +51,7 @@
 - [x] fix ui of update status page
 - [x] make update status button good on current orders page of vendor
 - [x] Decide the layout of manage items
-- [ ] remove your items section from additems page
+- [x] Make a card ui for managing items
+- [ ] Make a good ui for manageitems page
+- [ ] write logic for stock out and getting and removing products in manage items
 - [x] add vendor restaurent bg in vendor menu page at customer account
