@@ -21,6 +21,8 @@
 - make function to verify payment on paymentcontroller --done
 - make a function to get current paid orders in ordercontroller --done
 - make isshop open validator for order before ordering food see if the food is in stock and vendor is open --done
+- make stock toggle function in product controller
+- make remove item function in product controller
 
 ## Routine Api Checks after changing code
 
