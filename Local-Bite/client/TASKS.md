@@ -50,6 +50,6 @@
 - [x] fix the user icon problem 
 - [x] fix ui of update status page
 - [x] make update status button good on current orders page of vendor
-- [ ] Decide the layout of manage items
+- [x] Decide the layout of manage items
 - [ ] remove your items section from additems page
 - [x] add vendor restaurent bg in vendor menu page at customer account

@@ -135,7 +135,7 @@ const AddProducts = () => {
     if (!user) return <div className='mx-auto w-107 mt-54 text-black font-bold text-4xl'>No vendor found 😅</div>;
 
     return (
-        <div className='mt-38'>
+        <div className='overflow-hidden'>
             <ToastContainer position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
@@ -147,10 +147,9 @@ const AddProducts = () => {
                 pauseOnHover
                 theme="colored"
                 transition={Slide} />
-
-            <div id='add-area' className='w-464 h-154 text-black bg-zinc-100 mx-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.18)]'>
-                <h1 id='heading' className='text-4xl font-bold pl-10 pt-10 pb-10'>Add Products Here 👇</h1>
-                <div id='addcard' className='flex items-center justify-between px-20'>
+            <div className='py-5 mb-13 bg-gray-50 pl-2'><h1 className='text-4xl font-bold bg-gray-200 w-[30%] text-center rounded-2xl py-4 px-5'>Add Items in your Menu</h1></div>
+            <div id='add-area' className='w-464 h-154 text-black bg-zinc-200 mx-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.18)]'>
+                <div id='addcard' className='flex items-center justify-between px-20 pt-20'>
                     <div>
                         <h2 id='preheading' className='text-2xl mb-10 font-bold pt-1'>Preview Of Food Card:</h2>
                         <section className='shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-200 bg-white text-black mx-auto rounded-2xl flex h-57 gap-4 transition-all ease-in-out duration-200 hover:scale-102'>
