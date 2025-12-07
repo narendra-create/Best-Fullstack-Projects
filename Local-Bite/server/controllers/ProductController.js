@@ -121,4 +121,4 @@ const removeproduct = async (req, res) => {
     }
 }
 
-export { getProductbyVendor, AddProduct, getAllProducts, getProductsbyUser };
+export { getProductbyVendor, AddProduct, getAllProducts, getProductsbyUser, removeproduct, setstock };
