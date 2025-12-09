@@ -25,6 +25,7 @@ const AddProduct = async (req, res) => {
             quantity: quantity,
             type: type,
             vendor: vendorprofile._id,
+            stock: true
         })
         await newProduct.save();
         res.status(201).json({ message: "Product added successfully!" });
@@ -78,11 +79,11 @@ const setstock = async (req, res) => {
         if (role !== "vendor") {
             return res.status(401).json({ message: "Only Vendors Can do this" })
         }
-
+        // console.log(isinstock, typeof isinstock)
         if (isinstock === undefined) {
             return res.status(400).json({ message: "Please provide isinstock as true or false" })
         }
-        if (typeof isinstock !== Boolean) {
+        if (typeof isinstock !== "boolean") {
             return res.status(400).json({ message: "The isinstock should be boolean" })
         }
         const vendorfound = await Vendor.findOne({ user: user })
@@ -90,6 +91,7 @@ const setstock = async (req, res) => {
             return res.status(404).json({ message: "Vendor not found" })
         }
         const productfound = await Product.findOneAndUpdate({ vendor: vendorfound._id, _id: itemid }, { $set: { stock: isinstock } }, { new: true })
+        console.log(productfound.stock)
         return res.status(200).json({ message: "Update success" })
     }
     catch (err) {
