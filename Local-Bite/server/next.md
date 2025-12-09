@@ -23,7 +23,7 @@
 - make isshop open validator for order before ordering food see if the food is in stock and vendor is open --done
 - make stock toggle function in product controller --done
 - make remove item function in product controller --done
-- test new controllers
+- test new controllers --done
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
