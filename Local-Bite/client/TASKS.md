@@ -52,6 +52,7 @@
 - [x] make update status button good on current orders page of vendor
 - [x] Decide the layout of manage items
 - [x] Make a card ui for managing items
-- [ ] Make a good ui for manageitems page
-- [ ] write logic for stock out and getting and removing products in manage items
+- [x] Make a good ui for manageitems page
+- [x] write logic for stock out and getting and removing products in manage items
 - [x] add vendor restaurent bg in vendor menu page at customer account
+- [ ] use jquary in manageproducts page
