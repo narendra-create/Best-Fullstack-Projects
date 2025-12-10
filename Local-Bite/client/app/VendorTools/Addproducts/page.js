@@ -1,9 +1,8 @@
 "use client"
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import { useState } from "react"
 import { useQuery } from '@tanstack/react-query'
-import ProductCard from '@/app/Cards/ProductCard/page'
 
 const AddProducts = () => {
     const [Currentfields, setCurrentfields] = useState({ name: "", quantity: 0, price: 0, description: "", type: "" })
@@ -110,12 +109,6 @@ const AddProducts = () => {
         retry: 1,
     });
 
-    const { data: products, isLoading: productsLoading } = useQuery({
-        queryKey: ["vendorProducts", user?.user], // depends on user
-        queryFn: () => getVendorProducts(user?.user),
-        enabled: !!user, // only run after user is fetched
-    });
-
     // useEffect(() => {
     //     console.log(user)
     //     console.log(products)
@@ -207,14 +200,6 @@ const AddProducts = () => {
                         </form>
                     </section>
                 </div >
-            </div>
-            <div id='show-area' className='w-full h-188 overflow-y-auto'>
-                <div className='font-bold text-4xl font-sans border-b-3 border-black pb-8 text-black mx-auto mt-20 mb-20 w-full text-center'>Your Restaurent foods</div>
-                <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mb-30 w-422'>
-                    {products ? products.map((products, key) => {
-                        return <ProductCard key={key} product={products} />
-                    }) : <div>No products Available</div>}
-                </div>
             </div>
         </div >
     )
