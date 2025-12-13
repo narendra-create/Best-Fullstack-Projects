@@ -86,7 +86,7 @@ const Register = () => {
     }
 
     return (
-        <div className='w-full h-screen mt-40'>
+        <div className='w-full md:h-screen md:pb-0 pb-5 mt-33 md:mt-40'>
             <ToastContainer position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
@@ -99,24 +99,24 @@ const Register = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-full opacity-80 blur-xs transition-all ease-in-out duration-200' /></div>
-            {User === null ? <div className='text-white mx-auto w-265 flex items-center justify-center mb-16 text-6xl font-bold'>Register now To take massive orders</div> : <div className='text-white mx-auto w-full flex items-center justify-center mb-16 text-6xl font-bold'>You Are Already Registered</div>}
+            <div className='absolute md:h-full -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='bg-repeat-y -z-20 h-screen md:h-full opacity-80 object-cover object-center blur-xs transition-all ease-in-out duration-200' /></div>
+            {User === null ? <div className='text-white mx-auto md:w-265 w-[95%] flex items-center justify-center mb-9 md:mb-16 text-center text-3xl md:text-6xl font-bold'>Register now To take massive orders</div> : <div className='text-white mx-auto w-full flex items-center justify-center mb-9 md:mb-16 text-6xl font-bold'>You Are Already Registered</div>}
             {User === null ? <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
-                <div className="mb-5 ">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <div className="mb-5">
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Name</label>
                     <input type="text" id="name" name='name' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
                     <input type="email" id="email" name='email' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name123@.com" required />
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Password</label>
                     <input type="password" id="password" name='password' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
                 <div className='mb-5'>
-                    <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select User Type</label>
-                    <select onChange={handlerole} required id="role" name='role' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select User Type</label>
+                    <select onChange={handlerole} required id="role" name='role' className="w-[98%] shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="customer">Customer</option>
                         <option value="vendor">Vendor</option>
                     </select>
@@ -124,7 +124,7 @@ const Register = () => {
                 {role === "vendor" &&
                     <>
                         <div className='mb-5'>
-                            <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Restaurant Type</label>
+                            <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select Restaurant Type</label>
                             <select required id="category" name='category' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="default">Select Cuisine</option>
                                 <option value="North Indian">North Indian</option>
@@ -135,7 +135,7 @@ const Register = () => {
                             </select>
                         </div>
                         <div id='type-of-restaurent' className='my-3'>
-                            <label htmlFor="type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Restaurant Type</label>
+                            <label htmlFor="type" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select Restaurant Type</label>
                             <select required id="type" name='type' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="veg" className='text-coriander-green'>🍎 Veg</option>
                                 <option value="North Indian" className='text-chili-red'>🥩 Non-Veg</option>
@@ -143,7 +143,7 @@ const Register = () => {
                             </select>
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Cover Picture(Url)</label>
+                            <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Your Cover Picture(Url)</label>
                             <input type="text" id="imageUrl" name='imageUrl' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                     </>}
