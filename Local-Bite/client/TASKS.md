@@ -56,3 +56,5 @@
 - [x] write logic for stock out and getting and removing products in manage items
 - [x] add vendor restaurent bg in vendor menu page at customer account
 - [x] use reactquary in manageproducts page
+- [ ] make ui responsive of all pages
+- [ ] make homepage responsive by putting vendors into a grid or row
