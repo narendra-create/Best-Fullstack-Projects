@@ -37,11 +37,11 @@ const Navbar = ({ toggleDrawer }) => {
                         <div>
                             {isLoginpage ? (
                                 <Link href={'/components/Register'} id='newuser'>
-                                    <button className='text-white pl-50 text-lg hover:text-xl hover:font-stretch-50% transition-all ease-in-out duration-300'>New user?</button>
+                                    <button className='text-white pl-15 md:pl-50 text-lg hover:text-xl hover:font-stretch-50% transition-all ease-in-out duration-300'>New user?</button>
                                 </Link>
                             ) : (
                                 <Link href={'/components/Login'} id='Existinguser'>
-                                    <button className='text-white pl-50 text-lg hover:text-xl hover:font-stretch-50% transition-all ease-in-out duration-300'>Already Registered?</button>
+                                    <button className='text-white pl-10 md:pl-50 text-lg hover:text-xl hover:font-stretch-50% transition-all ease-in-out duration-300'>Already Registered?</button>
                                 </Link>
                             )}
                         </div>
