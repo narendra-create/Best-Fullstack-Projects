@@ -52,9 +52,9 @@ const HomePage = () => {
         <img src="/newhome-bg.png" className='object-cover object-center h-full flex items-center justify-center text-2xl font bold w-full top-0' alt="Local-Bite" />
         {/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
         <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
-          <div className='bg-hero-bg pt-28 mx-1 rounded-t-3xl'>
-            <div className='text-black mx-auto w-449 text-3xl mb-16 font-bold'>All Nearby Vendors 🔻</div>
-            <div className='grid grid-cols-4 w-400 mx-auto gap-8'>
+          <div className='bg-hero-bg pt-8 md:pt-28 mx-1 rounded-t-3xl'>
+            <div className='text-black mx-auto pl-5 md:pl-0 pd:w-449 text-2xl md:text-3xl mb-9 md:mb-16 font-bold'>All Nearby Vendors 🔻</div>
+            <div className='flex flex-col md:grid md:grid-cols-4 md:w-400 mx-auto gap-8'>
               {Vendors && Vendors.map((vendor) => {
                 return <VendorCard key={vendor._id} vendor={vendor} />
               })}
