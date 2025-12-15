@@ -57,8 +57,11 @@
 - [x] add vendor restaurent bg in vendor menu page at customer account
 - [x] use reactquary in manageproducts page
 - [x] make homepage responsive by putting vendors into a grid or row
-- [ ] generate readme md for whole webapp
+- [x] generate readme md for whole webapp
 - [ ] make vendor menu page responsive
 - [ ] make vendor dashboard responsive
-- [ ] make homepage bg bigger in small screens
+- [x] make homepage bg bigger in small screens
 - [ ] make ui responsive of all pages
+- [ ] add navlink feature on vendor dashboard
+- [ ] fix the bg in register page
+- [ ] fix homepage vendors list layout in big screen
