@@ -16,7 +16,7 @@ const Group = ({ order }) => {
       <div className={`${height} mt-3 w-full border-b-2 border-gray-300`}>
         {order.items.map((item, index) => {
           return <div className='px-4 text-lg font-sans flex items-center mb-1' key={index}>
-            🫑 {item.quantity}x {item.product.name}
+            🫑 {item.quantity}x {item.product?.name}
           </div>
         })}
       </div>
