@@ -331,14 +331,24 @@ server/
 
 ## 📸 Screenshots
 
-> *Add screenshots of your application here*
 
 - Homepage with vendor listings
+  ![home page](image.png)
+
 - Product catalog page
+- ![vendor products](image-1.png)
+  
 - Shopping cart
+  ![cart](image-2.png)
+
 - Order tracking page
+  ![current orders](image-3.png)
+
 - Vendor dashboard
+  ![Dashboard](image-4.png)
+
 - Product management interface
+  ![Manage products](image-5.png)
 
 ## 🔮 Future Enhancements
 
