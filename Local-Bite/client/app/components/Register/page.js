@@ -99,7 +99,7 @@ const Register = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute md:h-full -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='bg-repeat-y -z-20 h-screen md:h-full opacity-80 object-cover object-center blur-xs transition-all ease-in-out duration-200' /></div>
+            <div className='absolute md:h-full w-full -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-screen md:h-full opacity-80 object-cover object-center blur-xs transition-all ease-in-out duration-200 w-full' /></div>
             {User === null ? <div className='text-white mx-auto md:w-265 w-[95%] flex items-center justify-center mb-9 md:mb-16 text-center text-3xl md:text-6xl font-bold'>Register now To take massive orders</div> : <div className='text-white mx-auto w-full flex items-center justify-center mb-9 md:mb-16 text-6xl font-bold'>You Are Already Registered</div>}
             {User === null ? <form className="max-w-sm mx-auto" onSubmit={handlesubmit}>
                 <div className="mb-5">

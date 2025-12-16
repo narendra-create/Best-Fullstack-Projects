@@ -63,5 +63,5 @@
 - [x] make homepage bg bigger in small screens
 - [ ] make ui responsive of all pages
 - [ ] add navlink feature on vendor dashboard
-- [ ] fix the bg in register page
+- [x] fix the bg in register page
 - [ ] fix homepage vendors list layout in big screen
