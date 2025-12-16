@@ -62,7 +62,7 @@
 - [ ] make vendor dashboard responsive
 - [x] make homepage bg bigger in small screens
 - [ ] make ui responsive of all pages
-- [ ] add navlink feature on vendor dashboard
+- [x] add navlink feature on vendor dashboard
 - [x] fix the bg in register page
 - [ ] fix homepage vendors list layout in big screen
 - [x] fix backend for getvendoridbyuserid function
