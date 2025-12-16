@@ -64,7 +64,7 @@ const VendorProductsCard = ({ theme, Order, dbhandler }) => {
                     </div>
                     <div className='mt-2 w-[98%] md:h-24 overflow-auto ml-1 text-xl font-serif'>
                         {Order.items && Order.items.map((item) => {
-                            return <div key={item._id}>{item.product.name} x {item.quantity}</div>
+                            return <div key={item._id}>{item.product?.name} x {item.quantity}</div>
                         })}
                     </div>
                 </div>

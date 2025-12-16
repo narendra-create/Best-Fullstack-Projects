@@ -29,6 +29,7 @@ const Products = ({ params }) => {
 
 
     const getproducts = async () => {
+        console.log(vendorId)
         let res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId}`)
         if (!res.ok) {
             throw new Error("Products fetching error")

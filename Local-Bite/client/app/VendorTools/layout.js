@@ -10,13 +10,13 @@ export default function VendorToolsLayout({ children }) {
 
     const vendorfind = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor/true`, {credentials: 'include'})
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/uservendor/true`, { credentials: 'include' })
             if (!res.ok) {
                 console.log(res)
                 throw new Error("Unable to fetch")
             }
-            const { data } = await res.json();
-            setvendor(data)
+            const data  = await res.json();
+            setvendor(data.data)
         }
         catch (err) {
             console.log(err)
@@ -26,6 +26,9 @@ export default function VendorToolsLayout({ children }) {
     useEffect(() => {
         vendorfind();
     }, [])
+    // useEffect(() => {
+    //     console.log(vendor, "this is vendor")
+    // }, [vendor])
 
     const handleLogout = async () => {
         try {
