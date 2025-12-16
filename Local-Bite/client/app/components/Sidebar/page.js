@@ -2,9 +2,12 @@
 import React from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 const Sidebar = ({ User, handlelogout, vendor }) => {
     const [isOn, setisOn] = useState(false)
+    const currentpath = usePathname();
+    const isactive = (path) => currentpath === path
 
     return (
         <div className='mt-10'>
@@ -25,7 +28,7 @@ const Sidebar = ({ User, handlelogout, vendor }) => {
                 <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default">
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <Link href={'/VendorTools/Dashboard'} className=" hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+                            <Link href={'/VendorTools/Dashboard'} className={isactive("/VendorTools/Dashboard") ? "transition-all ease-in-out duration-200 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group text-blue-500" : "hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"}>
                                 <svg className="w-5  h-5 transition duration-75 group-hover:text-fg-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6.025A7.5 7.5 0 1 0 17.975 14H10V6.025Z" /><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.5 3c-.169 0-.334.014-.5.025V11h7.975c.011-.166.025-.331.025-.5A7.5 7.5 0 0 0 13.5 3Z" /></svg>
                                 <span className="ms-3">Dashboard</span>
                             </Link>
@@ -39,13 +42,13 @@ const Sidebar = ({ User, handlelogout, vendor }) => {
                             <ul
                                 id="dropdown-example"
                                 className={` overflow-hidden transition-all duration-300  ${isOn ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'} py-2 space-y-2`}>
-                                <li className='hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200'>
+                                <li className={isactive("/VendorTools/Addproducts") ? "text-blue-500 hover:text-lg transition-all ease-in-out duration-200" : "hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200"}>
                                     <Link href={'/VendorTools/Addproducts'} className="pl-10 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">Add Items</Link>
                                 </li>
-                                <li className='hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200'>
+                                <li className={isactive("/VendorTools/ManageProducts") ? "text-blue-500 hover:text-lg transition-all ease-in-out duration-200" : "hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200"}>
                                     <Link href={'/VendorTools/ManageProducts'} className="pl-10 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">Manage Items</Link>
                                 </li>
-                                <li className='hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200'>
+                                <li className={isactive("/VendorTools/CurrentOrders") ? "text-blue-500 hover:text-lg transition-all ease-in-out duration-200" : "hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200"}>
                                     <Link href={'/VendorTools/CurrentOrders'} className="pl-10 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">Update Status</Link>
                                 </li>
                             </ul>
@@ -57,7 +60,7 @@ const Sidebar = ({ User, handlelogout, vendor }) => {
                                 <span className="inline-flex items-center justify-center w-4.5 h-4.5 ms-2 text-xs font-medium text-fg-danger-strong bg-danger-soft border border-danger-subtle rounded-full">2</span>
                             </a>
                         </li> */}
-                        <li className='hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200'>
+                        <li className={isactive(`/Products/${vendor}`) ? 'text-blue-500 hover:text-lg transition-all ease-in-out duration-200' : 'hover:text-blue-500 hover:text-lg transition-all ease-in-out duration-200'}>
                             <Link href={`/Products/${vendor}`} className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
                                 <svg className="shrink-0 w-5 h-5 transition duration-75 group-hover:text-fg-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" /></svg>
                                 <span className="flex-1 ms-3 whitespace-nowrap">Your Items</span>
@@ -88,7 +91,7 @@ const Sidebar = ({ User, handlelogout, vendor }) => {
                         </li>
                     </ul>
                 </div>
-            </aside>
+            </aside >
 
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-1 border-default border-dashed rounded-base">
@@ -166,7 +169,7 @@ const Sidebar = ({ User, handlelogout, vendor }) => {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 
