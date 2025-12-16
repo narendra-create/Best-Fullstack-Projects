@@ -65,3 +65,4 @@
 - [ ] add navlink feature on vendor dashboard
 - [x] fix the bg in register page
 - [ ] fix homepage vendors list layout in big screen
+- [x] fix backend for getvendoridbyuserid function
