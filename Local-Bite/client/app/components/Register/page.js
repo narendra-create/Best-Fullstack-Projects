@@ -138,7 +138,7 @@ const Register = () => {
                             <label htmlFor="type" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select Restaurant Type</label>
                             <select required id="type" name='type' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="veg" className='text-coriander-green'>🍎 Veg</option>
-                                <option value="North Indian" className='text-chili-red'>🥩 Non-Veg</option>
+                                <option value="non-veg" className='text-chili-red'>🥩 Non-Veg</option>
                                 <option value="veg/non-veg">🤝 BOTH</option>
                             </select>
                         </div>
