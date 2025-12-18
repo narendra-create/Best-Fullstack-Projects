@@ -53,8 +53,8 @@ const HomePage = () => {
         {/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
         <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
           <div className='bg-hero-bg pt-8 md:pt-28 mx-1 rounded-t-3xl'>
-            <div className='text-black mx-auto pl-5 md:pl-0 pd:w-449 text-2xl md:text-3xl mb-9 md:mb-16 font-bold'>All Nearby Vendors 🔻</div>
-            <div className='flex flex-col md:grid md:grid-cols-4 md:w-400 mx-auto gap-8'>
+            <div className='text-black mx-auto pl-5 md:pl-0 md:w-449 text-2xl md:text-3xl mb-9 md:mb-16 font-bold'>All Nearby Vendors 🔻</div>
+            <div className='md:py-2 flex flex-col md:grid md:grid-cols-4 md:w-full md:px-64 mx-auto gap-8 overflow-hidden pb-8'>
               {Vendors && Vendors.map((vendor) => {
                 return <VendorCard key={vendor._id} vendor={vendor} />
               })}
