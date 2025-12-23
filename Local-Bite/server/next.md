@@ -24,6 +24,8 @@
 - make stock toggle function in product controller --done
 - make remove item function in product controller --done
 - test new controllers --done
+- make cash on delivery system payment
+- make rating system
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
