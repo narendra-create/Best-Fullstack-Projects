@@ -68,3 +68,4 @@
 - [x] fix backend for getvendoridbyuserid function
 - [ ] fix vendorbg size in register
 - [ ] add rating system for restaurents
+- [ ] Make Payment method page for user to select before paying
