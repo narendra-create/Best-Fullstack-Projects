@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Checkout = ({ subTotal, discount, platformfee, deliverycharge, grandtotal, isCartEmpty, CheckoutClick }) => {
+
+    const [Methodpage, setMethodpage] = useState(false)
+   
 
     return (
         <section className='bg-white rounded-xl'>
