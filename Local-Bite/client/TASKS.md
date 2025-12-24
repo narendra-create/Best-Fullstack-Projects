@@ -69,3 +69,4 @@
 - [ ] fix vendorbg size in register
 - [ ] add rating system for restaurents
 - [ ] Make Payment method page for user to select before paying
+- [ ] make the payment method card not page
