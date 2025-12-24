@@ -5,6 +5,7 @@ import Checkout from '@/app/Cards/CheckoutCard/page'
 import { useAuth } from '@/app/contexts/AuthContext'
 import Script from 'next/script'
 import Protect from '@/app/CustomerGuard/page'
+import PaymentPage from '@/app/Cards/Payment-page/page'
 
 const Cart = () => {
   const [items, setitems] = useState([])
@@ -337,18 +338,20 @@ const Cart = () => {
               return <CartProduct key={key} items={item} vendor={vendordb?.name ?? ''} handleremove={handleRemove} plus={plus} minus={minus} />
             }) : <div className='text-black'>Your cart is empty</div>}
           </div>
-          <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center mt-5'>
-            <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='bg-white pl-5 md:py-0 py-4 md:w-113 h-full focus:outline-1 outline-gray-400 rounded-lg' />
+          <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center justify-between px-2 py-2 mt-5 border-1 border-gray-100 bg-gray-50'>
+            <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='pl-5 md:py-0 py-3.5 md:w-113 h-full focus:outline-1 outline-gray-400 bg-gray-50 rounded-lg' />
             <button className='bg-sev-yellow py-3 transition-all ease-in-out duration-150 hover:bg-yellow-700 hover:text-gray-100 px-3 rounded-xl text-gray-900 font-semibold focus:outline-1 outline-gray-400'>Apply</button>
           </div>
           <div className='flex flex-col md:mx-12 mt-5'>
             <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
-            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-white resize-none rounded-lg ml-1 break-words whitespace-normal' />
+            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-gray-50 border-1 border-gray-100 resize-none rounded-lg ml-1 break-words whitespace-normal' />
           </div>
         </div>
         <div className='md:w-[30%] w-[100%] p-5'>
-          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
-          <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
+          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Choose Payment Method</h3>
+          <PaymentPage />
+          {/* <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3> */}
+          {/* <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} /> */}
         </div>
       </div>
     </Protect>
