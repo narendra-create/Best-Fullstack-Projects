@@ -1,11 +1,12 @@
 import express from 'express'
-import { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder } from '../controllers/OrderController.js'
+import { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder } from '../controllers/OrderController.js'
 import authMiddleware from '../middlewares/jwtcheck.js'
 
 const orderrouter = express.Router();
 
 //now the routes as usual
 orderrouter.post('/place', authMiddleware, placeOrder);
+orderrouter.post('/place-cash', authMiddleware, cashorder);
 orderrouter.get('/current', authMiddleware, getcurrentorders);
 orderrouter.patch('/updatestatus/:OrderId', authMiddleware, updateorder);
 orderrouter.get('/currentsingle/:orderid', authMiddleware, getsingleorder);

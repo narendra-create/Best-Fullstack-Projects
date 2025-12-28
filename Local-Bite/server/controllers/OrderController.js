@@ -4,6 +4,12 @@ import Vendor from "../models/VendorSchema.js";
 import Product from "../models/ProductSchema.js";
 import instance from '../config/razorpay.js'
 
+const deliverycharge = 40;
+const platformfee = 2.4;
+const discount = 20;
+
+const allcharges = deliverycharge + platformfee - discount;
+
 
 const generateOrderReference = () => {
     //like this - IE-251008-AB12CD
@@ -53,7 +59,7 @@ const placeOrder = async (req, res) => {
             }
         }
         const orderidref = generateOrderReference();
-        const withtaxprice = calculatedprice + 40 + 2.4 - 20
+        const withtaxprice = calculatedprice + allcharges
         //for delivery  charge , platform fee and discount
 
         //create razorpay order
@@ -208,4 +214,60 @@ const getsingleorder = async (req, res) => {
     }
 }
 
-export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder };
+const cashorder = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { vendor, items, instructions } = req.body;
+
+        const vendorfound = await Vendor.findOne({ _id: vendor })
+        if (!vendorfound) {
+            return res.status(404).json({ message: "Sorry We can't find vendor" })
+        }
+        if (!vendorfound.isOpen) {
+            return res.status(503).json({ message: "Sorry the vendor is closed" })
+        }
+
+        const productids = items.map(item => item.product._id)
+        const dbproducts = await Product.find({ _id: { $in: productids } })
+        let itemsarray = [];
+        let calculatedprice = 0;
+        for (const item of items) {
+            const productid = item.product._id.toString();
+            const product = dbproducts.find(p => p._id.toString() === productid)
+            if (product) {
+                calculatedprice += product.price * item.quantity;
+                itemsarray.push({
+                    product: item.product,
+                    quantity: item.quantity,
+                    price: product.price * item.quantity
+                })
+            }
+        }
+
+        const orderid = generateOrderReference();
+        const withtaxprice = calculatedprice + allcharges
+
+        const neworder = new OrderModel({
+            user: user,
+            vendor: vendor,
+            items: itemsarray,
+            status: "PENDING",
+            paymentStatus: "CASH",
+            orderid: orderid,
+            instructions: instructions
+        })
+        const savedorder = await neworder.save();
+
+        res.status(201).json({
+            success: true,
+            message: "Order Created",
+            orderstatus: "PENDING",
+            orderId: savedorder.orderid
+        })
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder };

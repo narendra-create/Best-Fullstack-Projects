@@ -36,7 +36,7 @@ const Order = new Schema({
     },
     paymentStatus: {
         type: String,
-        enum: ['PENDING', 'PAID', 'FAILED'],
+        enum: ['PENDING', 'PAID', 'FAILED', 'CASH'],
         default: 'PENDING',
     },
     razorpay_order_id: {
