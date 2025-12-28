@@ -68,5 +68,6 @@
 - [x] fix backend for getvendoridbyuserid function
 - [ ] fix vendorbg size in register
 - [ ] add rating system for restaurents
-- [ ] Make Payment method page for user to select before paying
-- [ ] make the payment method card not page
+- [x] Make Payment method page for user to select before paying
+- [x] make the payment method card not page
+- [ ] add logic for cash on delivery method
