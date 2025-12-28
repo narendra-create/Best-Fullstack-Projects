@@ -18,6 +18,8 @@ const Cart = () => {
   const [grandTotal, setGrandTotal] = useState(0);
   const [instructions, setinstructions] = useState("");
   const [vendordb, setvendordb] = useState()
+  const [methodclick, setmethodclick] = useState(false)
+  const [checkoutloading, setcheckoutloading] = useState(true)
 
 
   const loadcart = async () => {
@@ -322,6 +324,17 @@ const Cart = () => {
     }
   }
 
+  const handlecashpayment = async () => {
+    console.log("cash on delivery for this amount -", grandTotal)
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setcheckoutloading(false)
+    }, 2000);
+  }, [methodclick])
+
+
   if (CartLoading || isAuthLoading) {
     return <div className='text-black text-center mt-48 text-3xl w-full'>Loading Cart...</div>
   }
@@ -347,12 +360,17 @@ const Cart = () => {
             <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-gray-50 border-1 border-gray-100 resize-none rounded-lg ml-1 break-words whitespace-normal' />
           </div>
         </div>
-        <div className='md:w-[30%] w-[100%] p-5'>
+        {methodclick ? <div className='md:w-[30%] w-[100%] p-5'>
           <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Choose Payment Method</h3>
-          <PaymentPage />
-          {/* <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3> */}
-          {/* <Checkout isCartEmpty={items.length === 0} CheckoutClick={handleCheckout} subTotal={subtotal} deliverycharge={deliveryCharge} grandtotal={grandTotal} discount={discount} platformfee={platformFee} /> */}
-        </div>
+          <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
+            setmethodclick(false)
+          }} handlecod={handlecashpayment} />
+        </div> : <div className='md:w-[30%] w-[100%] p-5'>
+          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
+          <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} methodclick={() => {
+            setmethodclick(true)
+          }} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
+        </div>}
       </div>
     </Protect>
   )
