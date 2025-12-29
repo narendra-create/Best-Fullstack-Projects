@@ -70,4 +70,5 @@
 - [ ] add rating system for restaurents
 - [x] Make Payment method page for user to select before paying
 - [x] make the payment method card not page
-- [ ] add logic for cash on delivery method
+- [x] add logic for cash on delivery method
+- [ ] make current orders pay now button when user uses cod else make it cancel button
