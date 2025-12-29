@@ -72,3 +72,4 @@
 - [x] make the payment method card not page
 - [x] add logic for cash on delivery method
 - [ ] make current orders pay now button when user uses cod else make it cancel button
+- [ ] make the loading animation when user clicks checkout with cod
