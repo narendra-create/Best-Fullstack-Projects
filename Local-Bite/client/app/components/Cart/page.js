@@ -325,7 +325,28 @@ const Cart = () => {
   }
 
   const handlecashpayment = async () => {
-    console.log("cash on delivery for this amount -", grandTotal)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/place-cash`, {
+      credentials: "include"
+      , method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      , body: JSON.stringify({
+        vendor: vendordb._id,
+        items: items,
+        instructions: instructions
+      })
+    })
+
+    if (res.ok) {
+      const { orderId } = await res.json();
+      clearcart();
+      window.location.href = `/Status/order-success/${orderId}`;
+      loadcart();
+    }
+    else {
+      window.location.href = `/Status/order-failure`
+    }
   }
 
   useEffect(() => {
