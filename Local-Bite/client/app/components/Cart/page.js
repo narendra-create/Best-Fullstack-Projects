@@ -294,13 +294,18 @@ const Cart = () => {
             const verifyresult = await verifyres.json();
 
             if (verifyresult.success) {
+              setCartLoading(true)
               clearcart();
               //for redirecting into success page
               window.location.href = `/Status/order-success/${verifyresult.orderid}`;
               loadcart();
             }
             else {
+              setCartLoading(true)
               window.location.href = `/Status/order-failure`;
+              setTimeout(() => {
+                setCartLoading(false)
+              }, 1000);
             }
           }
           catch (err) {
@@ -340,12 +345,17 @@ const Cart = () => {
 
     if (res.ok) {
       const { orderId } = await res.json();
+      setCartLoading(true)
       clearcart();
       window.location.href = `/Status/order-success/${orderId}`;
       loadcart();
     }
     else {
+      setCartLoading(true)
       window.location.href = `/Status/order-failure`
+      setTimeout(() => {
+        setCartLoading(false)
+      }, 1000);
     }
   }
 
