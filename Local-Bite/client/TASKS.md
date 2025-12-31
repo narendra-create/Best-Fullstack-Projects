@@ -67,9 +67,11 @@
 - [x] fix homepage vendors list layout in big screen
 - [x] fix backend for getvendoridbyuserid function
 - [ ] fix vendorbg size in register
-- [ ] add rating system for restaurents
+- [x] add rating system for restaurents
 - [x] Make Payment method page for user to select before paying
 - [x] make the payment method card not page
 - [x] add logic for cash on delivery method
 - [x] make the loading animation when user clicks checkout with cod
 - [ ] make current orders pay now button when user uses cod else make it cancel button
+- [ ] make loader in currentorders page for customer
+- [ ] fix ordering issue in cart
