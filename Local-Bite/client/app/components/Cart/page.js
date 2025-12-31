@@ -237,7 +237,7 @@ const Cart = () => {
       //redirect to login page here
       return;
     }
-    if (items.length === 0 || vendordb.length === 0) {
+    if (items.length === 0 || !vendordb || !vendordb._id) {
       console.log(items, vendordb)
       alert("Your cart is empty or vendor missing")
       return;
@@ -260,6 +260,7 @@ const Cart = () => {
         throw new Error("Failed to Create Order")
       }
       const data = await placeorderres.json();
+      console.log(data)
       const { razorpayKeyId, orderId, razorpayorder } = data;
 
       const options = {
@@ -324,8 +325,9 @@ const Cart = () => {
       rzp.open();
     }
     catch (error) {
-      console.error("Order creation failed:", error);
-      alert("Error creating order. Please try again.");
+      console.error("Order creation failed:", error.response?.data || error.message || error);
+      // console.log(items, placeorderres.json, data)
+      alert(`Error creating order. Please try again.`);
     }
   }
 
