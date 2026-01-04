@@ -33,6 +33,10 @@ const OrderStatus = () => {
     }, [])
 
 
+    if (Loading) {
+        return <div className='loader w-full my-50 mx-auto'></div>
+    }
+
     return (
         <div className='text-black relative min-h-screen h-auto'>
             <div className='absolute inset-0 -z-30 h-full w-full'>
