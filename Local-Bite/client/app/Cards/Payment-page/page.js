@@ -8,7 +8,10 @@ const PaymentPage = ({ totalamount, loading, handleback, handlepayment, handleco
     const [method, setmethod] = useState("")
 
 
-    const handlesubmit = () => {
+    const handlesubmit = (e) => {
+
+        e.preventDefault()
+        
         if (method === "online-pay") {
             handlepayment();
         }
