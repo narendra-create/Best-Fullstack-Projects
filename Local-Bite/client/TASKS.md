@@ -73,5 +73,6 @@
 - [x] add logic for cash on delivery method
 - [x] make the loading animation when user clicks checkout with cod
 - [x] fix ordering issue in cart
-- [ ] make current orders pay now button when user uses cod else make it cancel button
+- [x] make current orders pay now button when user uses cod else make it cancel button
 - [x] make loader in currentorders page for customer
+- [ ] type logic for paying in currentorders page when isonlinepayment
