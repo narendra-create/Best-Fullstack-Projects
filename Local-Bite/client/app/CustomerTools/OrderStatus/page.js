@@ -25,6 +25,14 @@ const OrderStatus = () => {
         }
     }
 
+    const paynow = async (order) => {
+        if (!order || !order.vendor || order.items.length === 0) {
+            alert("Check items and vendor before Paying")
+            return;
+        }
+        // const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order`)
+    }
+
     useEffect(() => {
         loadorders();
     }, [])
