@@ -270,4 +270,55 @@ const cashorder = async (req, res) => {
     }
 }
 
-export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder };
+const payonline = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { orderid } = req.params;
+        if (!orderid) {
+            return res.status(404).json({ message: "Please give orderid" })
+        }
+        if (!user) {
+            return res.status(401).json({ message: "Please Log in first" })
+        }
+        const order = await OrderModel.findOne({ orderid: orderid, user: user })
+        if (!order) {
+            return res.status(404).json({ message: "Order Not Found" })
+        }
+        if (order.paymentStatus === "PAID") {
+            return res.status(400).json({ message: "Order Aleady Paid" })
+        }
+        const withtaxprice = order.grandtotal + allcharges;
+
+
+        const options = {
+            amount: Math.round(withtaxprice * 100),
+            currency: 'INR',
+            receipt: order.orderid
+        }
+
+        const razorpayorder = await instance.orders.create(options);
+
+        if (!razorpayorder) {
+            console.log(razorpayorder)
+            return res.status(500).json({ message: "Error Creating order on Razorpay" })
+        }
+
+        order.razorpay_order_id = razorpayorder.id;
+        order.paymentStatus = "PENDING"
+        const savedorder = await order.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Order Created, Now go and pay",
+            razorpayorder: razorpayorder,
+            orderId: savedorder.orderid,
+            razorpayKeyId: process.env.RAZORPAY_ID
+        })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder, payonline };
