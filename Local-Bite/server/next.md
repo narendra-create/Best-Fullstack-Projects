@@ -25,6 +25,7 @@
 - make remove item function in product controller --done
 - test new controllers --done
 - make cash on delivery system payment --done
+- make function to pay for order--done
 - make rating system
 ## Routine Api Checks after changing code
 
