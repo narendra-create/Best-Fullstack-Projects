@@ -66,7 +66,7 @@
 - [x] fix the bg in register page
 - [x] fix homepage vendors list layout in big screen
 - [x] fix backend for getvendoridbyuserid function
-- [ ] fix vendorbg size in register
+- [x] fix vendorbg size in register
 - [x] add rating system for restaurents
 - [x] Make Payment method page for user to select before paying
 - [x] make the payment method card not page
