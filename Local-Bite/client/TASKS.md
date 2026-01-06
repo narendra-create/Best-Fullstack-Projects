@@ -75,4 +75,4 @@
 - [x] fix ordering issue in cart
 - [x] make current orders pay now button when user uses cod else make it cancel button
 - [x] make loader in currentorders page for customer
-- [ ] type logic for paying in currentorders page when isonlinepayment
+- [x] type logic for paying in currentorders page when isonlinepayment
