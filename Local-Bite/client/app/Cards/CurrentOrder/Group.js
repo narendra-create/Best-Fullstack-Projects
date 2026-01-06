@@ -27,7 +27,7 @@ const Group = ({ order, paynow }) => {
         <span className='pr-10 font-semibold'>₹{order.grandtotal}</span>
       </div>
       <div className='w-full flex items-center justify-center py-3'>
-        {isonline ? <button className='w-[94%] px-3 py-2 focus:bg-green-600 border-2 transition-all ease-in-out duration-200 border-green-500 bg-coriander-green text-white font-bold text-xl rounded-xl'>Paid</button> : <button className='w-[94%] px-3 py-2 focus:bg-red-600 border-2 transition-all ease-in-out duration-200 border-red-500 bg-chili-red text-white font-bold text-xl rounded-xl'>Pay Now</button>}
+        {isonline ? <button className='w-[94%] px-3 py-2 focus:bg-green-600 border-2 transition-all ease-in-out duration-200 border-green-500 bg-coriander-green text-white font-bold text-xl rounded-xl'>Paid</button> : <button onClick={() => paynow(order)} className='w-[94%] px-3 py-2 focus:bg-red-600 border-2 transition-all ease-in-out duration-200 border-red-500 bg-chili-red text-white font-bold text-xl rounded-xl'>Pay Now</button>}
       </div>
     </section>
   )
