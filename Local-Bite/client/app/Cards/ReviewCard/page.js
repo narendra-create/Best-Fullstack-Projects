@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Star } from 'lucide-react';
 
-const OrderCard = () => {
+const OrderCard = ({ order, submitreview }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRating, setSelectedRating] = useState(0);
     const [tags, setTags] = useState([]);
@@ -19,15 +19,15 @@ const OrderCard = () => {
     };
 
     return (
-        <div className="p-4 bg-gray-50 min-h-screen flex flex-col items-center">
+        <div className="p-4 bg-gray-50 flex flex-col items-center">
             {/*The Outside View */}
             <div className="w-full max-w-md bg-white rounded-xl shadow-md p-4 border border-gray-100">
                 <div className="flex justify-between items-start">
                     <div>
-                        <h3 className="font-bold text-lg text-gray-800">Pizza Hut - Local Outlet</h3>
-                        <p className="text-sm text-gray-500 font-medium">Delivered • 24 Oct, 8:30 PM</p>
+                        <h3 className="font-bold text-lg text-gray-800">{order?.vendor.name}</h3>
+                        <p className="text-sm text-gray-500 font-medium">{order?.status} • 24 Oct, 8:30 PM</p>
                     </div>
-                    <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">₹450</span>
+                    <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">₹{order?.grandtotal}</span>
                 </div>
 
                 <div className="mt-4 pt-3 border-t">
