@@ -12,7 +12,9 @@ const vendorSchema = new Schema({
             values: ["veg", "non-veg", "veg/non-veg"],
             message: 'Type must be either veg, non-veg or veg/non-veg'
         }
-    }
+    },
+    averagerating: { type: Number, min: 1, max: 5 },
+    totalratings: { type: Number }
 })
 
 const Vendor = mongoose.models.Vendor || mongoose.model("Vendor", vendorSchema);
