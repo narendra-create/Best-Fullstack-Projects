@@ -6,7 +6,7 @@ import Product from "../models/ProductSchema.js";
 const submitreview = async (req, res) => {
     try {
         const { user } = req.user;
-        const { vendor, stars, review, orderid } = req.body;
+        const { vendor, stars, review, orderid, tags } = req.body;
         const findvendor = await Vendor.findById(vendor)
         if (!findvendor) {
             return res.status(404).json({ message: "Vendor Not Found" })
@@ -30,6 +30,7 @@ const submitreview = async (req, res) => {
             order: orderid,
             rating: stars,
             review,
+            tags: tags
         })
 
         const stats = await RatingModel.aggregate([
@@ -84,3 +85,5 @@ const getratings = async (req, res) => {
         })
     }
 }
+
+export { submitreview, getratings };
