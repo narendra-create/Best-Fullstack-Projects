@@ -77,7 +77,7 @@
 - [x] make loader in currentorders page for customer
 - [x] type logic for paying in currentorders page when isonlinepayment
 - [x] make order card for history
-- [ ] integrate rating system in ordercard
+- [x] integrate rating system in ordercard
 - [x] make new page for detailed rating
 - [x] solve completed at date issue
 - [ ] fix vendor dashboard ui issue

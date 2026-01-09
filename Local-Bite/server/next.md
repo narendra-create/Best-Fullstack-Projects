@@ -26,8 +26,8 @@
 - test new controllers --done
 - make cash on delivery system payment --done
 - make function to pay for order--done
-- make rating system
-- add new times and dates for orderschema
+- make rating system--done
+- add new times and dates for orderschema--done
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
