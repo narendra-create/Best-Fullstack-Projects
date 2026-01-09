@@ -52,7 +52,17 @@ const Order = new Schema({
     instructions: {
         type: String
     },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+
+    acceptedAt: Date,
+
+    preparedAt: Date,
+
+    outForDeliveryAt: Date,
+
+    completedAt: Date,
+
+    cancelledAt: Date
 })
 
 Order.pre('save', function (next) {

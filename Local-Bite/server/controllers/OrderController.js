@@ -111,6 +111,13 @@ const updateorder = async (req, res) => {
         const { OrderId } = req.params;
         const validvendor = user;
         const { status } = req.body;
+        const updatefields = { status };
+
+        if (status === "ACCEPTED") updatefields.acceptedAt = new Date();
+        if (status === "PREPARING") updatefields.preparedAt = new Date();
+        if (status === "OUT FOR DELIVERY") updatefields.outForDeliveryAt = new Date();
+        if (status === "COMPLETED") updatefields.completedAt = new Date();
+        if (status === "CANCELLED") updatefields.cancelledAt = new Date();
 
         if (!status || !OrderId) return res.status(400).json({ message: "Please provide OrderId and status (eg. PENDING, ACCEPTED, PREPARING, OUT FOR DELIVERY, COMPLETED, CANCELLED )" }) //(`Pending`, `Accepted`, `Preparing`, `Out for Delivery`, `Completed`, `Cancelled`)
 
@@ -124,7 +131,7 @@ const updateorder = async (req, res) => {
                 orderid: OrderId,
                 vendor: vendorprofile._id
             },
-            { status: status },
+            updatefields,
             { new: true }
         );
 
