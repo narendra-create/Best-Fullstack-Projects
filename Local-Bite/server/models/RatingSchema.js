@@ -6,6 +6,7 @@ const Rating = new Schema({
     vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
     order: { type: Schema.Types.ObjectId, ref: 'Order', required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
+    tags: { type: Array },
     review: { type: String },
     createdAt: { type: Date, default: Date.now }
 })
