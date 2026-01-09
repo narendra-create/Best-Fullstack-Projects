@@ -26,7 +26,7 @@ const OrderHistory = () => {
     return (
         <div>
             <h1 className='text-2xl rounded-2xl font-bold text-center mt-2 mx-1 pr-6 pb-5 text-white pt-6 bg-chili-red'>My Orders</h1>
-            <div className='mt-2 flex flex-col'>
+            <div className='mt-2 md:mx-auto flex flex-col md:grid md:grid-cols-3 md:items-start md:justify-center md:mt-8 md:w-[70%]'>
                 {Orders && Orders.map((order) => {
                     return <OrderCard key={order.orderid} order={order} />
                 })}
