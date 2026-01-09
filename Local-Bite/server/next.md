@@ -27,6 +27,7 @@
 - make cash on delivery system payment --done
 - make function to pay for order--done
 - make rating system
+- add new times and dates for orderschema
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"

@@ -76,6 +76,8 @@
 - [x] make current orders pay now button when user uses cod else make it cancel button
 - [x] make loader in currentorders page for customer
 - [x] type logic for paying in currentorders page when isonlinepayment
-- [ ] make order card for history
+- [x] make order card for history
 - [ ] integrate rating system in ordercard
-- [ ] make new page for detailed rating
+- [x] make new page for detailed rating
+- [x] solve completed at date issue
+- [ ] fix vendor dashboard ui issue
