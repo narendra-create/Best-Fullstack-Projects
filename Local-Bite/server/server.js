@@ -10,6 +10,7 @@ import cors from 'cors';
 import authMiddleware from "./middlewares/jwtcheck.js";
 import cartrouter from "./routes/CartRoutes.js";
 import verifyrouter from "./routes/PaymentRoutes.js";
+import reviewrouter from './routes/ReviewRoutes.js'
 
 
 const app = express();
@@ -67,6 +68,7 @@ app.get('/api/verify', authMiddleware, (req, res) => {
 
 //TELL Express to use vendor routes for any request starting with /api/vendor
 app.use('/api/vendor', VendorRoutes);
+app.use('/api/review', reviewrouter)
 app.use('/api/product', ProductRoutes);
 app.use('/api/order', orderrouter);
 app.use('/api/cart', cartrouter);
