@@ -5,6 +5,7 @@ import { Star } from 'lucide-react';
 const OrderCard = ({ order, submitreview }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRating, setSelectedRating] = useState(0);
+    const [Review, setReview] = useState("")
     const [tags, setTags] = useState([]);
 
     const quickTags = ["Fast Delivery", "Hot Food", "Great Packaging", "Portion Size"];
@@ -14,7 +15,7 @@ const OrderCard = ({ order, submitreview }) => {
         setIsModalOpen(true);
     };
 
-    console.log(order.items.length)
+    console.log(Review, tags)
 
     const formatTime = (date) => {
         if (!date) return "—";
@@ -46,7 +47,7 @@ const OrderCard = ({ order, submitreview }) => {
                 {order.items.length > 1 && (<div className="mt-4 pt-1 border-t">
                     <div className='pb-2 pl-1 border-b mb-1'>
                         {order?.items?.map((item) => {
-                            return <div>{item.product.name} x {item.quantity}</div>
+                            return <div key={item.product.name}>{item.product.name} x {item.quantity}</div>
                         })}
                     </div>
                 </div>
@@ -94,10 +95,11 @@ const OrderCard = ({ order, submitreview }) => {
                                 className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-orange-400 outline-none"
                                 placeholder="Tell us more (optional)..."
                                 rows="3"
+                                onChange={(e) => setReview(e.target.value)}
                             />
 
                             <button
-                                onClick={() => { alert("Saved!"); setIsModalOpen(false); }}
+                                onClick={() => submitreview(selectedRating, order._id, tags, Review, order.vendor)}
                                 className="w-full bg-black text-white font-bold py-4 rounded-xl mt-6 hover:bg-gray-800"
                             >
                                 Submit Review
