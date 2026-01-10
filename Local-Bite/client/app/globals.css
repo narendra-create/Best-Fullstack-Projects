@@ -165,3 +165,19 @@
     }
   }
 }
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll var(--duration) linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-1 * var(--half-width)));
+  }
+}

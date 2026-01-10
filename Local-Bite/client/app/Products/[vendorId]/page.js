@@ -9,6 +9,46 @@ const Products = ({ params }) => {
 
     const [vendor, setvendor] = useState()
 
+
+    const ReviewCard = ({ name, text }) => {
+        return (
+            <div className="bg-white px-4 mx-2 py-3 rounded-xl shadow-lg min-w-[220px]">
+                <p className="font-semibold">{name}</p>
+                <p className="text-sm text-gray-600">{text}</p>
+            </div>
+        );
+    };
+
+    const CarouselRow = ({ direction, children, speed = 30 }) => {
+        const ref = React.useRef(null);
+
+        useEffect(() => {
+            const el = ref.current;
+            if (!el) return;
+
+            const totalWidth = el.scrollWidth;
+            el.style.setProperty("--half-width", `${totalWidth / 2}px`);
+            el.style.setProperty("--duration", `${speed}s`);
+        }, []);
+
+        return (
+            <div className="w-full overflow-hidden">
+                <div
+                    ref={ref}
+                    className="carousel-track"
+                    style={{
+                        animationDirection: direction === "right" ? "reverse" : "normal",
+                    }}
+                >
+                    {children}
+                    {children}
+                </div>
+            </div>
+        );
+    };
+
+
+
     const getvendor = async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/${vendorId}`, { credentials: 'include' })
@@ -66,11 +106,57 @@ const Products = ({ params }) => {
     }
     if (isError) { return <p>Error: {error.message}</p> }
 
+    const reviews = [
+        { name: "Ramesh", text: "Best idli ever 😋" },
+        { name: "Pooja", text: "Sambar is fire 🔥" },
+        { name: "Amit", text: "Super hygienic" },
+        { name: "Neha", text: "Fast delivery 🚀" },
+        { name: "Rahul", text: "Worth every rupee" },
+    ];
+
+
     return (
         <div>
-            <div className='flex relative items-center justify-center font-bold text-4xl text-black w-full h-118'>
-                <img src={vendor?.imageUrl || '/restaurent-placeholder.jpg'} alt="Restaurent image" className='w-full h-full object-cover object-center opacity-90 blur-xs' />
+            <div className="relative w-full h-[420px] overflow-hidden">
+
+                <img
+                    src={vendor?.imageUrl || "/restaurent-placeholder.jpg"}
+                    className="absolute w-full h-full object-cover"
+                />
+
+                {/* dark overlay */}
+                <div className="absolute inset-0 bg-black/50" />
+                {/* ROW 1 */}
+                <div className="absolute top-22 w-full mx-3">
+                    <CarouselRow speed={15} direction="right">
+                        {reviews.map((r, i) => <ReviewCard key={i} {...r}/>)}
+                    </CarouselRow>
+                </div>
+
+                {/* ROW 2 */}
+                <div className="absolute top-42 w-full mx-3">
+                    <CarouselRow speed={10} direction="left">
+                        {reviews.map((r, i) => <ReviewCard key={i} {...r} />)}
+                    </CarouselRow>
+                </div>
+
+                {/* ROW 3 */}
+                <div className="absolute top-62 w-full mx-3">
+                    <CarouselRow speed={15} direction="right">
+                        {reviews.map((r, i) => <ReviewCard key={i} {...r} />)}
+                    </CarouselRow>
+                </div>
+
+
+
+                {/* Rating box */}
+                <div className="absolute bottom-2 left-6 bg-white px-4 py-3 rounded-xl shadow-xl font-bold">
+                    ⭐ {vendor.averagerating ? vendor.averagerating : "NEW"}<br />
+                    {vendor.totalratings ? vendor.totalratings : "No"} reviews
+                </div>
+
             </div>
+
             <hr className='bg-black w-full h-1' />
             <div className='text-5xl font-bold text-black ml-12 mt-10 font-sans'>Our Menu-</div>
             <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mt-44 mb-30 w-422'>
