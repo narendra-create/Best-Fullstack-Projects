@@ -117,9 +117,9 @@ const DashBoard = () => {
 
   //main page here
   return (
-    <div className='text-black mx-auto h-screen w-full flex items-center justify-center'>
+    <div className='text-black mx-auto h-screen w-[99rem] flex gap-2 items-center justify-center'>
       <section className='flex flex-col w-full h-screen pt-5'>
-        <div className='w-full pl-8'>
+        <div className='w-full pl-4'>
           <div className='text-4xl font-bold mb-3'>Dashboard</div>
 
           <div className="inline-flex rounded-base -space-x-px shadow-[0_8px_30px_rgb(0,0,0,0.12)]" role="group">
@@ -135,31 +135,31 @@ const DashBoard = () => {
           </div>
 
         </div>
-        <div className='w-full flex mb-5 items-center justify-between px-5 mt-10'>
-          <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+        <div className='w-full flex mb-5 items-center justify-between pl-5 pr-9 mt-10'>
+          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Total Revenue</div>
             {Stats && !StatsLoading ? <div className='text-4xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-4'>₹</div>
           </div>
-          <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Sales</div>
             {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-5'>
               <img src="/tag-fill.svg" alt="💰" />
             </div>
           </div>
-          <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Active Orders</div>
             {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
             <div className='absolute text-3xl font-bold right-7 top-4'>
               <img src="/note-fill.svg" alt="📝" />
             </div>
           </div>
-          <div className='bg-gray-100 w-106 border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
             <div className='text-2xl'>Actions</div>
             <div className='text-4xl font-bold pl-9'>
               <label className="inline-flex items-center cursor-pointer">
-                <span className="text-2xl font-medium">Close Shop</span>
+                <span className="text-xl font-medium">Close Shop</span>
                 <input
                   type="checkbox"
                   className="sr-only peer"
@@ -172,7 +172,7 @@ const DashBoard = () => {
                 />
                 <div className="relative mx-3 w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-full">
                 </div>
-                <span className="text-2xl font-medium">Open Shop</span>
+                <span className="text-xl font-medium">Open Shop</span>
               </label>
 
             </div>
@@ -184,22 +184,22 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-        <div className='w-full flex px-6 h-full pb-13 justify-between'>
-          <div className='bg-gray-50 border-3 border-gray-300 w-280 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
-            <h3 className='text-4xl font-bold pl-12 mb-10'>OverView</h3>
+        <div className='w-full flex px-5 h-full pb-13 gap-2'>
+          <div className='bg-gray-50 border-3 border-gray-300 w-260 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
+            <h3 className='text-4xl font-bold pl-15 mb-10'>OverView</h3>
             <div className='w-full px-2 h-[90%]'>
               {report && !graphLoading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 
-          <div className='rounded-2xl overflow-auto bg-gray-100 w-152 h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
+          <div className='rounded-2xl overflow-auto bg-gray-100 w-[30rem] h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
             <div className='text-3xl font-semibold mb-8'>Recent Sales</div>
             {Stats && !StatsLoading ? (Stats && Stats.recentsales.map((person) => {
-              return <div key={person._id} className='flex mb-4 pb-5 border-b-3 border-gray-300 items-center w-full justify-between'>
+              return <div key={person._id} className='flex mb-4 pb-4 border-b-3 border-gray-300 items-center w-full justify-between'>
                 <div className='flex items-center gap-2'>
-                  <img src="/user-circle-fill.svg" alt="👤" className='size-12' />
+                  <img src="/user-circle-fill.svg" alt="👤" className='size-11' />
                   <div className='flex flex-col'>
-                    <h3 className='text-xl'>{person.user.name}</h3>
+                    <h3 className='text-lg'>{person.user.name}</h3>
                     <p className='text-sm text-gray-500'>{person.user.email}</p>
                   </div>
                 </div>

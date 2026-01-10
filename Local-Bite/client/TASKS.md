@@ -80,5 +80,5 @@
 - [x] integrate rating system in ordercard
 - [x] make new page for detailed rating
 - [x] solve completed at date issue
-- [ ] fix vendor dashboard ui issue
 - [x] fix homepage vendor card grid
+- [x] fix vendor dashboard ui issue
