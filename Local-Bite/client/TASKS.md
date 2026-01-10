@@ -82,5 +82,5 @@
 - [x] solve completed at date issue
 - [x] fix homepage vendor card grid
 - [x] fix vendor dashboard ui issue
-- [ ] show vendor ratings in vendor page 
+- [x] show vendor ratings in vendor page 
 - [x] show ratings in vendor card
