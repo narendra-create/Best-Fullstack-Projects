@@ -81,3 +81,4 @@
 - [x] make new page for detailed rating
 - [x] solve completed at date issue
 - [ ] fix vendor dashboard ui issue
+- [x] fix homepage vendor card grid
