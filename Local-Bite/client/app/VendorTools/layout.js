@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/page";
 import { useAuth } from "../contexts/AuthContext";
 import { ToastContainer, toast, Slide } from 'react-toastify'
+import PhoneButtons from "../components/PhoneButtons/page";
 
 export default function VendorToolsLayout({ children }) {
     const { User, refreshUser, isLoading } = useAuth();
@@ -15,7 +16,7 @@ export default function VendorToolsLayout({ children }) {
                 console.log(res)
                 throw new Error("Unable to fetch")
             }
-            const data  = await res.json();
+            const data = await res.json();
             setvendor(data.data)
         }
         catch (err) {
@@ -80,7 +81,7 @@ export default function VendorToolsLayout({ children }) {
     }
 
     return (
-        <div className="flex">
+        <div className="md:flex w-full overflow-x-hidden md:w-full">
             <ToastContainer position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
@@ -93,12 +94,15 @@ export default function VendorToolsLayout({ children }) {
                 theme="colored"
                 transition={Slide} />
             {/* Sidebar */}
-            <div className="w-68 bg-gray-900 text-white fixed left-0">
+            <div className="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white hidden md:block z-40">
                 <Sidebar User={User} handlelogout={handleLogout} vendor={vendor} />
+            </div>
+            <div className="md:hidden block">
+                <PhoneButtons />
             </div>
 
             {/* Page Content */}
-            <div className="ml-64 w-full p-6">
+            <div className="md:ml-64 md:w-full md:p-6 pt-16">
                 {children}
             </div>
         </div>
