@@ -117,7 +117,7 @@ const DashBoard = () => {
 
   //main page here
   return (
-    <div className='text-black mx-auto h-screen w-[99rem] flex gap-2 items-center justify-center'>
+    <div className='text-black mx-auto h-screen md:w-[99rem] flex gap-2 items-center justify-center'>
       <section className='flex flex-col w-full h-screen pt-5'>
         <div className='w-full pl-4'>
           <div className='text-4xl font-bold mb-3'>Dashboard</div>
@@ -135,69 +135,72 @@ const DashBoard = () => {
           </div>
 
         </div>
-        <div className='w-full flex mb-5 items-center justify-between pl-5 pr-9 mt-10'>
-          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
-            <div className='text-2xl'>Total Revenue</div>
-            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
-            <div className='absolute text-3xl font-bold right-7 top-4'>₹</div>
-          </div>
-          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
-            <div className='text-2xl'>Sales</div>
-            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
-            <div className='absolute text-3xl font-bold right-7 top-5'>
-              <img src="/tag-fill.svg" alt="💰" />
+        <div className='w-full md:flex md:flex-row flex flex-col md:mb-5 mb-6 items-center justify-center md:justify-between pl-3 md:pl-5 md:pr-9 pr-3 gap-2 mt-10'>
+          <div id='upper-part' className='flex gap-3 md:gap-5'>
+            <div className='bg-gray-100 md:w-[23rem] w-[12rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
+              <div className='md:text-2xl text-md'>Active Orders</div>
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
+              <div className='absolute md:size-8 size-6  font-bold md:right-7 right-4 md:top-4 top-5'>
+                <img src="/note-fill.svg" alt="📝" />
+              </div>
+            </div>
+            <div className='bg-gray-100 md:w-[23rem] w-[12rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
+              <div className='md:text-2xl text-md'>Sales</div>
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
+              <div className='absolute md:size-8 size-6 font-bold right-7 top-5'>
+                <img src="/tag-fill.svg" alt="💰" />
+              </div>
             </div>
           </div>
-          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
-            <div className='text-2xl'>Active Orders</div>
-            {Stats && !StatsLoading ? <div className='text-4xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
-            <div className='absolute text-3xl font-bold right-7 top-4'>
-              <img src="/note-fill.svg" alt="📝" />
+          <div id='lower-part' className='md:flex flex md:flex-row flex-col gap-2 md:gap-5'>
+            <div className='bg-gray-100 md:w-[23rem] w-[25rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+              <div className='md:text-2xl text-xl'>Total Revenue</div>
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
+              <div className='absolute md:text-3xl text-2xl font-bold right-7 top-4'>₹</div>
             </div>
-          </div>
-          <div className='bg-gray-100 w-[23rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
-            <div className='text-2xl'>Actions</div>
-            <div className='text-4xl font-bold pl-9'>
-              <label className="inline-flex items-center cursor-pointer">
-                <span className="text-xl font-medium">Close Shop</span>
-                <input
-                  type="checkbox"
-                  className="sr-only peer"
-                  checked={isshopopen}
-                  onChange={() => {
-                    const newvalue = !isshopopen
-                    setisshopopen(newvalue);
-                    setshop(newvalue)
-                  }}
-                />
-                <div className="relative mx-3 w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-full">
-                </div>
-                <span className="text-xl font-medium">Open Shop</span>
-              </label>
-
-            </div>
-            <div className='absolute text-3xl font-bold right-7 top-4'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8">
-                <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z" />
-                <path fillRule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z" clipRule="evenodd" />
-              </svg>
+            <div className='bg-gray-100 md:w-[23rem] w-[25rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+              <div className='md:text-2xl text-xl'>Actions</div>
+              <div className='md:text-4xl text-2xl font-bold md:pl-9 pl-12'>
+                <label className="inline-flex items-center cursor-pointer">
+                  <span className="md:text-xl text-lg font-medium">Close Shop</span>
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={isshopopen}
+                    onChange={() => {
+                      const newvalue = !isshopopen
+                      setisshopopen(newvalue);
+                      setshop(newvalue)
+                    }}
+                  />
+                  <div className="relative mx-3 w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-full">
+                  </div>
+                  <span className="md:text-xl text-lg font-medium">Open Shop</span>
+                </label>
+              </div>
+              <div className='absolute text-3xl font-bold right-7 top-4'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8">
+                  <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z" />
+                  <path fillRule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z" clipRule="evenodd" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
-        <div className='w-full flex px-5 h-full pb-13 gap-2'>
-          <div className='bg-gray-50 border-3 border-gray-300 w-260 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
-            <h3 className='text-4xl font-bold pl-15 mb-10'>OverView</h3>
-            <div className='w-full px-2 h-[90%]'>
+        <div className='w-full flex md:flex-row flex-col md:px-5 px-1 h-full pb-13 gap-5 md:gap-2'>
+          <div className='h-[70rem] bg-gray-50 border-3 border-gray-300 md:w-260 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
+            <h3 className='md:text-4xl text-2xl font-bold md:pl-15 pl-8 mb-10'>OverView</h3>
+            <div className='w-full md:px-2 px-1 h-[90%]'>
               {report && !graphLoading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 
-          <div className='rounded-2xl overflow-auto bg-gray-100 w-[30rem] h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
-            <div className='text-3xl font-semibold mb-8'>Recent Sales</div>
+          <div className='rounded-2xl overflow-auto bg-gray-100 md:w-[30rem] w-[26.5rem] h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
+            <div className='md:text-3xl text-2xl font-semibold mb-6 md:mb-8'>Recent Sales</div>
             {Stats && !StatsLoading ? (Stats && Stats.recentsales.map((person) => {
               return <div key={person._id} className='flex mb-4 pb-4 border-b-3 border-gray-300 items-center w-full justify-between'>
                 <div className='flex items-center gap-2'>
-                  <img src="/user-circle-fill.svg" alt="👤" className='size-11' />
+                  <img src="/user-circle-fill.svg" alt="👤" className='md:size-11 size-8' />
                   <div className='flex flex-col'>
                     <h3 className='text-lg'>{person.user.name}</h3>
                     <p className='text-sm text-gray-500'>{person.user.email}</p>
