@@ -381,7 +381,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👤 Author
 
-**Your Name**
+**Narendra Dubey**
 - GitHub: [@narendra-create](https://github.com/narendra-create)
 - LinkedIn: [Narendra Dubey](https://www.linkedin.com/in/narendra-dubey-7147042b8)
 - Email: namanworkplace@gmail.com
