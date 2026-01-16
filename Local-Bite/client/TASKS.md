@@ -60,7 +60,7 @@
 - [x] generate readme md for whole webapp
 - [ ] make ui responsive of all pages
 - [ ] make vendor menu page responsive
-- [ ] make vendor dashboard responsive
+- [x] make vendor dashboard responsive
 - [x] make homepage bg bigger in small screens
 - [x] add navlink feature on vendor dashboard
 - [x] fix the bg in register page
@@ -84,3 +84,5 @@
 - [x] fix vendor dashboard ui issue
 - [x] show vendor ratings in vendor page 
 - [x] show ratings in vendor card
+- [ ] sync data when user is logged in after adding items in cart
+- [ ] make the navigation buttons in the phonebuttons work
