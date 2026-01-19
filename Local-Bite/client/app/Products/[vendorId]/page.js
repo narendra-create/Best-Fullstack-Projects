@@ -151,15 +151,15 @@ const Products = ({ params }) => {
 
                 {/* Rating box */}
                 <div className="absolute bottom-2 left-6 bg-white px-4 py-3 rounded-xl shadow-xl font-bold">
-                    ⭐ {vendor.averagerating ? vendor.averagerating : "NEW"}<br />
-                    {vendor.totalratings ? vendor.totalratings : "No"} reviews
+                    ⭐ {vendor?.averagerating ? vendor?.averagerating : "NEW"}<br />
+                    {vendor?.totalratings ? vendor?.totalratings : "No"} reviews
                 </div>
 
             </div>
 
             <hr className='bg-black w-full h-1' />
-            <div className='text-5xl font-bold text-black ml-12 mt-10 font-sans'>Our Menu-</div>
-            <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mt-44 mb-30 w-422'>
+            <div className='md:text-5xl text-2xl font-bold text-black md:ml-12 ml-4 mt-8 md:mt-10 font-sans'>Our Menu-</div>
+            <div className='flex flex-col gap-8 md:grid md:grid-cols-2 items-center justify-center md:gap-y-10 mx-auto mt-8 md:mt-44 mb-8 md:mb-30 md:w-422'>
                 {products && products.map((product) => {
                     return <ProductCard product={product} key={product._id} />
                 })}
