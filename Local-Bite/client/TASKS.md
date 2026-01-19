@@ -84,5 +84,5 @@
 - [x] fix vendor dashboard ui issue
 - [x] show vendor ratings in vendor page 
 - [x] show ratings in vendor card
+- [x] make the navigation buttons in the phonebuttons work
 - [ ] sync data when user is logged in after adding items in cart
-- [ ] make the navigation buttons in the phonebuttons work

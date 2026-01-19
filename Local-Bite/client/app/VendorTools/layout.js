@@ -98,7 +98,7 @@ export default function VendorToolsLayout({ children }) {
                 <Sidebar User={User} handlelogout={handleLogout} vendor={vendor} />
             </div>
             <div className="md:hidden block">
-                <PhoneButtons />
+                <PhoneButtons logout={handleLogout}/>
             </div>
 
             {/* Page Content */}
