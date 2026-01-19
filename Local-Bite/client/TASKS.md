@@ -59,7 +59,7 @@
 - [x] make homepage responsive by putting vendors into a grid or row
 - [x] generate readme md for whole webapp
 - [ ] make ui responsive of all pages
-- [ ] make vendor menu page responsive
+- [x] make vendor menu page responsive
 - [x] make vendor dashboard responsive
 - [x] make homepage bg bigger in small screens
 - [x] add navlink feature on vendor dashboard
@@ -85,4 +85,6 @@
 - [x] show vendor ratings in vendor page 
 - [x] show ratings in vendor card
 - [x] make the navigation buttons in the phonebuttons work
-- [ ] sync data when user is logged in after adding items in cart
+- [x] sync data when user is logged in after adding items in cart
+- [ ] talk with backend for adding localitems to database in authcontext
+- [ ] feed real data in review array of vendor
