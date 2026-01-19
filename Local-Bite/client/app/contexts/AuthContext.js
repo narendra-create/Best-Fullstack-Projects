@@ -11,6 +11,22 @@ export const AuthProvider = ({ children }) => {
 
     const refreshUser = () => setReload(prev => !prev);
 
+    const synccart = async () => {
+        const localData = JSON.parse(localStorage.getItem("items")) || [];
+        let localitems = Array.isArray(localData) ? localData : [localData];
+        if (localitems.length === 0) {
+            setisLoading(false)
+        }
+        else if (localitems.length > 0) {
+           console.log(localitems)
+        }
+    }
+
+    useEffect(() => {
+        synccart()
+    }, [])
+
+
     useEffect(() => {
         const verifyUser = async () => {
             try {
