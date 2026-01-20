@@ -86,5 +86,5 @@
 - [x] show ratings in vendor card
 - [x] make the navigation buttons in the phonebuttons work
 - [x] sync data when user is logged in after adding items in cart
-- [ ] talk with backend for adding localitems to database in authcontext
+- [x] talk with backend for adding localitems to database in authcontext
 - [ ] feed real data in review array of vendor
