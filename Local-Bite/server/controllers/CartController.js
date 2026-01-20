@@ -196,4 +196,58 @@ const getsubtotal = async (req, res) => {
     }
 }
 
+const syncitems = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { items } = req.body;
+        if (!user) {
+            return res.status(401).json({ message: "Please Log in first" })
+        }
+        if (typeof items !== "Array") {
+            console.log(typeof items)
+        }
+        let cart = await Cart.findOne({ user: user })
+        if (!cart) {
+            cart = new Cart({
+                user: user,
+                items: []
+            })
+        }
+
+        for (const singleitem of items) {
+            const product = await Product.findById(singleitem.productid);
+            if (!product) continue;
+
+            if (cart.vendor && cart.vendor.toString() !== product.vendor.toString()) {
+                throw new Error("Cart can contain items from only one vendor")
+            }
+
+            const existingitem = await cart.items.find(
+                item => item.product.toString() === product._id.toString()
+            );
+
+            if (existingitem) {
+                existingitem.quantity += singleitem.quantity;
+            } else {
+                cart.items.push({
+                    product: product._id,
+                    quantity: singleitem.quantity,
+                    price: product.price,
+                    name: product.name
+                })
+            }
+
+            if (!cart.vendor) {
+                cart.vendor = product.vendor;
+            }
+        }
+        await cart.save();
+        return res.status(200).json({ message: "Sync Success" })
+    }
+    catch (err) {
+        console.log(err, "Error of syncitems")
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
 export { getCart, Additems, Deleteitems, Clearcart, updatequantity, getsubtotal };
