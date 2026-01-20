@@ -28,7 +28,7 @@
 - make function to pay for order--done
 - make rating system--done
 - add new times and dates for orderschema--done
-- make new function for adding items in bulk to cart
+- make new function for adding items in bulk to cart --done
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
