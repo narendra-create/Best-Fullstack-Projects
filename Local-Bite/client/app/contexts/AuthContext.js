@@ -18,13 +18,25 @@ export const AuthProvider = ({ children }) => {
             setisLoading(false)
         }
         else if (localitems.length > 0) {
-           console.log(localitems)
+            console.log(localitems)
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/cart/sync`, {
+                credentials: "include",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    items: localitems
+                })
+            })
+            if (!res.ok) {
+                throw new Error("Unable To fetch sync")
+            }
+            const data = await res.json();
+            localStorage.removeItem("items")
+            console.log(data, "This is data")
         }
     }
-
-    useEffect(() => {
-        synccart()
-    }, [])
 
 
     useEffect(() => {
@@ -34,6 +46,7 @@ export const AuthProvider = ({ children }) => {
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user)
+                    synccart();
                 }
                 else {
                     console.log("Authentication failed server responded with", res.status)
