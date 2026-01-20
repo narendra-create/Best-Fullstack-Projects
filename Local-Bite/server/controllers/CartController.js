@@ -250,4 +250,4 @@ const syncitems = async (req, res) => {
     }
 }
 
-export { getCart, Additems, Deleteitems, Clearcart, updatequantity, getsubtotal };
+export { getCart, Additems, Deleteitems, Clearcart, updatequantity, getsubtotal, syncitems };
