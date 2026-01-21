@@ -44,7 +44,7 @@ const placeOrder = async (req, res) => {
         //total price check 
         let calculatedprice = 0;
         const productids = items.map(item => item.product._id)
-        const productsfromdb = await Product.find({ _id: { $in: productids } })
+        const productsfromdb = await Product.find({ _id: { $in: productids }})
         let itemsforDB = [];
         for (const item of items) {
             const productid = item.product._id.toString();
