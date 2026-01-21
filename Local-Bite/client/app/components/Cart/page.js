@@ -20,6 +20,7 @@ const Cart = () => {
   const [vendordb, setvendordb] = useState()
   const [methodclick, setmethodclick] = useState(false)
   const [checkoutloading, setcheckoutloading] = useState(true)
+  const [inStock, setinStock] = useState()
 
 
   const loadcart = async () => {
@@ -34,6 +35,7 @@ const Cart = () => {
         setDeliveryCharge(data.data.deliverycharge || 0);
         setDiscount(data.data.discount);
         setPlatformFee(data.data.platformfee);
+        setinStock(data.data.items[0].product.stock);
         setGrandTotal(data.data.grandtotal);
         setvendordb(data.data.vendor)
       }
@@ -81,6 +83,11 @@ const Cart = () => {
     }
     setCartLoading(false);
   }
+
+  // useEffect(() => {
+  //   console.log(items)
+  //   console.log(inStock)
+  // }, [items, inStock])
 
   const clearcart = async () => {
     try {
@@ -237,6 +244,11 @@ const Cart = () => {
       //redirect to login page here
       return;
     }
+    if (!inStock) {
+      alert("One of your selected items is out of stock ❌")
+      return;
+    }
+
     if (items.length === 0 || !vendordb || !vendordb._id) {
       console.log(items, vendordb)
       alert("Your cart is empty or vendor missing")
@@ -332,6 +344,17 @@ const Cart = () => {
   }
 
   const handlecashpayment = async () => {
+
+    if (!User) {
+      alert("Please Log in first ❌")
+      //redirect to login page here
+      return;
+    }
+    if (!inStock) {
+      alert("One of your selected items is out of stock ❌")
+      return;
+    }
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/place-cash`, {
       credentials: "include"
       , method: "POST",
