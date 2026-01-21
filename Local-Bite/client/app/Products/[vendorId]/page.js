@@ -2,12 +2,16 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/app/Cards/ProductCard/page'
 import { useQuery } from '@tanstack/react-query'
+import repeatUntilEnough from '@/app/Utility/ReviewRepeater'
 
 const Products = ({ params }) => {
     const unwrapped = React.use(params);
     const vendorId = unwrapped.vendorId;
 
     const [vendor, setvendor] = useState()
+    const [Reviews, setReviews] = useState([])
+    const [AvrageRating, setAvrageRating] = useState()
+    const [Totalratings, setTotalratings] = useState()
 
 
     const ReviewCard = ({ name, text }) => {
@@ -27,7 +31,7 @@ const Products = ({ params }) => {
             if (!el) return;
 
             const totalWidth = el.scrollWidth;
-            el.style.setProperty("--half-width", `${totalWidth / 2}px`);
+            el.style.setProperty("--half-width", `${totalWidth}px`);
             el.style.setProperty("--duration", `${speed}s`);
         }, []);
 
@@ -67,6 +71,17 @@ const Products = ({ params }) => {
     }
 
 
+    const getreviews = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/review/get-reviews/${vendorId}`)
+        if (!res.ok) {
+            throw new Error("Reviews fetching error")
+        }
+        const data = await res.json();
+        setTotalratings(data.totalratings)
+        setAvrageRating(data.averagerating)
+        setReviews(data.ratings)
+        console.log(data)
+    }
 
     const getproducts = async () => {
         console.log(vendorId)
@@ -81,7 +96,10 @@ const Products = ({ params }) => {
 
     useEffect(() => {
         getvendor()
+        getreviews()
     }, [])
+
+    const resultreviews = repeatUntilEnough(Reviews, 10);
 
     const {
         data: products,
@@ -106,18 +124,9 @@ const Products = ({ params }) => {
     }
     if (isError) { return <p>Error: {error.message}</p> }
 
-    const reviews = [
-        { name: "Ramesh", text: "Best idli ever 😋" },
-        { name: "Pooja", text: "Sambar is fire 🔥" },
-        { name: "Amit", text: "Super hygienic" },
-        { name: "Neha", text: "Fast delivery 🚀" },
-        { name: "Rahul", text: "Worth every rupee" },
-    ];
-
-
     return (
         <div>
-            <div className="relative w-full h-[420px] overflow-hidden">
+            <div className="relative w-full h-[430px] overflow-hidden -mb-0.5">
 
                 <img
                     src={vendor?.imageUrl || "/restaurent-placeholder.jpg"}
@@ -127,23 +136,23 @@ const Products = ({ params }) => {
                 {/* dark overlay */}
                 <div className="absolute inset-0 bg-black/50" />
                 {/* ROW 1 */}
-                <div className="absolute top-22 w-full mx-3">
-                    <CarouselRow speed={15} direction="right">
-                        {reviews.map((r, i) => <ReviewCard key={i} {...r}/>)}
+                <div className="absolute top-22 md:w-[117rem] w-full bg-black mx-3">
+                    <CarouselRow speed={40} direction="right">
+                        {resultreviews.map((r, i) => <ReviewCard key={i} name={r?.user?.name} text={r.review} />)}
                     </CarouselRow>
                 </div>
 
                 {/* ROW 2 */}
-                <div className="absolute top-42 w-full mx-3">
-                    <CarouselRow speed={10} direction="left">
-                        {reviews.map((r, i) => <ReviewCard key={i} {...r} />)}
+                <div className="absolute top-42 md:w-[117rem] w-full mx-3">
+                    <CarouselRow speed={38} direction="left">
+                        {resultreviews.map((r, i) => <ReviewCard key={i} name={r?.user?.name} text={r.review} />)}
                     </CarouselRow>
                 </div>
 
                 {/* ROW 3 */}
-                <div className="absolute top-62 w-full mx-3">
-                    <CarouselRow speed={15} direction="right">
-                        {reviews.map((r, i) => <ReviewCard key={i} {...r} />)}
+                <div className="absolute top-62 md:w-[117rem] w-full mx-3">
+                    <CarouselRow speed={40} direction="right">
+                        {resultreviews.map((r, i) => <ReviewCard key={i} name={r?.user?.name} text={r.review} />)}
                     </CarouselRow>
                 </div>
 
@@ -157,7 +166,8 @@ const Products = ({ params }) => {
 
             </div>
 
-            <hr className='bg-black w-full h-1' />
+            <hr className='bg-gray-600 w-full h-1' />
+            <div className='md:text-6xl text-3xl poppins-medium-italic mx-auto md:px-16 px-10 rounded-b-2xl w-fit text-black text-center md:pb-5 pb-3 pt-3 md:pt-5 font-sans bg-white/80 backdrop-blur-xl shadow-2xl border-b-0.5 border-x-0.5 border-gray-600 text-shadow-lg md:first-letter:text-7xl first-letter:uppercase first-letter:text-4xl'>{vendor?.name}</div>
             <div className='md:text-5xl text-2xl font-bold text-black md:ml-12 ml-4 mt-8 md:mt-10 font-sans'>Our Menu-</div>
             <div className='flex flex-col gap-8 md:grid md:grid-cols-2 items-center justify-center md:gap-y-10 mx-auto mt-8 md:mt-44 mb-8 md:mb-30 md:w-422'>
                 {products && products.map((product) => {
