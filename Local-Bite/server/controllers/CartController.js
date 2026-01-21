@@ -6,7 +6,7 @@ import Cart from "../models/CartSchema.js";
 const getCart = async (req, res) => {
     try {
         const { user } = req.user;
-        const cart = await Cart.findOne({ user: user }).populate('items.product', 'name imageUrl').populate('vendor', 'name')
+        const cart = await Cart.findOne({ user: user }).populate('items.product', 'name imageUrl stock').populate('vendor', 'name')
         if (!cart) {
             return res.status(401).json({ message: "Your Cart is Empty" })
         }
@@ -26,9 +26,9 @@ const Additems = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product Not Found" });
         };
-        if (product.stock === false) {
-            return res.status(404).json({ message: "Product is sold out" })
-        }
+        // if (product.stock === false) {
+        //     return res.status(404).json({ message: "Product is sold out" })
+        // }
         const cart = await Cart.findOne({ user: user });
         //cart items
         const newitems = {
