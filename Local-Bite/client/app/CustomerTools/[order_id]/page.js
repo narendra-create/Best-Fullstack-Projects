@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import SingleCard from '@/app/Cards/CurrentOrder/Single'
+import Link from 'next/link'
 
 const OrderDetail = ({ params }) => {
     //load order values here
@@ -42,7 +43,7 @@ const OrderDetail = ({ params }) => {
                 <SingleCard order={Order} />
             </div>
             <footer className='md:hidden sticky h-22 flex items-end justify-evenly px-5 bg-white text-black bottom-0'>
-                <button className='border-2 border-red-200 bg-chili-red text-white px-6 py-3 rounded-lg mb-4'>Restaurent page</button>
+                <Link href={`/Products/${Order?.vendor._id}`} ><button className='border-2 border-red-200 bg-chili-red text-white px-6 py-3 rounded-lg mb-4'>Restaurent page</button></Link>
                 <button className='border-2 border-chili-red text-chili-red px-4 py-3 rounded-lg mb-4'>Cancel Order</button>
             </footer>
         </div>
