@@ -364,4 +364,4 @@ const cancelorder = async (req, res) => {
 
 
 
-export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder, payonline };
+export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder, payonline, cancelorder };
