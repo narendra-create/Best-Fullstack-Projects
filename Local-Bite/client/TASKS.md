@@ -89,6 +89,8 @@
 - [x] talk with backend for adding localitems to database in authcontext
 - [x] feed real data in review array of vendor
 - [ ] make restaurent page button and cancel orders button work in current orders single page
+- [ ] type logic for cancel orders button
 - [ ] fix ui issue in update status card in mobile screen
 - [ ] make detail page in order history
 - [ ] fix review stars , allow only single time click for each order
+- [ ] Integrate Adress in the website when ordering a food
