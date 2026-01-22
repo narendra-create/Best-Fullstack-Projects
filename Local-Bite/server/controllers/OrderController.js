@@ -2,7 +2,8 @@ import OrderModel from "../models/OrderSchema.js";
 import { nanoid } from "nanoid";
 import Vendor from "../models/VendorSchema.js";
 import Product from "../models/ProductSchema.js";
-import instance from '../config/razorpay.js'
+import instance from '../config/razorpay.js';
+import mongoose from "mongoose";
 
 const deliverycharge = 40;
 const platformfee = 2.4;
@@ -44,7 +45,7 @@ const placeOrder = async (req, res) => {
         //total price check 
         let calculatedprice = 0;
         const productids = items.map(item => item.product._id)
-        const productsfromdb = await Product.find({ _id: { $in: productids }})
+        const productsfromdb = await Product.find({ _id: { $in: productids } })
         let itemsforDB = [];
         for (const item of items) {
             const productid = item.product._id.toString();
@@ -327,5 +328,40 @@ const payonline = async (req, res) => {
         return res.status(500).json({ message: "Server Error" })
     }
 }
+
+const cancelorder = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { orderid } = req.params;
+        const cancelableorders = ["PENDING", "ACCEPTED"]
+
+        if (!mongoose.Types.ObjectId.isValid(orderid)) {
+            return res.status(400).json({ message: "Invalid Order ID" });
+        }
+        if (!user) {
+            return res.status(401).json({ message: "Please Log in first" })
+        }
+        if (!orderid) {
+            return res.status(404).json({ message: "Please Provide Order id" })
+        }
+        const findorder = await OrderModel.findOne({ _id: orderid, user: user })
+
+        if (!cancelableorders.includes(findorder.status)) {
+            return res.status(400).json({ message: "Cannot Cancel the order because it is already on the way or preparing" })
+        }
+
+        if (!findorder) return res.status(404).json({ message: "Order not found or you are not authorized" })
+
+        findorder.status = "CANCELLED";
+        await findorder.save();
+        return res.status(200).json({ message: `Order ${findorder.orderid} is Cancelled` })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+
 
 export { placeOrder, updateorder, orderHistory, getcurrentorders, getsingleorder, cashorder, payonline };
