@@ -62,7 +62,12 @@ const Order = new Schema({
 
     completedAt: Date,
 
-    cancelledAt: Date
+    cancelledAt: Date,
+    cancelledBy: {
+        type: String,
+        enum: ["user", "vendor"]
+    }
+
 })
 
 Order.pre('save', function (next) {
