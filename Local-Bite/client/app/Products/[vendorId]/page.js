@@ -136,7 +136,7 @@ const Products = ({ params }) => {
                 {/* dark overlay */}
                 <div className="absolute inset-0 bg-black/50" />
                 {/* ROW 1 */}
-                <div className="absolute top-22 md:w-[117rem] w-full bg-black mx-3">
+                <div className="absolute top-22 md:w-[117rem] w-full mx-3">
                     <CarouselRow speed={40} direction="right">
                         {resultreviews.map((r, i) => <ReviewCard key={i} name={r?.user?.name} text={r.review} />)}
                     </CarouselRow>

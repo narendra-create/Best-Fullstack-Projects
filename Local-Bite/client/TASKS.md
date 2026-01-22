@@ -90,8 +90,10 @@
 - [x] feed real data in review array of vendor
 - [x] make restaurent page button and cancel orders button work in current orders single page
 - [x] type logic for cancel orders button
-- [ ] fix ui issue in update status card in mobile screen
+- [x] fix ui issue in update status card in mobile screen
 - [ ] make detail page in order history
 - [ ] fix review stars , allow only single time click for each order
 - [ ] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
+- [ ] Redirect vendor to homepage after logout button clicked
+- [ ] fix price issue when user clicks pay not button in current orders

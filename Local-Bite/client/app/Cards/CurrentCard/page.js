@@ -68,7 +68,7 @@ const VendorProductsCard = ({ theme, Order, dbhandler }) => {
                         })}
                     </div>
                 </div>
-                <div className={`absolute top-8 right-7 text-sm md:text-lg font-medium font-mono border-2 ${color.border} px-3 py-1 rounded-xl`}>{Order.status}</div>
+                <div className={`absolute top-8 right-7 text-sm md:text-lg font-medium font-mono border-2 md:w-full max-w-[120px] break-words whitespace-normal ${color.border} px-3 text-center py-1 rounded-xl`}>{Order.status}</div>
                 {isEditing === false ? <div className='w-full flex mt-5 md:mt-8'>
                     <button onClick={() => {
                         if (Order.status === 'PENDING') {
