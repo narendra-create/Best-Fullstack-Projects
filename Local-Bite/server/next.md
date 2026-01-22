@@ -29,7 +29,7 @@
 - make rating system--done
 - add new times and dates for orderschema--done
 - make new function for adding items in bulk to cart --done
-- make a function to cancel orders
+- make a function to cancel orders --done
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
