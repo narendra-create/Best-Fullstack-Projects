@@ -9,9 +9,12 @@ const OrderHistory = () => {
     //functions
     const loadorders = async () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/history`, { credentials: "include" })
-        if (!res.ok) {
+        if (!res.ok && res.status != 404) {
             alert("Unable to Load orders")
             throw new Error("Unable to Load orders")
+        }
+        else if (res.status === 404) {
+            alert("No completed Orders Found")
         }
         const { orders } = await res.json();
         setOrders(orders)

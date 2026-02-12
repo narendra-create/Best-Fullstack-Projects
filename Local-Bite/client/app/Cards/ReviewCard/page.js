@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Star } from 'lucide-react';
+import Link from 'next/link';
 
 const OrderCard = ({ order, submitreview }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,22 +37,24 @@ const OrderCard = ({ order, submitreview }) => {
         <div className="p-4 md:p-1 bg-gray-50 flex flex-col items-center">
             {/*The Outside View */}
             <div className="w-full max-w-md bg-white rounded-xl shadow-md p-4 border hover:scale-103 transition-all ease-in-out duration-175 hover:mx-4 border-gray-100">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <h3 className="font-bold text-lg text-gray-800">{order?.vendor.name} <span className='font-semibold'>{order.items.length === 1 && `- ${order?.items[0].product.name}`}</span></h3>
-                        <p className="text-sm text-gray-500 font-medium">{order?.status} • {formatTime(order.completedAt)}</p>
+                <Link href={`/components/OrderDetail/${order._id}`}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className="font-bold text-lg text-gray-800">{order?.vendor.name} <span className='font-semibold'>{order.items.length === 1 && `- ${order?.items[0].product.name}`}</span></h3>
+                            <p className="text-sm text-gray-500 font-medium">{order?.status} • {formatTime(order.completedAt)}</p>
+                        </div>
+                        <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">₹{order?.grandtotal}</span>
                     </div>
-                    <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">₹{order?.grandtotal}</span>
-                </div>
 
-                {order.items.length > 1 && (<div className="mt-4 pt-1 border-t">
-                    <div className='pb-2 pl-1 border-b mb-1'>
-                        {order?.items?.map((item) => {
-                            return <div key={item.product.name}>{item.product.name} x {item.quantity}</div>
-                        })}
+                    {order.items.length > 1 && (<div className="mt-4 pt-1 border-t">
+                        <div className='pb-2 pl-1 border-b mb-1'>
+                            {order?.items?.map((item) => {
+                                return <div key={item.product.name}>{item.product.name} x {item.quantity}</div>
+                            })}
+                        </div>
                     </div>
-                </div>
-                )}
+                    )}
+                </Link>
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Rate your meal</p>
                 <div className="flex gap-2 mt-2">
                     {[1, 2, 3, 4, 5].map((star) => (
