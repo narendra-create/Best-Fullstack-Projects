@@ -210,7 +210,7 @@ const getsingleorder = async (req, res) => {
             res.status(400).json({ message: "Please give valid orderid" })
         }
         if (role === 'customer') {
-            const find = await OrderModel.findOne({ orderid: orderid }).populate('vendor', 'imageUrl name').populate('items.product', 'name price imageUrl').populate('user', 'name email')
+            const find = await OrderModel.findOne({ _id: orderid }).populate('vendor', 'imageUrl name').populate('items.product', 'name price imageUrl').populate('user', 'name email')
             return res.status(200).json({ message: "Fetch successfull", order: find })
         }
         else {
