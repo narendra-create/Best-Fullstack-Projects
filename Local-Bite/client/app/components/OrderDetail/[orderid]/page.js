@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useState, useEffect } from 'react';
+import Detailordercard from '@/app/Cards/OrderDetailcard/page';
 
 const Order = ({ params }) => {
     const { orderid } = React.use(params);
@@ -24,7 +25,9 @@ const Order = ({ params }) => {
     }, [Order])
 
     return (
-        <div>Order {Order?.items[0]?.product?.name}</div>
+        <div>
+            <Detailordercard order={Order} />
+        </div>
     )
 }
 
