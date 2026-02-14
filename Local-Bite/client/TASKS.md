@@ -91,7 +91,8 @@
 - [x] make restaurent page button and cancel orders button work in current orders single page
 - [x] type logic for cancel orders button
 - [x] fix ui issue in update status card in mobile screen
-- [ ] make detail page in order history
+- [x] make detail page in order history
+- [ ] type logic for detail page in [orderid]/page.js
 - [ ] fix review stars , allow only single time click for each order
 - [ ] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
