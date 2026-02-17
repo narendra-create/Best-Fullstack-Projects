@@ -2,20 +2,9 @@
 import React from 'react';
 
 
-const Detailordercard = ({ order }) => {
+const Detailordercard = ({ order, orderdate }) => {
 
-    const demo = [{
-        name: "Masala dosa",
-        qty: 2,
-        price: 25,
-        total: 50
-    },
-    {
-        name: "Masala Idli",
-        qty: 1,
-        price: 20,
-        total: 20
-    }]
+    const demo = order?.items;
 
     const background = order && order.status === "COMPLETED" ? "bg-coriander-green" : "bg-chili-red";
 
@@ -25,9 +14,9 @@ const Detailordercard = ({ order }) => {
             <hr className='bg-gray-600 h-[0.1rem] my-0.1 w-[95%]' />
             <div className='flex w-full justify-between gap-8 px-4 my-2'>
                 <div>
-                    <div>Order#: <span className='font-bold'>1235456</span></div>
-                    <div>Order Date: <span>February 13 2026</span></div>
-                    <div className='flex items-center gap-2'><span className='text-xl flex items-start'>Status:</span> <span className={`flex items-end ${background} font-semibold text-sm px-3 py-1 text-white  rounded-md`} >Completed</span></div>
+                    <div>Order#: <span className='font-bold'>{order?.orderid}</span></div>
+                    <div>Order Date: <span>{orderdate}</span></div>
+                    <div className='flex items-center gap-2'><span className='text-xl flex items-start'>Status:</span> <span className={`flex items-end ${background} font-semibold text-sm px-3 py-1 text-white  rounded-md`} >{order?.status}</span></div>
                 </div>
                 <div>
                     <div className='font-bold'>Shipping Adress:</div>
@@ -51,21 +40,22 @@ const Detailordercard = ({ order }) => {
                     <tbody className='px-5'>
                         {demo && demo.map((item, i) => (
                             <tr key={i} className='text-center text-md'>
-                                <td className='py-2 text-start mt-3 border-gray-300 border-b-2 pl-2'>{item.name}</td>
-                                <td className='py-2 border-gray-300 border-b-2 mt-3 font-bold'>{item.qty}</td>
+                                <td className='py-2 text-start mt-3 border-gray-300 border-b-2 pl-2'>{item.product.name}</td>
+                                <td className='py-2 border-gray-300 border-b-2 mt-3 font-bold'>{item.quantity}</td>
+                                <td className='py-2 border-gray-300 border-b-2 mt-3 font-bold'>{item.product.price}</td>
                                 <td className='py-2 border-gray-300 border-b-2 mt-3 font-bold'>{item.price}</td>
-                                <td className='py-2 border-gray-300 border-b-2 mt-3 font-bold'>{item.total}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
             <div className='flex flex-col self-end pr-5 w-[53%]'>
-                <div className='flex justify-between px-2'><span>Subtotal:</span> <span className='font-semibold'> $50</span></div>
-                <div className='flex justify-between px-2'><span>Delivery:</span> <span className='font-semibold'>$40</span></div>
-                <div className='flex justify-between px-2'><span>Tax:</span> <span className='font-semibold'>$4</span></div>
+                <div className='flex justify-between px-2'><span>Subtotal:</span> <span className='font-semibold'>{order?.subTotal}</span></div>
+                <div className='flex justify-between px-2'><span>Delivery:</span> <span className='font-semibold'>{order?.deliverycharge}</span></div>
+                <div className='flex justify-between px-2'><span>Platform fee:</span> <span className='font-semibold'>{order?.platformfee}</span></div>
                 <hr className='bg-gray-500 h-[0.2rem] w-full' />
-                <div className='flex justify-between text-lg font-bold'><span>Order Total:</span> <span>$100</span></div>
+                <div className='flex justify-between px-2'><span>Discount:</span> <span className='font-semibold'>{order?.discount}</span></div>
+                <div className='flex justify-between text-lg font-bold'><span>Order Total:</span> <span>{order?.grandtotal}</span></div>
             </div>
             <hr className='bg-gray-300 h-[0.1rem] w-[96%]' />
             <div className='flex w-full gap-5 justify-between mt-3 px-2'>
@@ -73,9 +63,8 @@ const Detailordercard = ({ order }) => {
                     <div className='px-3 font-bold'>Payment Method:</div>
                     <hr className='bg-gray-300 h-[0.2rem] w-[93%] mx-auto' />
                     <div className='px-4 pt-2 mt-3 font-semibold'>
-                        Credit Card(visa)
-                        <br />
-                        ************1234
+                        {order && order?.paymentStatus === "PAID" ? "UPI" : "Cash On Delivery"}
+                        {/* <br /> */}
                     </div>
                 </div>
                 <div className='bg-gray-100 w-[50%] pb-3 pt-2'>

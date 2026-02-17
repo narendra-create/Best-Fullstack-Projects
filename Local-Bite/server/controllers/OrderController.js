@@ -30,6 +30,8 @@ const placeOrder = async (req, res) => {
         const { user } = req.user;
         const { vendor, items, instructions } = req.body;
 
+        console.log(req.user)
+
         if (!vendor || !items || items.length === 0) return res.status(400).json({ message: "Missing required fields !" })
         //check if product exists and amount available in future 
 
@@ -70,6 +72,7 @@ const placeOrder = async (req, res) => {
             receipt: orderidref
         }
         // console.log(withtaxprice, calculatedprice, "This is the console", "and this is db items -", itemsforDB)
+        console.log(instance, options)
         const razorpayorder = await instance.orders.create(options);
 
         if (!razorpayorder) {
@@ -96,7 +99,7 @@ const placeOrder = async (req, res) => {
         });
     }
     catch (err) {
-        console.log(err)
+        console.log(err, "error from place order")
         res.status(500).json({ message: "Server Error" })
     }
 }

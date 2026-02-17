@@ -3,8 +3,11 @@ import React from 'react'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import { useState } from "react"
 import { useQuery } from '@tanstack/react-query'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 const AddProducts = () => {
+    const { User, isLoading, refreshUser } = useAuth();
+
     const [Currentfields, setCurrentfields] = useState({ name: "", quantity: 0, price: 0, description: "", type: "" })
     const [CurrentimgUrl, setCurrentimgUrl] = useState("")
     const [InputImage, setInputImage] = useState("")
@@ -28,8 +31,8 @@ const AddProducts = () => {
 
     const getVendorProducts = async (vendorId) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/MyProducts`, { credentials: "include" });
-        if (!res.ok) throw new Error("Fetch failed")
         const data = await res.json();
+        console.log(data)
         return data.products;
     }
 
@@ -51,10 +54,10 @@ const AddProducts = () => {
         setCurrentimgUrl(InputImage);
     }
 
-    const addFood = async (e, vendorId) => {
+    const addFood = async (e) => {
         e.preventDefault();
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/${vendorId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/product/add`, {
             credentials: 'include',
             method: 'POST',
             headers: {
@@ -125,7 +128,7 @@ const AddProducts = () => {
         </div>
     }
 
-    if (!user) return <div className='mx-auto w-107 mt-54 text-black font-bold text-4xl'>No vendor found 😅</div>;
+    if (!User) return <div className='mx-auto w-107 mt-54 text-black font-bold text-4xl'>No vendor found 😅</div>;
 
     return (
         <div className='overflow-hidden'>
@@ -169,7 +172,7 @@ const AddProducts = () => {
                     </div>
                     {/* the add section */}
                     <section className='h-96 w-215'>
-                        <form className="max-w-sm mx-auto" onSubmit={(e) => addFood(e, user.user)}>
+                        <form className="max-w-sm mx-auto" onSubmit={(e) => addFood(e)}>
                             <div className="mb-5">
                                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Product Name</label>
                                 <input required type="text" onChange={handleChange} id="name" name='name' className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-coriander-green focus:border-coriander-green block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-coriander-green dark:focus:border-coriander-green dark:shadow-xs-light" placeholder="CheeseCake" />

@@ -16,6 +16,7 @@ const Orders = () => {
                 throw new Error("Can't fetch")
             }
             const data = await res.json();
+            console.log(data)
             setneworders(data.neworders)
             setcurrentorders(data.ongoingorders)
             setLoading(false)

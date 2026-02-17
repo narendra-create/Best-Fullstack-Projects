@@ -61,6 +61,8 @@ const getVendorByUserid = async (req, res) => {
         const { onlyid } = req.params;
         const onlyidfix = onlyid === 'true';
 
+        // console.log(onlyid, user, role)
+
         if (role !== 'vendor') return res.status(401).json({ message: "User does not have vendor account" })
         const vendor = await Vendor.findOne({ user: user })
 

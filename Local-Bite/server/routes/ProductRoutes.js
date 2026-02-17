@@ -15,6 +15,6 @@ router.delete('/delete/:itemid', authMiddleware, removeproduct)
 //get all products of vendor
 router.get('/:vendorId', getProductbyVendor);
 //Add product (admin/vendor only)
-router.post('/:vendorId', authMiddleware, AddProduct); //remove vendor id and secure it after testing
+router.post('/add', authMiddleware, AddProduct); //remove vendor id and secure it after testing
 
 export default router;

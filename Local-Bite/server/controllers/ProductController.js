@@ -5,6 +5,7 @@ import Vendor from "../models/VendorSchema.js";
 const AddProduct = async (req, res) => {
     try {
         const { user, role } = req.user;
+        console.log(user, role)
         if (role !== "vendor") {
             return res.status(403).json({ message: "Only Vendors Can add products" })
         }
@@ -38,6 +39,7 @@ const getProductbyVendor = async (req, res) => {
     try {
         const { vendorId } = req.params;
         const pro = await Product.find({ vendor: vendorId });
+        console.log(pro)
         if (!pro) return res.status(404).json({ message: "Products not found" })
         res.json({ pro });
     } catch (error) {
@@ -62,6 +64,7 @@ const getProductsbyUser = async (req, res) => {
             return res.status(404).json({ message: "Vendor Not Found" })
         }
         const products = await Product.find({ vendor: vendorfound._id });
+        console.log(products)
         if (!products || products.length === 0) {
             return res.status(404).json({ message: "Your Product Catelog is Empty" })
         }

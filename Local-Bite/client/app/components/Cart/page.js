@@ -269,7 +269,7 @@ const Cart = () => {
       })
       if (!placeorderres.ok) {
         // console.log(placeorderres)
-        throw new Error("Failed to Create Order")
+        throw new Error(placeorderres.status, "Failed to Create Order")
       }
       const data = await placeorderres.json();
       console.log(data)

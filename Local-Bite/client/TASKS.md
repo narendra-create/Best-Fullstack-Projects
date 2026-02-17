@@ -98,3 +98,5 @@
 - [ ] Make a system for returning orders in order history
 - [ ] Redirect vendor to homepage after logout button clicked
 - [ ] fix price issue when user clicks pay not button in current orders
+- [x] fix the error while adding new products on vendor dashboard
+- [ ] fix the error of update status page on vendortools - not showing cash orders
