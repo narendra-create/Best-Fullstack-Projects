@@ -8,9 +8,9 @@
     "start": "nodemon --env-file=.env.local server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "narendra-create",
   "license": "ISC",
-  "description": "",
+  "description": "backend code for local-bite",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",

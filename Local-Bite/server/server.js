@@ -1,5 +1,5 @@
 import express from "express"
-// import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import connectdb from "./config/db.js";
 import VendorRoutes from './routes/VendorRoutes.js'
 import ProductRoutes from './routes/ProductRoutes.js'
@@ -12,7 +12,7 @@ import cartrouter from "./routes/CartRoutes.js";
 import verifyrouter from "./routes/PaymentRoutes.js";
 import reviewrouter from './routes/ReviewRoutes.js'
 
-
+dotenv.config();
 const app = express();
 const port = 5000;
 

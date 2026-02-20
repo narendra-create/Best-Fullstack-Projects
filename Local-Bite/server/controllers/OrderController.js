@@ -307,7 +307,6 @@ const payonline = async (req, res) => {
         const razorpayorder = await instance.orders.create(options);
 
         if (!razorpayorder) {
-            console.log(razorpayorder)
             return res.status(500).json({ message: "Error Creating order on Razorpay" })
         }
 
