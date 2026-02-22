@@ -3,6 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
 import Detailordercard from '@/app/Cards/OrderDetailcard/page';
+import submitreview from '@/app/Utility/ReviewPoster';
 
 const Order = ({ params }) => {
     const { orderid } = React.use(params);
@@ -56,8 +57,8 @@ const Order = ({ params }) => {
 
     return (
         <div>
-            <Detailordercard order={Order} />
-            <footer className='bottom-0 flex flex-col items-center pb-6 pt-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-t-2 sticky mt-6'>
+            <Detailordercard order={Order} ordertime={formatTime(Order?.completedAt)}/>
+            <footer className='bottom-0 bg-white flex flex-col items-center pb-6 pt-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-t-2 sticky mt-6'>
                 <p className="text-md text-center font-semibold text-gray-600 uppercase tracking-wider">Rate your meal</p>
                 <div className="flex gap-2 mt-5">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -107,7 +108,7 @@ const Order = ({ params }) => {
                                 />
 
                                 <button
-                                    onClick={() => submitreview(selectedRating, order._id, tags, Review, order.vendor)}
+                                    onClick={() => submitreview(selectedRating, Order._id, tags, Review, Order.vendor)}
                                     className="w-full bg-black text-white font-bold py-4 rounded-xl mt-6 hover:bg-gray-800"
                                 >
                                     Submit Review
