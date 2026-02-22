@@ -4,10 +4,13 @@ import Sidebar from "../components/Sidebar/page";
 import { useAuth } from "../contexts/AuthContext";
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import PhoneButtons from "../components/PhoneButtons/page";
+import { useRouter } from "next/navigation";
 
 export default function VendorToolsLayout({ children }) {
     const { User, refreshUser, isLoading } = useAuth();
     const [vendor, setvendor] = useState()
+
+    const router = useRouter();
 
     const vendorfind = async () => {
         try {
@@ -46,9 +49,9 @@ export default function VendorToolsLayout({ children }) {
                     theme: "colored",
                     transition: Slide,
                 });
-                setTimeout(() => {
+                setTimeout(async () => {
                     onClose(false)
-                    refreshUser();
+                    await refreshUser();
                     router.refresh();
                     router.push('/')
                 }, 2000);
@@ -76,9 +79,11 @@ export default function VendorToolsLayout({ children }) {
         return <div>Loading ...</div>
     }
 
-    if (!User && !isLoading) {
-        return <div>Please Log in First</div>
-    }
+    useEffect(() => {
+        if (!User && !isLoading) {
+            router.push("/")
+        }
+    }, [User, isLoading])
 
     return (
         <div className="md:flex w-full overflow-x-hidden md:w-full">
@@ -98,7 +103,7 @@ export default function VendorToolsLayout({ children }) {
                 <Sidebar User={User} handlelogout={handleLogout} vendor={vendor} />
             </div>
             <div className="md:hidden block">
-                <PhoneButtons logout={handleLogout}/>
+                <PhoneButtons logout={handleLogout} />
             </div>
 
             {/* Page Content */}

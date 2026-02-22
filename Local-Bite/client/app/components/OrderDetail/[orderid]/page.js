@@ -51,13 +51,15 @@ const Order = ({ params }) => {
         });
     };
 
+    const ordertime = Order?.status === "CANCELLED" ? formatTime(Order?.cancelledAt) : formatTime(Order?.completedAt)
+
     const toggleTag = (tag) => {
         setTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     };
 
     return (
         <div>
-            <Detailordercard order={Order} ordertime={formatTime(Order?.completedAt)}/>
+            <Detailordercard order={Order} ordertime={ordertime} />
             <footer className='bottom-0 bg-white flex flex-col items-center pb-6 pt-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-t-2 sticky mt-6'>
                 <p className="text-md text-center font-semibold text-gray-600 uppercase tracking-wider">Rate your meal</p>
                 <div className="flex gap-2 mt-5">

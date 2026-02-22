@@ -13,7 +13,7 @@ const Detailordercard = ({ order, ordertime }) => {
             <div className='flex w-full justify-between gap-8 px-4 my-2'>
                 <div>
                     <div>Order#: <span className='font-bold'>{order?.orderid}</span></div>
-                    <div>Order Date: <span>{ordertime}</span></div>
+                    <div>{order?.status === "CANCELLED" ? <span>Cancellation Date: <span>{ordertime}</span> </span> : <span>Order Date: <span>{ordertime}</span></span>}</div>
                     <div className='flex items-center gap-2'><span className='text-xl flex items-start'>Status:</span> <span className={`flex items-end ${background} font-semibold text-sm px-3 py-1 text-white  rounded-md`} >Completed</span></div>
                 </div>
                 <div>
