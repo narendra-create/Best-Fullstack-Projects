@@ -295,7 +295,7 @@ const payonline = async (req, res) => {
         if (order.paymentStatus === "PAID") {
             return res.status(400).json({ message: "Order Aleady Paid" })
         }
-        const withtaxprice = order.grandtotal + allcharges;
+        const withtaxprice = order.grandtotal;
 
 
         const options = {
