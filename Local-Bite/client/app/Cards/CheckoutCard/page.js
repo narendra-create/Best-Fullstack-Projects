@@ -46,11 +46,11 @@ const Checkout = ({ subTotal, discount, platformfee, deliverycharge, loading, gr
                     <div className='flex items-center gap-2 text-2xl pb-5'>
                         <img src="/mastercard-png.png" alt="MASTERCARD" />
                         •
-                        <img src="/visa.png" alt="VISA" className='w-[73px]' />
+                        <img src="/visa.png" alt="VISA" className='w-18.25' />
                         •
-                        <img src="/UPI-01.png" alt="UPI" className='w-[75px]' />
+                        <img src="/UPI-01.png" alt="UPI" className='w-18.25' />
                         •
-                        <img src="/money.svg" alt="COD" className='w-[45px]' />
+                        <img src="/money.svg" alt="COD" className='w-11.25' />
                     </div>
                 </div>
             </div>

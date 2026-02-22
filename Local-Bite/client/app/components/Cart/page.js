@@ -407,21 +407,21 @@ const Cart = () => {
               return <CartProduct key={key ? key : item.cartid} items={item} vendor={vendordb?.name ?? ''} handleremove={handleRemove} plus={plus} minus={minus} />
             }) : <div className='text-black'>Your cart is empty</div>}
           </div>
-          <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center justify-between px-2 py-2 mt-5 border-1 border-gray-100 bg-gray-50'>
+          <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center justify-between px-2 py-2 mt-5 border border-gray-100 bg-gray-50'>
             <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='pl-5 md:py-0 py-3.5 md:w-113 h-full focus:outline-1 outline-gray-400 bg-gray-50 rounded-lg' />
             <button className='bg-sev-yellow py-3 transition-all ease-in-out duration-150 hover:bg-yellow-700 hover:text-gray-100 px-3 rounded-xl text-gray-900 font-semibold focus:outline-1 outline-gray-400'>Apply</button>
           </div>
           <div className='flex flex-col md:mx-12 mt-5'>
             <label htmlFor="instructions" className='font-semibold mb-3 text-xl'>Special instructions for Restaurant</label>
-            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-gray-50 border-1 border-gray-100 resize-none rounded-lg ml-1 break-words whitespace-normal' />
+            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-gray-50 border border-gray-100 resize-none rounded-lg ml-1 wrap-break-words whitespace-normal' />
           </div>
         </div>
-        {methodclick ? <div className='md:w-[30%] w-[100%] p-5'>
+        {methodclick ? <div className='md:w-[30%] w-full p-5'>
           <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Choose Payment Method</h3>
           <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
             setmethodclick(false)
           }} handlecod={handlecashpayment} />
-        </div> : <div className='md:w-[30%] w-[100%] p-5'>
+        </div> : <div className='md:w-[30%] w-full p-5'>
           <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
           <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} methodclick={() => {
             setmethodclick(true)
