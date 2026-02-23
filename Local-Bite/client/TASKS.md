@@ -93,7 +93,7 @@
 - [x] fix ui issue in update status card in mobile screen
 - [x] make detail page in order history
 - [x] type logic for detail page in [orderid]/page.js
-- [ ] make detail order page responsive for big screens
+- [x] make detail order page responsive for big screens
 - [ ] fix review stars , allow only single time click for each order
 - [ ] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
