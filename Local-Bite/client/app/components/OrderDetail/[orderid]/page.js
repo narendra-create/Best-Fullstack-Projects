@@ -61,13 +61,12 @@ const Order = ({ params }) => {
         <div>
             <Detailordercard order={Order} ordertime={ordertime} />
             <footer className='bottom-0 bg-white flex flex-col items-center pb-6 pt-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-t-2 sticky mt-6'>
-                <p className="text-md text-center font-semibold text-gray-600 uppercase tracking-wider">Rate your meal</p>
-                <div className="flex gap-2 mt-5">
+                <p className="text-md md:text-xl text-center font-semibold text-gray-600 uppercase tracking-wider">Rate your meal</p>
+                <div className="flex gap-2 mt-5 md:mt-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                             key={star}
-                            size={28}
-                            className="hover:fill-amber-300 cursor-pointer transition-all active:scale-125"
+                            className="w-7 h-7 md:w-8 md:h-8 hover:fill-amber-300 cursor-pointer transition-all active:scale-125"
                             fill={star <= selectedRating ? "#FBBF24" : "none"}
                             color={star <= selectedRating ? "#FBBF24" : "#D1D5DB"}
                             onClick={() => openRatingModal(star)}
