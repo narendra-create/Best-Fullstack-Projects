@@ -2,6 +2,7 @@ import RatingModel from "../models/RatingSchema.js";
 import OrderModel from "../models/OrderSchema.js";
 import Vendor from "../models/VendorSchema.js";
 import Product from "../models/ProductSchema.js";
+import User from "../models/UserSchema.js";
 
 const submitreview = async (req, res) => {
     try {
@@ -86,4 +87,25 @@ const getratings = async (req, res) => {
     }
 }
 
-export { submitreview, getratings };
+const checkrating = async (req, res) => {
+    try {
+        const { user } = req.user;
+        const { orderid } = req.body;
+        if (!orderid) {
+            return res.status(400).json({ message: "Please Provide All the required fields" })
+        }
+        const findrating = await RatingModel.findOne({ user: user, order: orderid })
+
+        if (findrating) {
+            return res.status(409).json({ message: "Already Rated", rating: findrating.rating })
+        }
+
+        return res.status(404).json({ message: "Not Rated" })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { submitreview, getratings, checkrating };
