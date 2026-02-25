@@ -6,6 +6,7 @@ import Script from 'next/script'
 
 const OrderStatus = () => {
     const [Loading, setLoading] = useState(true)
+    const [Filter, setFilter] = useState("ALL")
     const [Orders, setOrders] = useState([])
 
     const loadorders = async () => {
@@ -118,8 +119,13 @@ const OrderStatus = () => {
     }, [])
     useEffect(() => {
         console.log(Orders)
-    }, [])
+    }, []);
 
+    const filteredorders = Orders?.filter((order) => {
+        if (Filter === "ALL") return true;
+        if (Filter === "PAID") return order.paymentStatus === "PAID";
+        if (Filter === "UNPAID") return order.paymentStatus === "CASH";
+    })
 
     if (Loading) {
         return <div className='loader w-full my-50 mx-auto'></div>
@@ -135,12 +141,13 @@ const OrderStatus = () => {
                 Current Orders:
             </h1>
             <div className='flex w-full mx-2 mb-5 text-white gap-3 pl-2 mt-5'>
-                <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Paid</button>
-                <button className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Unpaid</button>
+                <button onClick={() => setFilter("ALL")} className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>All</button>
+                <button onClick={() => setFilter("PAID")} className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Paid</button>
+                <button onClick={() => setFilter("UNPAID")} className='px-4 py-1 border-2 border-white focus:bg-white focus:text-black hover:bg-white hover:text-black transition-all ease-in-out duration-200 rounded-2xl text-md text-black'>Unpaid</button>
             </div>
             {Orders && Orders.length > 0 ? <div className='md:mx-18 mx-1.5 h-full md:grid grid-cols-3 items-start justify-center gap-5'>
-                {Orders && Orders.map((Order) => {
-                    return <Link href={`/CustomerTools/${Order.orderid}`} key={Order.orderid}> <Group order={Order} paynow={paynow} /></Link>
+                {filteredorders && filteredorders.map((Order) => {
+                    return <Link href={`/CustomerTools/${Order._id}`} key={Order.orderid}> <Group order={Order} paynow={paynow} /></Link>
                 })}
             </div> : <div className='md:mx-18 mx-1.5 h-full'>
                 You don't have Any Active Orders</div>
