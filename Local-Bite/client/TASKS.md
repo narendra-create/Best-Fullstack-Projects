@@ -94,9 +94,9 @@
 - [x] make detail page in order history
 - [x] type logic for detail page in [orderid]/page.js
 - [x] make detail order page responsive for big screens
+- [x] make paid and unpaid filter work in currentorders
+- [x] Redirect vendor to homepage after logout button clicked
+- [x] fix price issue when user clicks pay now button in current orders
 - [ ] fix review stars , allow only single time click for each order
 - [ ] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
-- [x] Redirect vendor to homepage after logout button clicked
-- [x] fix price issue when user clicks pay now button in current orders
-- [ ] make paid and unpaid filter work in currentorders
