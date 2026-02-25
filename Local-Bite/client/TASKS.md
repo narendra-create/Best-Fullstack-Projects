@@ -97,6 +97,6 @@
 - [ ] fix review stars , allow only single time click for each order
 - [ ] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
-- [ ] Redirect vendor to homepage after logout button clicked
+- [x] Redirect vendor to homepage after logout button clicked
 - [x] fix price issue when user clicks pay now button in current orders
 - [ ] make paid and unpaid filter work in currentorders
