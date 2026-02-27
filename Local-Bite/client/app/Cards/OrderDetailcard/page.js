@@ -112,4 +112,4 @@ const Detailordercard = ({ order, ordertime }) => {
     )
 }
 
-export default Detailordercard
+export default Detailordercard;
