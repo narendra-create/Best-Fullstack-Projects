@@ -5,7 +5,7 @@ import express from 'express';
 const reviewrouter = express.Router();
 
 reviewrouter.post('/submit', authMiddleware, submitreview);
-reviewrouter.get('/checkreview', authMiddleware, checkrating);
+reviewrouter.get('/checkreview/:orderid', authMiddleware, checkrating);
 reviewrouter.get('/get-reviews/:vendorid', getratings);
 
 export default reviewrouter;

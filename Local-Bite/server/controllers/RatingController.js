@@ -90,7 +90,7 @@ const getratings = async (req, res) => {
 const checkrating = async (req, res) => {
     try {
         const { user } = req.user;
-        const { orderid } = req.body;
+        const { orderid } = req.params;
         if (!orderid) {
             return res.status(400).json({ message: "Please Provide All the required fields" })
         }
