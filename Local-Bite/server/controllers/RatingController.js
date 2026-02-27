@@ -96,11 +96,10 @@ const checkrating = async (req, res) => {
         }
         const findrating = await RatingModel.findOne({ user: user, order: orderid })
 
-        if (findrating) {
-            return res.status(409).json({ message: "Already Rated", rating: findrating.rating })
-        }
-
-        return res.status(404).json({ message: "Not Rated" })
+        return res.status(200).json({
+            rated: !!findrating,
+            stars: findrating?.rating | null
+        });
     }
     catch (err) {
         console.log(err)
