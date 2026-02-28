@@ -34,6 +34,15 @@ const Order = new Schema({
         enum: ['PENDING', 'ACCEPTED', 'PREPARING', 'OUT FOR DELIVERY', 'COMPLETED', 'CANCELLED'],//Accepted', 'Preparing', 'Out for Delivery', 'Completed', 'Cancelled
         default: 'PENDING'
     },
+    deliveryAddress: {
+        street: String,
+        city: String,
+        state: String,
+        pincode: String,
+        landmark: String,
+        phone: String
+    },
+
     paymentStatus: {
         type: String,
         enum: ['PENDING', 'PAID', 'FAILED', 'CASH'],

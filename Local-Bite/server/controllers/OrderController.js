@@ -28,10 +28,10 @@ const generateOrderReference = () => {
 const placeOrder = async (req, res) => {
     try {
         const { user } = req.user;
-        const { vendor, items, instructions } = req.body;
+        const { vendor, items, instructions, deliveryAddress } = req.body;
 
-        if (!vendor || !items || items.length === 0) return res.status(400).json({ message: "Missing required fields !" })
-        //check if product exists and amount available in future 
+        if (!vendor || !items || items.length === 0 || !deliveryAddress) return res.status(400).json({ message: "Missing required fields !" })
+        //check if product exists and amount available in future
 
         const vendorexists = await Vendor.findOne({ _id: vendor })
         if (!vendorexists) {
@@ -81,6 +81,7 @@ const placeOrder = async (req, res) => {
             vendor: vendor,
             items: itemsforDB,
             status: "PENDING",
+            deliveryAddress: deliveryAddress,
             orderid: orderidref,
             instructions: instructions,
             paymentStatus: "PENDING",
