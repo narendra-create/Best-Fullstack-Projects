@@ -2,28 +2,38 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const User = new Schema({
-    name: { 
-        type: String, 
-        required: [true, 'Name is required'] 
+    name: {
+        type: String,
+        required: [true, 'Name is required']
     },
-    email: { 
-        type: String, 
-        required: [true, 'Email is required'], 
-        unique: true, 
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true,
         // match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please provide a valid email address']
     },
-    password: { 
-        type: String, 
+    password: {
+        type: String,
         required: [true, 'Password is required'],
     },
-    role: { 
-        type: String, 
-        required: [true, 'Role is required'], 
+    role: {
+        type: String,
+        required: [true, 'Role is required'],
         enum: {
             values: ["customer", "vendor"],
             message: 'Role must be either customer or vendor'
         }
     },
+    addresses: [{
+        label: String,    // "Home"
+        street: String,
+        city: String,
+        state: String,
+        pincode: String,
+        landmark: String,
+        phone: String,
+        isDefault: Boolean
+    }],
     //   Added timestamps for better tracking
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

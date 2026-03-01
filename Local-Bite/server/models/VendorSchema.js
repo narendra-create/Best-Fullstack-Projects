@@ -13,6 +13,13 @@ const vendorSchema = new Schema({
             message: 'Type must be either veg, non-veg or veg/non-veg'
         }
     },
+    address: {
+        street: String,
+        city: String,
+        state: String,
+        pincode: String,
+        landmark: String
+    },
     averagerating: { type: Number, min: 1, max: 5 },
     totalratings: { type: Number }
 })
