@@ -18,7 +18,8 @@ const vendorSchema = new Schema({
         city: String,
         state: String,
         pincode: String,
-        landmark: String
+        landmark: String,
+        phone: String
     },
     averagerating: { type: Number, min: 1, max: 5 },
     totalratings: { type: Number }
