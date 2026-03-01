@@ -97,4 +97,62 @@ const userlogout = async (req, res) => {
     }
 }
 
-export { userlogin, userregister, userlogout };
+const Addadress = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        const { address } = req.body;
+        if (!address && typeof address !== "object") {
+            return res.status(400).json({ message: "Address Required" })
+        }
+        if (!user) {
+            return res.status(409).json({ message: "Login First" })
+        }
+        if (role === "customer") {
+            const requiredfields = ["label", "street", "pincode", "phone"]
+            for (const field of requiredfields) {
+                if (!address[field] || address[field].trim() === "") {
+                    return res.status(400).json({ message: `${field} is required !!` })
+                }
+            }
+            const USER = await UserModel.findOne({ _id: user })
+            if (!USER) {
+                return res.status(404).json({ message: "User Not Found" })
+            }
+
+            const alreadyexists = USER.addresses?.length > 0;
+
+            const dbaddress = {
+                label: address.label,
+                street: address.street,
+                city: address.city,
+                state: address.state,
+                pincode: address.pincode,
+                landmark: address.landmark,
+                phone: address.phone,
+                isDefault: !alreadyexists
+            }
+
+            await USER.addresses.push(dbaddress);
+            await USER.save();
+            return res.status(200).json({ message: "Address Added !" })
+        }
+        else if (role === "vendor") {
+            const requiredfields = ["state", "street", "pincode", "phone"]
+            for (const field of requiredfields) {
+                if (!address[field] || address[field].trim() === "") {
+                    return res.status(400).json({ message: `${field} is required` })
+                }
+            }
+
+            const updatedvendor = await Vendor.findOneAndUpdate({ user: user }, { $set: { address } }, { new: true })
+            return res.status(200).json({ message: "Added successfully" })
+        }
+        res.status(400).json({ message: "Some Error occured" })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { userlogin, userregister, userlogout, Addadress };
