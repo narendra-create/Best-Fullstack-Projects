@@ -208,5 +208,44 @@ const getaddress = async (req, res) => {
     }
 }
 
+const updateaddress = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        const { addressid, updateddata } = req.body;
+        if (!updateddata) return res.status(400).json({ message: "Please Give updated address" });
 
-export { userlogin, userregister, userlogout, Addadress, removeaddress, getaddress };
+        if (!user) {
+            return res.status(401).json({ message: "Please Log in first" })
+        }
+        //dynamic key selector
+        const updates = {};
+        for (let key in updateddata) {
+            updates[`addresses.$.${key}`] = updateddata[key];
+        }
+        //logic for customer
+        if (role === "customer") {
+            if (!addressid) return res.status(400).json({ message: "Please Give Address _id" });
+            const newdata = await UserModel.findOneAndUpdate(
+                { _id: user, "addresses._id": addressid },
+                { $set: updates },
+            )
+            if (newdata.matchedCount === 0) {
+                return res.status(404).json({ message: "Address not found" });
+            }
+            return res.status(200).json({ message: "Address Updated Successfully" })
+        }
+        //logic for vendor
+        else if (role === "vendor") {
+            const result = await Vendor.findOneAndUpdate({ user: user }, { $set: { address: updates } })
+            if (result.matchedCount === 0) return res.status(404).json({ message: "Vendor Not Found" })
+            return res.status(200).json({ message: "Address Updated" })
+        }
+        return res.status(400).json({ message: "Some Error Occured" })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { userlogin, userregister, userlogout, Addadress, removeaddress, getaddress, updateaddress };
