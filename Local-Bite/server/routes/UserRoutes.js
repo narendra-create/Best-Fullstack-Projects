@@ -1,4 +1,4 @@
-import { userregister, userlogin, userlogout, Addadress, removeaddress } from "../controllers/UserController.js";
+import { userregister, userlogin, userlogout, Addadress, removeaddress, getaddress, updateaddress } from "../controllers/UserController.js";
 import authMiddleware from '../middlewares/jwtcheck.js'
 import express from 'express';
 
@@ -13,5 +13,7 @@ userroutes.get('/logout', userlogout);
 //For Addresses
 userroutes.post('/addaddress', authMiddleware, Addadress);
 userroutes.post('/removeaddress', authMiddleware, removeaddress);
+userroutes.get('/showaddress', authMiddleware, getaddress);
+userroutes.update('/updateaddress', authMiddleware, updateaddress);
 
 export default userroutes;
