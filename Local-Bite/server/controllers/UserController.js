@@ -184,4 +184,29 @@ const removeaddress = async (req, res) => {
     }
 }
 
-export { userlogin, userregister, userlogout, Addadress, removeaddress };
+const getaddress = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Please Login first!" })
+        }
+        if (role === "customer") {
+            const fetchuser = await UserModel.findOne({ _id: user })
+            if (!fetchuser) return res.status(404).json({ message: "User Not Found" })
+            return res.status(200).json({ message: "Addresses Fetched", Addresses: fetchuser.addresses })
+        }
+        if (role === "vendor") {
+            const findvendor = await Vendor.findOne({ user: user })
+            if (!findvendor) return res.status(404).json({ message: "Vendor Not Found" })
+            return res.status(200).json({ message: "Address Fetched", Address: findvendor.address })
+        }
+        return res.status(400).json({ message: "Some Error Occured" })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+
+export { userlogin, userregister, userlogout, Addadress, removeaddress, getaddress };
