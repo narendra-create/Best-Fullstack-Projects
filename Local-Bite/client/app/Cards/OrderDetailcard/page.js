@@ -5,6 +5,10 @@ import React from 'react';
 const Detailordercard = ({ order, ordertime }) => {
 
     const background = order && order.status === "COMPLETED" ? "bg-coriander-green" : "bg-chili-red";
+    const time = ordertime;
+
+    // console.log(order, "this is order faulted")
+    // console.log(ordertime, "This is Order time")
 
     return (
         <section className='h-screen w-full px-2 flex flex-col gap-2 items-center'>
@@ -14,7 +18,7 @@ const Detailordercard = ({ order, ordertime }) => {
                 <div className='flex w-full justify-between gap-8 px-4 md:my-5 my-2'>
                     <div>
                         <div className='md:text-xl md:mt-2'><span >Order#:</span> <span className='font-bold'>{order?.orderid}</span></div>
-                        <div className='md:text-xl md:mt-2'>{order?.status === "CANCELLED" ? <span>Cancellation Date: <span>{ordertime}</span> </span> : <span>Order Date: <span>{ordertime}</span></span>}</div>
+                        <div className='md:text-xl md:mt-2'>{order?.status === "CANCELLED" ? <span>Cancellation Date: <span>{time}</span> </span> : <span>Order Date: <span>{ordertime}</span></span>}</div>
                         <div className='flex items-center gap-2 md:text-xl md:mt-2'><span className='text-xl flex items-start'>Status:</span> <span className={`flex items-end ${background} font-semibold text-sm md:text-md px-3 py-1 text-white  rounded-md`} >Completed</span></div>
                     </div>
                     <div className='md:pr-60'>
@@ -50,7 +54,7 @@ const Detailordercard = ({ order, ordertime }) => {
                         </table>
                     </div>
                     <div className='flex flex-col self-end pr-5 w-[53%] md:w-[33%] md:hidden'>
-                        <div className='flex justify-between px-2'><span>Subtotal:</span> <span className='font-semibold'>₹{order?.subTotal}</span></div>
+                        <div className='flex justify-between px-2'><span>Subtotal:</span> <span className='font-semibold'>₹{order?.grandtotal || "--/--"}</span></div>
                         <div className='flex justify-between px-2'><span>Delivery:</span> <span className='font-semibold'>₹{order?.deliverycharge}</span></div>
                         <div className='flex justify-between px-2'><span>Tax:</span> <span className='font-semibold'>₹{order?.platformfee}</span></div>
                         <hr className='bg-gray-500 h-[0.2rem] w-full' />
@@ -67,19 +71,19 @@ const Detailordercard = ({ order, ordertime }) => {
                             <tbody>
                                 <tr className='py-2 text-start mt-3 border-gray-300 border-b-2'>
                                     <td className='pl-5 text-lg'>Subtotal:</td>
-                                    <td className='pr-5 font-semibold'>₹70</td>
+                                    <td className='pr-5 font-semibold'>₹{order?.subTotal}</td>
                                 </tr>
                                 <tr className='py-2 text-start mt-3 border-gray-300 border-b-2 pl-2'>
                                     <td className='pl-5 text-lg'>Delivery Charge:</td>
-                                    <td className='pr-5 font-semibold'>₹40</td>
+                                    <td className='pr-5 font-semibold'>₹{order?.deliverycharge}</td>
                                 </tr>
                                 <tr className='py-2 text-start mt-3 border-gray-300 border-b-2 pl-2'>
                                     <td className='pl-5 text-lg'>Platform fee:</td>
-                                    <td className='pr-5 font-semibold'>₹2.4</td>
+                                    <td className='pr-5 font-semibold'>₹{order?.platformfee}</td>
                                 </tr>
                                 <tr>
                                     <td className='text-right pr-10 text-lg font-semibold'>Order Total:</td>
-                                    <td className='text-lg font-bold pr-5'>₹100</td>
+                                    <td className='text-lg font-bold pr-5'>₹{order?.grandtotal}</td>
                                 </tr>
                             </tbody>
                         </table>
