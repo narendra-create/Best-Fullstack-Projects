@@ -39,7 +39,11 @@ app.get('/', (req, res) => {
         user: {
             register: '/api/auth/',
             login: "/api/auth/login",
-            logout: "/api/auth/logout"
+            logout: "/api/auth/logout",
+            addaddress: "/api/auth/addaddress",
+            removeaddress: "/api/auth/removeaddress",
+            showaddress: "/api/auth/showaddress",
+            updateaddress: "/api/auth/updateaddress"
         },
         orders: {
             place: '/api/order/place',
