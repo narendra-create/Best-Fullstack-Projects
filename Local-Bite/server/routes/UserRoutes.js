@@ -14,6 +14,6 @@ userroutes.get('/logout', userlogout);
 userroutes.post('/addaddress', authMiddleware, Addadress);
 userroutes.post('/removeaddress', authMiddleware, removeaddress);
 userroutes.get('/showaddress', authMiddleware, getaddress);
-userroutes.update('/updateaddress', authMiddleware, updateaddress);
+userroutes.patch('/updateaddress', authMiddleware, updateaddress);
 
 export default userroutes;
