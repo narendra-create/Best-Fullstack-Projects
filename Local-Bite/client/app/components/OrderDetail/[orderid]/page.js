@@ -69,7 +69,7 @@ const Order = ({ params }) => {
         });
     };
 
-    const ordertime = Order?.status === "CANCELLED" ? formatTime(Order?.cancelledAt) : formatTime(Order?.completedAt)
+    const ordertime = Order?.status === "CANCELLED" ? formatTime(Order?.cancelledAt) : formatTime(Order?.completedAt) || formatTime(Order?.createdAt)
 
     const toggleTag = (tag) => {
         setTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
