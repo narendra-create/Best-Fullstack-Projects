@@ -150,7 +150,7 @@ const MyAddresses = () => {
 
     const handlesubmitaddress = async (addressobject) => {
         console.log(addressobject)
-        if (!object) throw new Error("Please Fill the form and click submit");
+        if (!addressobject) throw new Error("Please Fill the form and click submit");
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/addaddress`, {
             credentials: "include",
             method: "POST",
@@ -189,6 +189,10 @@ const MyAddresses = () => {
                 theme: "colored",
                 transition: Slide,
             });
+            setTimeout(() => {
+                setpageloading(true);
+                fetchaddresses();
+            }, 1500);
         }
     }
     //useeffects
@@ -207,9 +211,8 @@ const MyAddresses = () => {
         </div>
     }
 
-    if (!isLoading && User) return <div>Please Log in first...</div>
+    if (!isLoading && !User) return <div>Please Log in first...</div>
 
-    const demo = [1, 2, 3, 4, 5]
     return (
         <div className='w-full min-h-screen bg-gray-100'>
             <ToastContainer position="top-center"
@@ -236,13 +239,16 @@ const MyAddresses = () => {
             <button onClick={() => setadding(true)} className='bg-white md:hidden shadow-[0px_0px_10px_-6px_rgba(0,0,0,0.35)] flex justify-center gap-8 w-[96%] mx-auto text-xl items-center h-14 rounded-lg border border-gray-400 my-2'>
                 <span className='text-center align-middle'><Plus /></span><span className='font-semibold'>Add New Address</span>
             </button>
-            <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
-                {demo && demo.map((single) => {
-                    return <div key={single} className='my-5'>
-                        <AddressCard updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} makedefault={handledefault} />
-                    </div>
-                })}
-            </div>
+            {!pageloading && Addresses.length === 0 ?
+                <div className='text-center text-2xl mt-20'>
+                    Please Add adress, your address list is empty.......
+                </div> : <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
+                    {Addresses && Addresses.map((single) => {
+                        return <div key={single._id} className='my-5'>
+                            <AddressCard adress={single} updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} />
+                        </div>
+                    })}
+                </div>}
             <AddressPopup isOpen={adding} onClose={() => setadding(false)} onSubmit={handlesubmitaddress} />
         </div>
     )
