@@ -98,7 +98,15 @@ const MyAddresses = () => {
         }
     }
 
+    const handleremoveaddress = async (addressid) => {
+        try {
 
+        }
+        catch (err) {
+            console.log(err)
+            throw new Error("Some Error occured in remove address")
+        }
+    }
 
     const handlesubmitaddress = async (addressobject) => {
         console.log(addressobject)
@@ -191,7 +199,7 @@ const MyAddresses = () => {
             <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
                 {demo && demo.map((single) => {
                     return <div key={single} className='my-5'>
-                        <AddressCard  />
+                        <AddressCard updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} makedefault={handledefault} />
                     </div>
                 })}
             </div>
