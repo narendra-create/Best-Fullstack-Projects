@@ -104,3 +104,4 @@
 - [ ] fix review stars on history page
 - [ ] fix cash orders not showing in orderstatusupdate page of vendor dashboard
 - [ ] fix review stars on homepage of user, inside vendorcard and page
+- [ ] make update address ui

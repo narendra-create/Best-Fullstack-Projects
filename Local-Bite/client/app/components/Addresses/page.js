@@ -45,6 +45,61 @@ const MyAddresses = () => {
         }
     }
 
+    const handleupdateaddress = async (updateddata, addressid) => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/updateaddress`, {
+                credentials: "include",
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    addressid: addressid,
+                    updateddata: updateddata
+                })
+            })
+            if (!res.ok) {
+                toast.error(`${data.message}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+                return;
+            }
+            else {
+                //refresh the page
+                toast.success('Update successfull✔️', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+
+                setTimeout(() => {
+                    setpageloading(true);
+                    fetchaddresses();
+                }, 1500);
+            }
+        }
+        catch (err) {
+            console.log(err)
+            throw new Error("Some error while updating address")
+        }
+    }
+
+
+
     const handlesubmitaddress = async (addressobject) => {
         console.log(addressobject)
         if (!object) throw new Error("Please Fill the form and click submit");
@@ -136,7 +191,7 @@ const MyAddresses = () => {
             <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
                 {demo && demo.map((single) => {
                     return <div key={single} className='my-5'>
-                        <AddressCard />
+                        <AddressCard  />
                     </div>
                 })}
             </div>

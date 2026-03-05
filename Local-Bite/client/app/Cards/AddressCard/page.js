@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddressCard = () => {
+const AddressCard = ({ updateaddress, removeaddress, makedefault }) => {
     return (
         <section className='bg-white hover:shadow-[0px_0px_6px_0px_rgba(0,0,0,0.2)] transition-all ease-in-out duration-150 hover:scale-101 shadow-[0px_0px_10px_-6px_rgba(0,0,0,0.35)] flex flex-col border border-gray-300 rounded-t-xl pt-5'>
             <div className='flex flex-col px-5 pb-4'>
