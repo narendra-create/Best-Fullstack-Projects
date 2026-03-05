@@ -98,8 +98,8 @@
 - [x] Redirect vendor to homepage after logout button clicked
 - [x] fix price issue when user clicks pay now button in current orders
 - [x] fix review stars , allow only single time click for each order
-- [ ] Integrate Adress in the website when ordering a food
-- [ ] make address page responsive to big screens
+- [x] make address page responsive to big screens
+- [x] Integrate Adress in the website when ordering a food
 - [ ] Make a system for returning orders in order history
 - [ ] fix review stars on history page
 - [ ] fix cash orders not showing in orderstatusupdate page of vendor dashboard
