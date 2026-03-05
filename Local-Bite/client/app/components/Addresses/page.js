@@ -100,7 +100,47 @@ const MyAddresses = () => {
 
     const handleremoveaddress = async (addressid) => {
         try {
-
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/removeaddress`, {
+                credentials: "include",
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    addressid: addressid
+                })
+            })
+            if (!res.ok) {
+                toast.error(`${data.message}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+                return;
+            }
+            else {
+                toast.success('Address Remove success✔️', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+                setTimeout(() => {
+                    setpageloading(true);
+                    fetchaddresses();
+                }, 1500);
+            }
         }
         catch (err) {
             console.log(err)
