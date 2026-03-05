@@ -12,7 +12,7 @@ userroutes.post('/login', userlogin);
 userroutes.get('/logout', userlogout);
 //For Addresses
 userroutes.post('/addaddress', authMiddleware, Addadress);
-userroutes.post('/removeaddress', authMiddleware, removeaddress);
+userroutes.delete('/removeaddress', authMiddleware, removeaddress);
 userroutes.get('/showaddress', authMiddleware, getaddress);
 userroutes.patch('/updateaddress', authMiddleware, updateaddress);
 
