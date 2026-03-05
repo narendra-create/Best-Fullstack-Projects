@@ -15,6 +15,34 @@ const MyAddresses = () => {
     const { User, isLoading } = useAuth();
     //functions
 
+    const fetchaddresses = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/showaddress`, { credentials: "include" })
+            if (!res.ok) {
+                toast.error(`${data.message}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+                return;
+            }
+            else {
+                const { Addresses } = await res.json();
+                setAddresses(Addresses);
+            }
+        }
+        catch (err) {
+            console.log(err)
+            throw new Error("Can't fetch addresses")
+        }
+    }
+
     const handlesubmitaddress = async (addressobject) => {
         console.log(addressobject)
         if (!object) throw new Error("Please Fill the form and click submit");
@@ -30,6 +58,7 @@ const MyAddresses = () => {
         })
 
         if (!res.ok) {
+            const data = await res.json();
             toast.error(`${data.message}`, {
                 position: "top-center",
                 autoClose: 2000,
@@ -44,7 +73,7 @@ const MyAddresses = () => {
             return;
         }
         else {
-            toast.success('Login successfull✔️', {
+            toast.success('successfully Added✔️', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
