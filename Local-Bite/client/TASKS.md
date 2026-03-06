@@ -101,8 +101,8 @@
 - [x] make address page responsive to big screens
 - [x] Integrate Adress in the website when ordering a food
 - [x] make a function for making address default
+- [x] fix review stars on homepage of user, inside vendorcard and page
 - [ ] Make a system for returning orders in order history
 - [ ] fix review stars on history page
 - [ ] fix cash orders not showing in orderstatusupdate page of vendor dashboard
-- [ ] fix review stars on homepage of user, inside vendorcard and page
 - [ ] make update address ui
