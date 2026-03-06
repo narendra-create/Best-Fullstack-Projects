@@ -46,11 +46,12 @@ const submitreview = async (req, res) => {
         ])
 
         const avg = stats.length ? stats[0].avg : stars;
+        const roundavg = Math.round(avg * 10) / 10;
         const count = stats.length ? stats[0].count : 1;
 
 
         await Vendor.findByIdAndUpdate(vendor, {
-            averagerating: avg,
+            averagerating: roundavg,
             totalratings: count
         })
 
