@@ -229,7 +229,7 @@ const updateaddress = async (req, res) => {
                 { _id: user, "addresses._id": addressid },
                 { $set: updates },
             )
-            if (newdata.matchedCount === 0) {
+            if (!newdata) {
                 return res.status(404).json({ message: "Address not found" });
             }
             return res.status(200).json({ message: "Address Updated Successfully" })
@@ -237,7 +237,7 @@ const updateaddress = async (req, res) => {
         //logic for vendor
         else if (role === "vendor") {
             const result = await Vendor.findOneAndUpdate({ user: user }, { $set: { address: updates } })
-            if (result.matchedCount === 0) return res.status(404).json({ message: "Vendor Not Found" })
+            if (!result) return res.status(404).json({ message: "Vendor Not Found" })
             return res.status(200).json({ message: "Address Updated" })
         }
         return res.status(400).json({ message: "Some Error Occured" })
@@ -248,4 +248,34 @@ const updateaddress = async (req, res) => {
     }
 }
 
-export { userlogin, userregister, userlogout, Addadress, removeaddress, getaddress, updateaddress };
+const makedefault = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        const { addressid } = req.params;
+        //checks
+        if (!user) return res.status(401).json({ message: "Please Log in first" });
+        if (role !== "customer") return res.status(409).json({ message: "Only Customers can set default address" });
+        if (!addressid) return res.status(400).json({ message: "Please send addressid in body!" });
+        //main work
+        //removing all old defaults
+        const removedefaults = await UserModel.updateOne({ _id: user },
+            { $set: { "addresses.$[].isDefault": false } }
+        )
+
+        const finduser = await UserModel.findOneAndUpdate(
+            { _id: user, "addresses._id": addressid },
+            { $set: { "addresses.$.isDefault": true } },
+            { new: true }
+        )
+        if (!finduser) {
+            return res.status(404).json({ message: "Address Not Found" })
+        }
+        return res.status(200).json({ message: "Now this address is default" })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { userlogin, userregister, userlogout, Addadress, removeaddress, getaddress, updateaddress, makedefault };
