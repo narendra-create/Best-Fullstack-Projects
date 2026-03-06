@@ -195,8 +195,50 @@ const MyAddresses = () => {
             }, 1500);
         }
     }
-    //useeffects
 
+    const makeaddressdefault = async (addressid) => {
+        if (!addressid) throw new Error("Please give addressid");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/makedefault/${addressid}`, {
+            credentials: "include",
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        if (!res.ok) {
+            toast.error(`${data.message}`, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Slide,
+            });
+            return;
+        }
+        else {
+            toast.success('Default address updated 👍', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Slide,
+            });
+            setTimeout(() => {
+                setpageloading(true);
+                fetchaddresses();
+            }, 1500);
+        }
+    }
+
+    //useeffects
     useEffect(() => {
         fetchaddresses();
     }, [])
@@ -245,7 +287,7 @@ const MyAddresses = () => {
                 </div> : <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
                     {Addresses && Addresses.map((single) => {
                         return <div key={single._id} className='my-5'>
-                            <AddressCard adress={single} updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} />
+                            <AddressCard adress={single} makedefault={makeaddressdefault} updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} />
                         </div>
                     })}
                 </div>}

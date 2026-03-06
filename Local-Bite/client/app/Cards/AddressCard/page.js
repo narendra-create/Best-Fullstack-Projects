@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddressCard = ({ updateaddress, removeaddress, adress, username }) => {
+const AddressCard = ({ updateaddress, removeaddress, adress, username, makedefault }) => {
 
     //  label: String,    // "Home"
     //     street: String,
@@ -23,8 +23,20 @@ const AddressCard = ({ updateaddress, removeaddress, adress, username }) => {
             </div>
             <div className='h-12 md:h-16 w-full flex items-center bg-gray-200'>
                 <button className='w-[32%] cursor-pointer h-[65%] md:h-[68%] text-md md:text-lg font-sans hover:text-blue-900 hover:font-semibold hover:scale-102 transition-all ease-in-out duration-150 text-blue-700'>Edit</button>
-                <button onClick={() => removeaddress(adress?._id)} className='w-[32%] cursor-pointer h-[65%] md:h-[68%] text-md md:text-lg font-sans hover:text-rose-900 hover:font-semibold hover:scale-102 transition-all ease-in-out duration-150 border-x border-gray-400 text-rose-700'>Delete</button>
-                <button className='w-[36%] cursor-pointer h-[65%] md:h-[68%] text-md md:text-lg font-sans hover:text-shadow-md hover:font-semibold hover:scale-102 transition-all ease-in-out duration-150'>Set Default</button>
+                <button onClick={() => {
+                    if (adress?.isDefault) {
+                        alert("You Can't remove default address")
+                    } else {
+                        removeaddress(adress?._id)
+                    }
+                }} className='w-[32%] cursor-pointer h-[65%] md:h-[68%] text-md md:text-lg font-sans hover:text-rose-900 hover:font-semibold hover:scale-102 transition-all ease-in-out duration-150 border-x border-gray-400 text-rose-700'>Delete</button>
+                <button onClick={() => {
+                    if (adress?.isDefault) {
+                        alert("Already Default")
+                    } else {
+                        makedefault(adress?._id)
+                    }
+                }} className='w-[36%] cursor-pointer h-[65%] md:h-[68%] text-md md:text-lg font-sans hover:text-shadow-md hover:font-semibold hover:scale-102 transition-all ease-in-out duration-150'>{adress?.isDefault ? "Default Address" : "Set Default"}</button>
             </div>
         </section>
     )
