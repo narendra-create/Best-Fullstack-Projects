@@ -103,6 +103,6 @@
 - [x] make a function for making address default
 - [x] fix review stars on homepage of user, inside vendorcard and page
 - [ ] Make a system for returning orders in order history
-- [ ] fix review stars on history page
+- [x] fix review stars on history page
 - [ ] fix cash orders not showing in orderstatusupdate page of vendor dashboard
 - [ ] make update address ui
