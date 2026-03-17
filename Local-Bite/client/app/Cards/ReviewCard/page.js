@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
 
-const OrderCard = ({ order, submitreview }) => {
+const ReviewCard = ({ order, submitreview }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRating, setSelectedRating] = useState(0);
@@ -116,4 +116,4 @@ const OrderCard = ({ order, submitreview }) => {
     );
 };
 
-export default OrderCard;
+export default ReviewCard;

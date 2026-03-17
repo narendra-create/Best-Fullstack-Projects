@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
-import OrderCard from '@/app/Cards/ReviewCard/page'
+import ReviewCard from '@/app/Cards/ReviewCard/page'
 import { useEffect, useState } from 'react'
-import submitreview from '@/app/Utility/ReviewPoster'
+import submitreview from '@/app/Utility/ReviewPoster';
 
 const OrderHistory = () => {
     //states and data
@@ -22,6 +22,7 @@ const OrderHistory = () => {
         console.log(orders)
     }
 
+
     //use effects
     useEffect(() => {
         loadorders();
@@ -33,7 +34,7 @@ const OrderHistory = () => {
             <h1 className='text-2xl rounded-2xl font-bold text-center mt-2 mx-1 pr-6 pb-5 text-white pt-6 bg-chili-red'>My Orders</h1>
             <div className='mt-2 md:mx-auto flex flex-col md:grid md:grid-cols-3 md:items-start md:justify-center md:mt-8 md:w-[70%]'>
                 {Orders && Orders.map((order) => {
-                    return <OrderCard key={order._id} order={order} submitreview={submitreview} />
+                    return <ReviewCard key={order._id} order={order} submitreview={submitreview} />
                 })}
             </div>
         </div>
