@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import VendorProductsCard from '@/app/Cards/CurrentCard/page'
 
 const Orders = () => {
@@ -16,6 +15,7 @@ const Orders = () => {
                 throw new Error("Can't fetch")
             }
             const data = await res.json();
+            // console.log(data, "data from current orders")
             setneworders(data.neworders)
             setcurrentorders(data.ongoingorders)
             setLoading(false)

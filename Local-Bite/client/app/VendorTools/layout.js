@@ -75,9 +75,6 @@ export default function VendorToolsLayout({ children }) {
         }
     }
 
-    if (isLoading) {
-        return <div>Loading ...</div>
-    }
 
     useEffect(() => {
         if (!User && !isLoading) {
@@ -85,6 +82,9 @@ export default function VendorToolsLayout({ children }) {
         }
     }, [User, isLoading])
 
+    if (isLoading) {
+        return <div>Loading ...</div>
+    }
     return (
         <div className="md:flex w-full overflow-x-hidden md:w-full">
             <ToastContainer position="top-center"
