@@ -24,7 +24,7 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-## 🎯 Overview
+## Overview
 
 Local-Bite is a comprehensive food delivery platform that bridges the gap between customers and local food vendors, including street food stalls and small-scale restaurants. The platform enables vendors to manage their products, track orders, and monitor sales analytics, while customers can browse vendors, add items to cart, and place orders with secure payment processing.
 
@@ -37,7 +37,7 @@ Local-Bite is a comprehensive food delivery platform that bridges the gap betwee
 - **Analytics Dashboard**: Vendors can track sales and revenue
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## ✨ Features
+## Features
 
 ### For Customers 🛒
 
@@ -68,7 +68,7 @@ Local-Bite is a comprehensive food delivery platform that bridges the gap betwee
   - Track ongoing orders
 - **Product Catalog**: Manage menu items with images, prices, and descriptions
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework**: Next.js 15.5.4 (React 19.1.0)
@@ -90,7 +90,7 @@ Local-Bite is a comprehensive food delivery platform that bridges the gap betwee
 - **Package Manager**: npm
 - **Environment Management**: dotenv
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Local-Bite/
@@ -121,7 +121,7 @@ Local-Bite/
 - **Order**: Order details (items, status, payment, timestamps)
 - **Cart**: Shopping cart management (items, totals, vendor)
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -171,7 +171,7 @@ npm run dev
 ```
 Frontend runs on `http://localhost:3000`
 
-## 🔐 Environment Variables
+## Environment Variables
 
 ### Server (.env.local)
 
@@ -195,7 +195,7 @@ RAZORPAY_SECRET=your_razorpay_key_secret
 NEXT_PUBLIC_BACKENDURL=http://localhost:5000
 ```
 
-## 📡 API Documentation
+## API Documentation
 
 ### Authentication
 - `POST /api/auth/` - Register new user
@@ -235,7 +235,7 @@ NEXT_PUBLIC_BACKENDURL=http://localhost:5000
 ### Payments
 - `POST /api/payment/verify-payment` - Verify Razorpay payment
 
-## 📁 Project Structure
+## Project Structure
 
 ### Frontend (client/)
 ```
@@ -290,7 +290,7 @@ server/
     └── jwtcheck.js        # JWT authentication middleware
 ```
 
-## 🔑 Key Features Breakdown
+## Key Features Breakdown
 
 ### 1. Dual Authentication System
 - Role-based access control (Customer/Vendor)
@@ -329,7 +329,7 @@ server/
 - Category and type filtering (Veg/Non-Veg)
 - Image upload support
 
-## 📸 Screenshots
+## Screenshots
 
 
 - Homepage with vendor listings
@@ -350,7 +350,7 @@ server/
 - Product management interface
   ![Manage products](image-5.png)
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - [ ] Real-time notifications (WebSockets)
 - [ ] Advanced search and filtering
@@ -365,7 +365,7 @@ server/
 - [ ] Loyalty program
 - [ ] Multi-language support
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -375,18 +375,18 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👤 Author
+## Author
 
 **Narendra Dubey**
 - GitHub: [@narendra-create](https://github.com/narendra-create)
 - LinkedIn: [Narendra Dubey](https://www.linkedin.com/in/narendra-dubey-7147042b8)
 - Email: namanworkplace@gmail.com
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Next.js team for the amazing framework
 - Razorpay for payment gateway services
