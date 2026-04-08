@@ -60,7 +60,7 @@ const VendorProductsCard = ({ theme, Order, dbhandler }) => {
                 <div className='md:w-[60%] w-[90%] mx-2'>
                     <div className='flex flex-col md:mt-1'>
                         <div className='font-semibold text-2xl md:text-3xl'>{Order.orderid}</div>
-                        <div className='md:mt-1 pl-1 pb-2 text-md font-sans font-medium'>{Order.user.name}</div>
+                        <div className='md:mt-1 pl-1 pb-2 text-md font-sans font-medium'><div>{Order.user.name}</div><div className='underline decoration-red-700 decoration-2 text-xl md:text-2xl'>{Order ? Order.paymentStatus : "Unknown payment"}</div></div>
                     </div>
                     <div className='mt-2 w-[98%] md:h-24 overflow-auto ml-1 text-xl font-serif'>
                         {Order.items && Order.items.map((item) => {
