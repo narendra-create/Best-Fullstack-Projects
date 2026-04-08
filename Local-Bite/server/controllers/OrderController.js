@@ -189,9 +189,9 @@ const getcurrentorders = async (req, res) => {
             if (!vendorprofile) {
                 return res.status(404).json({ message: "Vendor Not Found" })
             }
-            const neworders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: 'PENDING' }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
-            const ongoingorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: 'PAID', status: { $nin: ['PENDING', 'CANCELLED', 'COMPLETED'] } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
-            return res.status(200).json({ message: "Current orders and new orders fetched", ongoingorders, neworders })
+            const neworders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: { $in: ["CASH", "PAID"] }, status: 'PENDING' }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
+            const ongoingorders = await OrderModel.find({ vendor: vendorprofile._id, paymentStatus: { $in: ["CASH", "PAID"] }, status: { $nin: ['PENDING', 'CANCELLED', 'COMPLETED'] } }).populate('user', 'name email').populate('items.product', 'name price imageUrl').sort({ createdAt: -1 })
+            return res.status(200).json({ message: "Current orders and new orders fetched", ongoingorders: ongoingorders, neworders: neworders })
         }
         if (!currentorders || currentorders.length === 0) {
             return res.status(404).json({ message: "No Orders found" })
