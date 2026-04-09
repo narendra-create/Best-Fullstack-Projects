@@ -104,7 +104,7 @@
 - [x] fix review stars on homepage of user, inside vendorcard and page
 - [ ] Make a system for returning orders in order history
 - [x] fix review stars on history page
-- [ ] fix cash orders not showing in orderstatusupdate page of vendor dashboard
+- [x] fix cash orders not showing in orderstatusupdate page of vendor dashboard
 - [x] fix loading error in layout js of vendortools
 - [ ] make update address ui
 - [x] implement address
