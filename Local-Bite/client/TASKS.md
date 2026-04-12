@@ -102,12 +102,11 @@
 - [x] Integrate Adress in the website when ordering a food
 - [x] make a function for making address default
 - [x] fix review stars on homepage of user, inside vendorcard and page
-- [ ] Make a system for returning orders in order history
 - [x] fix review stars on history page
 - [x] fix cash orders not showing in orderstatusupdate page of vendor dashboard
 - [x] fix loading error in layout js of vendortools
-- [ ] make update address ui
 - [x] implement address
+- [ ] make update address ui
 - [ ] send address with order
 - [ ] make address page ui
 - [ ] make address adding inside cart
