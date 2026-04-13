@@ -106,7 +106,7 @@
 - [x] fix cash orders not showing in orderstatusupdate page of vendor dashboard
 - [x] fix loading error in layout js of vendortools
 - [x] implement address
-- [ ] make update address ui
+- [x] make update address ui
+- [x] make address page ui
 - [ ] send address with order
-- [ ] make address page ui
 - [ ] make address adding inside cart
