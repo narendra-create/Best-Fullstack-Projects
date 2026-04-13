@@ -62,7 +62,7 @@ const Drawer = ({ isOpen, onClose }) => {
         onClose();
     }, [pathname]);
 
-    
+
     if (isLoading) {
         return <div role="status" className='flex items-center justify-center w-40 mx-auto h-screen'>
             <svg aria-hidden="true" className="inline w-24 h-24 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,6 +134,9 @@ const Drawer = ({ isOpen, onClose }) => {
                                 </li>
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                     <DrawerLink href="/CustomerTools/OrderStatus">Current Orders</DrawerLink>
+                                </li>
+                                <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
+                                    <DrawerLink href="/components/Addresses">Saved Addresses</DrawerLink>
                                 </li>
                                 <li className="border-b-2 border-slate-400 pb-4 pt-4 hover:bg-slate-100 hover:text-xl transition-all ease-in-out duration-400 rounded-t-2xl">
                                     <DrawerLink href="/CustomerTools/History">Order History</DrawerLink>
