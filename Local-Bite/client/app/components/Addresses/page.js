@@ -10,7 +10,9 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 const MyAddresses = () => {
     //states
     const [adding, setadding] = useState(false);
+    const [mode, setmode] = useState("newaddress");
     const [Addresses, setAddresses] = useState();
+    const [editaddress, seteditaddress] = useState({})
     const [pageloading, setpageloading] = useState(true);
     //Outside data
     const { User, isLoading } = useAuth();
@@ -47,6 +49,12 @@ const MyAddresses = () => {
 
     const handleupdateaddress = async (updateddata, addressid) => {
         try {
+            if (mode !== "updateaddress") {
+                console.log("You cant use handleupdateaddress function after clicking new address button")
+                return;
+            }
+            // console.log(updateddata, addressid, "from handleupdateaddress")
+            setpageloading(true);
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/updateaddress`, {
                 credentials: "include",
                 method: "PATCH",
@@ -58,6 +66,7 @@ const MyAddresses = () => {
                     updateddata: updateddata
                 })
             })
+            setpageloading(false);
             if (!res.ok) {
                 toast.error(`${data.message}`, {
                     position: "top-center",
@@ -148,8 +157,18 @@ const MyAddresses = () => {
         }
     }
 
+    const togglepopup = (mode, addressid) => {
+        if (mode === "updateaddress") {
+            const selectedaddress = Addresses.filter((single) => single._id === addressid);
+            // console.log(selectedaddress, "selectedaddress")
+            seteditaddress(selectedaddress);
+        }
+        setmode(mode);
+        setadding(true);
+    }
+
     const handlesubmitaddress = async (addressobject) => {
-        console.log(addressobject)
+        // console.log(addressobject)
         if (!addressobject) throw new Error("Please Fill the form and click submit");
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/addaddress`, {
             credentials: "include",
@@ -274,7 +293,7 @@ const MyAddresses = () => {
                     <ArrowLeft />
                 </button>
                 <span className='text-center md:text-right md:pr-[26%] font-mono self-center w-[52%] md:w-[82%] text-xl md:text-4xl font-semibold'>Manage-Addresses</span>
-                <button onClick={() => setadding(true)} className='hover:font-bold hover:scale-98 hover:text-shadow-md transition-all ease-in-out duration-150 hover:inset-shadow-[inset_0px_0px_12px_0px_rgba(0,0,0,0.2)] md:flex hidden gap-2 px-6 items-center justify-center py-3 rounded-lg text-lg bg-trust text-white'>
+                <button onClick={() => togglepopup("newaddress")} className='hover:font-bold hover:scale-98 hover:text-shadow-md transition-all ease-in-out duration-150 hover:inset-shadow-[inset_0px_0px_12px_0px_rgba(0,0,0,0.2)] md:flex hidden gap-2 px-6 items-center justify-center py-3 rounded-lg text-lg bg-trust text-white'>
                     <span className='text-center align-middle'><Plus /></span><span className='font-semibold'>Add New Address</span>
                 </button>
             </div>
@@ -287,11 +306,11 @@ const MyAddresses = () => {
                 </div> : <div className='px-5 flex flex-col md:grid grid-cols-3 md:gap-4 md:px-16'>
                     {Addresses && Addresses.map((single) => {
                         return <div key={single._id} className='my-5'>
-                            <AddressCard adress={single} makedefault={makeaddressdefault} updateaddress={handlesubmitaddress} removeaddress={handleremoveaddress} />
+                            <AddressCard adress={single} makedefault={makeaddressdefault} updateaddress={togglepopup} removeaddress={handleremoveaddress} />
                         </div>
                     })}
                 </div>}
-            <AddressPopup isOpen={adding} onClose={() => setadding(false)} onSubmit={handlesubmitaddress} />
+            <AddressPopup isOpen={adding} currentaddress={mode === "newaddress" ? null : editaddress} onClose={() => setadding(false)} mode={mode} onSubmit={mode === "newaddress" ? handlesubmitaddress : handleupdateaddress} />
         </div>
     )
 }
