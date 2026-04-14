@@ -1,14 +1,18 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import CartProduct from '@/app/Cards/CartProduct/page'
-import Checkout from '@/app/Cards/CheckoutCard/page'
-import { useAuth } from '@/app/contexts/AuthContext'
-import Script from 'next/script'
-import Protect from '@/app/CustomerGuard/page'
-import PaymentPage from '@/app/Cards/Payment-page/page'
+"use client";
+import React, { useEffect, useState } from 'react';
+import CartProduct from '@/app/Cards/CartProduct/page';
+import Checkout from '@/app/Cards/CheckoutCard/page';
+import { useAuth } from '@/app/contexts/AuthContext';
+import Script from 'next/script';
+import Protect from '@/app/CustomerGuard/page';
+import PaymentPage from '@/app/Cards/Payment-page/page';
+import AddressSelector from '@/app/Cards/Cartaddresscard/page';
+import { fetchaddresses, handlesubmitaddress } from '@/lib/addresstool';
+import AddressPopup from '@/components/ui/AddressPopup/page';
+import { ToastContainer, Slide } from 'react-toastify';
 
 const Cart = () => {
-  const [items, setitems] = useState([])
+  const [items, setitems] = useState([]);
   const { User, isLoading: isAuthLoading } = useAuth();
   const [subtotal, setsubtotal] = useState(0);
   const [CartLoading, setCartLoading] = useState(true);
@@ -17,10 +21,14 @@ const Cart = () => {
   const [discount, setDiscount] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [instructions, setinstructions] = useState("");
-  const [vendordb, setvendordb] = useState()
-  const [methodclick, setmethodclick] = useState(false)
-  const [checkoutloading, setcheckoutloading] = useState(true)
-  const [inStock, setinStock] = useState()
+  const [vendordb, setvendordb] = useState();
+  const [methodclick, setmethodclick] = useState(false);
+  const [checkoutloading, setcheckoutloading] = useState(true);
+  const [inStock, setinStock] = useState();
+  const [addressclick, setaddressclick] = useState(false);
+  const [selectedaddress, setselectedaddress] = useState(null);
+  const [addresses, setaddresses] = useState();
+  const [adding, setadding] = useState(false);
 
 
   const loadcart = async () => {
@@ -109,7 +117,12 @@ const Cart = () => {
   }
 
   useEffect(() => {
-    loadcart();
+    const loaddata = async () => {
+      loadcart();
+      const data = await fetchaddresses();
+      setaddresses(data);
+    }
+    loaddata();
   }, [User, isAuthLoading])
 
   // useEffect(() => {
@@ -254,6 +267,12 @@ const Cart = () => {
       alert("Your cart is empty or vendor missing")
       return;
     }
+
+    if (!selectedaddress) {
+      console.log(selectaddress)
+      alert("Please Select address before order")
+      return;
+    }
     try {
       const placeorderres = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/place`, {
         credentials: 'include',
@@ -264,7 +283,8 @@ const Cart = () => {
         body: JSON.stringify({
           vendor: vendordb._id,
           items: items,
-          instructions: instructions
+          instructions: instructions,
+          deliveryAddress: selectedaddress
         })
       })
       if (!placeorderres.ok) {
@@ -354,6 +374,10 @@ const Cart = () => {
       alert("One of your selected items is out of stock ❌")
       return;
     }
+    if (!selectedaddress) {
+      alert("Please Select address before order")
+      return;
+    }
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/place-cash`, {
       credentials: "include"
@@ -364,7 +388,8 @@ const Cart = () => {
       , body: JSON.stringify({
         vendor: vendordb._id,
         items: items,
-        instructions: instructions
+        instructions: instructions,
+        deliveryAddress: selectedaddress
       })
     })
 
@@ -384,6 +409,15 @@ const Cart = () => {
     }
   }
 
+
+  const handleaddaddress = () => {
+    setadding(true);
+  }
+
+  const selectaddress = (address) => {
+    setselectedaddress(address);
+  }
+
   useEffect(() => {
     setTimeout(() => {
       setcheckoutloading(false)
@@ -397,6 +431,17 @@ const Cart = () => {
 
   return (
     <Protect>
+      <ToastContainer position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Slide} />
       <div className='flex md:flex-row flex-col text-black md:w-[80%] h-full mt-24 w-full md:px-0 md:mx-auto'>
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
         <div className='md:w-[70%] w-full  flex flex-col p-5'>
@@ -416,17 +461,32 @@ const Cart = () => {
             <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-md md:text-lg font-serif w-95 md:w-154 py-2 px-5 h-44 bg-gray-50 border border-gray-100 resize-none rounded-lg ml-1 wrap-break-words whitespace-normal' />
           </div>
         </div>
-        {methodclick ? <div className='md:w-[30%] w-full p-5'>
-          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Choose Payment Method</h3>
-          <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
-            setmethodclick(false)
-          }} handlecod={handlecashpayment} />
-        </div> : <div className='md:w-[30%] w-full p-5'>
-          <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
-          <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} methodclick={() => {
-            setmethodclick(true)
-          }} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
-        </div>}
+        {addressclick ? (
+          <div className='md:w-[30%] w-full p-5'>
+            <AddressSelector onBack={() => {
+              setaddressclick(false)
+            }} onContinue={() => {
+              setaddressclick(false);
+              setmethodclick(true)
+            }} selectaddress={selectaddress} handlenewaddress={handleaddaddress} alladdresses={addresses} />
+          </div>
+        ) : methodclick ? (
+          <div className='md:w-[30%] w-full p-5'>
+            <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Choose Payment Method</h3>
+            <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
+              setmethodclick(false);
+              setaddressclick(true);
+            }} handlecod={handlecashpayment} />
+          </div>
+        ) : (
+          <div className='md:w-[30%] w-full p-5'>
+            <h3 className='md:mb-12 mb-6 font-extrabold text-3xl md:text-4xl'>Order Summary</h3>
+            <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} addressclick={() => setaddressclick(!addressclick)} methodclick={() => {
+              setmethodclick(true)
+            }} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
+          </div>
+        )}
+        <AddressPopup isOpen={adding} currentaddress={null} mode={"newaddress"} onClose={() => setadding(false)} onSubmit={handlesubmitaddress} />
       </div>
     </Protect>
   )

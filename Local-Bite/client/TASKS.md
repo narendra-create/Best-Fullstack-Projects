@@ -109,4 +109,5 @@
 - [x] make update address ui
 - [x] make address page ui
 - [ ] send address with order
-- [ ] make address adding inside cart
+- [x] make address adding inside cart
+- [ ] make discount/coupon code working
