@@ -21,7 +21,7 @@ export const fetchaddresses = async () => {
         }
         else {
             const { Addresses } = await res.json();
-            console.log(Addresses, "from tool")
+            // console.log(Addresses, "from tool")
             return Addresses;
         }
     }
