@@ -6,6 +6,7 @@ import AddressPopup from '@/components/ui/AddressPopup/page.js';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { useAuth } from '@/app/contexts/AuthContext.js';
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { fetchaddresses, handlesubmitaddress } from '@/lib/addresstool';
 
 const MyAddresses = () => {
     //states
@@ -17,35 +18,6 @@ const MyAddresses = () => {
     //Outside data
     const { User, isLoading } = useAuth();
     //functions
-
-    const fetchaddresses = async () => {
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/showaddress`, { credentials: "include" })
-            if (!res.ok) {
-                toast.error(`${data.message}`, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Slide,
-                });
-                return;
-            }
-            else {
-                const { Addresses } = await res.json();
-                setAddresses(Addresses);
-                setpageloading(false);
-            }
-        }
-        catch (err) {
-            console.log(err)
-            throw new Error("Can't fetch addresses")
-        }
-    }
 
     const handleupdateaddress = async (updateddata, addressid) => {
         try {
@@ -97,7 +69,12 @@ const MyAddresses = () => {
 
                 setTimeout(() => {
                     setpageloading(true);
-                    fetchaddresses();
+                    const loadadd = async () => {
+                        const data = await fetchaddresses();
+                        setAddresses(data);
+                        setpageloading(false);
+                    }
+                    loadadd();
                 }, 1500);
             }
         }
@@ -167,53 +144,15 @@ const MyAddresses = () => {
         setadding(true);
     }
 
-    const handlesubmitaddress = async (addressobject) => {
-        // console.log(addressobject)
-        if (!addressobject) throw new Error("Please Fill the form and click submit");
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/addaddress`, {
-            credentials: "include",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                address: addressobject
-            })
-        })
+    const handleSubmitWrapper = async (data) => {
+        await handlesubmitaddress(data);
+        setpageloading(true);
 
-        if (!res.ok) {
-            const data = await res.json();
-            toast.error(`${data.message}`, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Slide,
-            });
-            return;
-        }
-        else {
-            toast.success('successfully Added✔️', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Slide,
-            });
-            setTimeout(() => {
-                setpageloading(true);
-                fetchaddresses();
-            }, 1500);
-        }
-    }
+        const updated = await fetchaddresses();
+        setAddresses(updated);
+
+        setpageloading(false);
+    };
 
     const makeaddressdefault = async (addressid) => {
         if (!addressid) throw new Error("Please give addressid");
@@ -252,15 +191,27 @@ const MyAddresses = () => {
             });
             setTimeout(() => {
                 setpageloading(true);
-                fetchaddresses();
+                const loadadd = async () => {
+                    const data = await fetchaddresses();
+                    setAddresses(data);
+                    setpageloading(false);
+                }
+                loadadd();
             }, 1500);
         }
     }
 
     //useeffects
     useEffect(() => {
-        fetchaddresses();
-    }, [])
+        const load = async () => {
+            setpageloading(true);
+            const data = await fetchaddresses();
+            setAddresses(data);
+            setpageloading(false);
+        };
+
+        load();
+    }, []);
     //Page code
     if (isLoading && pageloading) {
         return <div role="status" className='flex items-center justify-center w-40 mx-auto h-screen'>
@@ -310,7 +261,7 @@ const MyAddresses = () => {
                         </div>
                     })}
                 </div>}
-            <AddressPopup isOpen={adding} currentaddress={mode === "newaddress" ? null : editaddress} onClose={() => setadding(false)} mode={mode} onSubmit={mode === "newaddress" ? handlesubmitaddress : handleupdateaddress} />
+            <AddressPopup isOpen={adding} currentaddress={mode === "newaddress" ? null : editaddress} onClose={() => setadding(false)} mode={mode} onSubmit={mode === "newaddress" ? handleSubmitWrapper : handleupdateaddress} />
         </div>
     )
 }
