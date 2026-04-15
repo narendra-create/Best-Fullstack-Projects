@@ -80,7 +80,8 @@ const SingleCard = ({ order }) => {
                     </span>
                     <span className='flex flex-col h-full'>
                         <div className='font-semibold text-lg'>Adress</div>
-                        <div className='break-all'>xyz street no. 29 delhi india agra hydrabaad etccccc</div>
+                        <div className='break-all'>{order?.deliveryAddress.landmark} {order?.deliveryAddress.street} - {order?.deliveryAddress.city} {order?.deliveryAddress.state} {order?.deliveryAddress.pincode}, India</div>
+                        <div className='break-all text-md font-semibold'>Phone - {order?.deliveryAddress.phone}</div>
                     </span>
                 </div>
             </div>

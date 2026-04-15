@@ -54,7 +54,11 @@ const OrderDetail = ({ params }) => {
 
     useEffect(() => {
         console.log("this is database result", Order)
-    }, [Order])
+    }, [Order]);
+
+    if (Loading) {
+        return <div className='text-black text-center mt-48 text-3xl w-full'>Loading Cart...</div>
+    }
 
     return (
         <div className='w-full h-screen text-black bg-hero-bg pt-22'>

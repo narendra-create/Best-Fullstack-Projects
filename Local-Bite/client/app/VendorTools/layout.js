@@ -50,7 +50,6 @@ export default function VendorToolsLayout({ children }) {
                     transition: Slide,
                 });
                 setTimeout(async () => {
-                    onClose(false)
                     await refreshUser();
                     router.refresh();
                     router.push('/')
