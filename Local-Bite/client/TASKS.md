@@ -111,5 +111,6 @@
 - [x] send address with order
 - [x] make address adding inside cart
 - [x] implement address in orderstatus page of customer
+- [ ] fix address not sent in cash order
 - [ ] make discount/coupon code working
 - [ ] make a function for finding address acociated with specific order
