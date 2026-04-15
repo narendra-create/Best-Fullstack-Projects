@@ -227,7 +227,8 @@ const getsingleorder = async (req, res) => {
 const cashorder = async (req, res) => {
     try {
         const { user } = req.user;
-        const { vendor, items, instructions } = req.body;
+        const { vendor, items, instructions, deliveryAddress } = req.body;
+        if (!vendor || !items || items.length === 0 || !deliveryAddress) return res.status(400).json({ message: "Missing required fields !" })
 
         const vendorfound = await Vendor.findOne({ _id: vendor })
         if (!vendorfound) {
@@ -236,6 +237,7 @@ const cashorder = async (req, res) => {
         if (!vendorfound.isOpen) {
             return res.status(503).json({ message: "Sorry the vendor is closed" })
         }
+
 
         const productids = items.map(item => item.product._id)
         const dbproducts = await Product.find({ _id: { $in: productids } })
@@ -264,7 +266,8 @@ const cashorder = async (req, res) => {
             status: "PENDING",
             paymentStatus: "CASH",
             orderid: orderid,
-            instructions: instructions
+            instructions: instructions,
+            deliveryAddress: deliveryAddress
         })
         const savedorder = await neworder.save();
 
