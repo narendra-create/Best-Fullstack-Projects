@@ -114,3 +114,4 @@
 - [x] fix address not sent in cash order
 - [x] make a function for finding address acociated with specific order
 - [ ] make discount/coupon code working
+- [ ] make a api for discount copouns
