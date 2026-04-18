@@ -108,6 +108,90 @@ const applycoupon = async (req, res) => {
     }
 }
 
+const addcoupon = async (req, res) => {
+    try {
+        const { user, role } = req.user;
+        const { code,
+            discountType,
+            discountValue,
+            maxDiscountAmount,
+            minOrderAmount,
+            applicableRestaurants,
+            userType,
+            usageLimit,
+            perUserLimit,
+            startDate,
+            expiryDate,
+            validDays,
+            validTimeRange } = req.body;
 
 
-export {applycoupon}
+        if (!code ||
+            !discountType ||
+            !userType ||
+            perUserLimit <= 0 ||
+            !startDate ||
+            !expiryDate) {
+            return res.status(400).json({ message: "Please fill all the required details" })
+        }
+        if (!user || !role) {
+            return res.status(401).json({ message: "Please Log in first" })
+        }
+
+        //role check
+        if (role === "customer") {
+            return res.status(403).json({ message: "Customers cannot do this operation" })
+        }
+        //for future after making new user type - ADMIN
+        // else if (role === "admin") {
+        // const cleancoupon = coupon.trim().toUpperCase();
+
+        // }
+        else if (role === "vendor") {
+            const cleancoupon = coupon.trim().toUpperCase();
+            const vendorfound = await Vendor.findOne({ user: user })
+            if (!vendorfound) {
+                return res.status(404).json({ message: "Vendor Not found" })
+            }
+            if (!cleancoupon) {
+                return res.status(400).json({ message: "Invalid Coupon" })
+            }
+            const couponfound = await Coupon.findOne({ code: cleancoupon })
+            if (couponfound) {
+                return res.status(409).json({ message: "Coupon Already Exists" })
+            }
+
+            if (discountType === "percentage") {
+                if (discountValue <= 0 || discountValue > 100) {
+                    return res.status(400).json({ message: "Invalid percentage value" });
+                }
+            }
+
+            if (discountType === "flat") {
+                if (discountValue <= 0) {
+                    return res.status(400).json({ message: "Invalid flat discount" });
+                }
+            }
+
+            if (discountType === "free_delivery") {
+                discountValue = 0;
+            }
+
+            if (maxDiscountAmount && discountType !== "percentage") {
+                return res.status(400).json({
+                    message: "Max discount only applies to percentage coupons"
+                });
+            }
+
+            if (minOrderAmount < 0) {
+                return res.status(400).json({ message: "Invalid minimum order amount" });
+            }
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { applycoupon }
