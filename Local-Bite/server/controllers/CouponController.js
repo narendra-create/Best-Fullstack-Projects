@@ -31,6 +31,9 @@ const applycoupon = async (req, res) => {
         if (!couponfound.isActive) {
             return res.status(409).json({ message: "Sorry Coupon is not active right now" })
         }
+        if (new Date() < couponfound.startDate) {
+            return res.status(409).json({ message: "Coupon not started yet" })
+        }
         if (new Date() > couponfound.expiryDate) {
             return res.status(410).json({ message: "Coupon expired" })
         }
@@ -61,7 +64,9 @@ const applycoupon = async (req, res) => {
         }
         const now = new Date();
         const currenttime = now.toTimeString().slice(0, 5);
-        if (currenttime > couponfound.validTimeRange?.end || currenttime < couponfound.validTimeRange?.start) {
+        if (couponfound.validTimeRange &&
+            (currenttime > couponfound.validTimeRange.end ||
+                currenttime < couponfound.validTimeRange.start)) {
             return res.status(409).json({ message: "Coupon not valid at this time" })
         }
 
@@ -69,11 +74,12 @@ const applycoupon = async (req, res) => {
         const vendorfound = await Vendor.findById(vendor)
         if (!vendorfound) return res.status(404).json({ message: "Vendor not found" });
 
-        const checkvendor = couponfound.applicableRestaurants.some(id =>
+        const isApplicable = couponfound.applicableRestaurants.length === 0 || couponfound.applicableRestaurants.some(id =>
             id.equals(vendorfound._id)
         );
 
-        if (!checkvendor) {
+
+        if (!isApplicable) {
             return res.status(400).json({ message: "Not applicable on this vendor" });
         }
 
@@ -148,7 +154,7 @@ const addcoupon = async (req, res) => {
 
         // }
         else if (role === "vendor") {
-            const cleancoupon = coupon.trim().toUpperCase();
+            const cleancoupon = code.trim().toUpperCase();
             const vendorfound = await Vendor.findOne({ user: user })
             if (!vendorfound) {
                 return res.status(404).json({ message: "Vendor Not found" })
@@ -156,10 +162,12 @@ const addcoupon = async (req, res) => {
             if (!cleancoupon) {
                 return res.status(400).json({ message: "Invalid Coupon" })
             }
-            const couponfound = await Coupon.findOne({ code: cleancoupon })
+            const couponfound = await Coupons.findOne({ code: cleancoupon })
             if (couponfound) {
                 return res.status(409).json({ message: "Coupon Already Exists" })
             }
+
+            let finalDiscountValue = discountValue;
 
             if (discountType === "percentage") {
                 if (discountValue <= 0 || discountValue > 100) {
@@ -174,7 +182,7 @@ const addcoupon = async (req, res) => {
             }
 
             if (discountType === "free_delivery") {
-                discountValue = 0;
+                finalDiscountValue = 0;
             }
 
             if (maxDiscountAmount && discountType !== "percentage") {
@@ -186,10 +194,75 @@ const addcoupon = async (req, res) => {
             if (minOrderAmount < 0) {
                 return res.status(400).json({ message: "Invalid minimum order amount" });
             }
+
+            let vendorlist = [];
+            vendorlist.push(vendorfound._id);
+            const usertypes = ['all', 'new', 'existing']
+            if (!usertypes.includes(userType)) {
+                return res.status(400).json({ message: "Invalid UserType" })
+            }
+
+            //Add to database
+            const couponadded = new Coupons({
+                code: cleancoupon,
+                discountType,
+                discountValue: finalDiscountValue,
+                maxDiscountAmount,
+                minOrderAmount,
+                applicableRestaurants: vendorlist,
+                userType: userType,
+                usageLimit,
+                perUserLimit,
+                startDate,
+                expiryDate,
+                validDays,
+                validTimeRange,
+            });
+            await couponadded.save();
+            return res.status(201).json({ message: "Coupon Created" })
         }
     }
     catch (err) {
         console.log(err);
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+const addvendorincoupon = async (req, res) => {
+    try {
+        const { role, user } = req.user;
+        const { couponid } = req.body;
+        if (!couponid) {
+            return res.status(400).json({ message: "Invalid Couponid" })
+        }
+        if (role === 'customer') {
+            return res.status(403).json({ message: "Customers are not allowed to add vendors in coupon" })
+        }
+        else if (role === 'vendor') {
+            const vendorfound = await Vendor.findOne({ user: user })
+            if (!vendorfound) {
+                return res.status(404).json({ message: "Vendor Not found" })
+            }
+            const updated = await Coupons.findByIdAndUpdate(couponid, {
+                $addToSet: {
+                    applicableRestaurants: vendorfound._id
+                }
+            },
+                { new: true }
+            );
+
+
+            if (!updated) {
+                return res.status(404).json({ message: "Coupon not found" });
+            }
+
+            return res.status(200).json({ message: "Your restaurent added Successfully" })
+        }
+        // else if(role === 'admin'){}
+        return res.status(401).json({ message: "Invalid Role" })
+    }
+    catch (err) {
+        console.log(err)
         return res.status(500).json({ message: "Server Error" })
     }
 }
