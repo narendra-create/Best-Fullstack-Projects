@@ -114,4 +114,7 @@
 - [x] fix address not sent in cash order
 - [x] make a function for finding address acociated with specific order
 - [ ] make discount/coupon code working
-- [ ] make a api for discount copouns
+- [x] make a api for discount copouns
+- [ ] make ui for coupon card
+- [ ] ui for coupon dashboard for vendor
+- [ ] ui for all coupons sidebar
