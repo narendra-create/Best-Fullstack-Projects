@@ -31,6 +31,7 @@
 - make new function for adding items in bulk to cart --done
 - make a function to cancel orders --done
 - remove match comment on userschema.js after completing the site
+- make a separate schema for checking how much a coupon is used and by how many users ? with user id (for scaling the webapp)
 ## Routine Api Checks after changing code
 
 - [x] addven: "/"
