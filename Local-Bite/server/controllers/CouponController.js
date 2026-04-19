@@ -58,7 +58,7 @@ const applycoupon = async (req, res) => {
         }
 
         //checking days
-        const today = new Date().toLocaleString("en-US", { weekday: "short" });
+        const today = new Date().toLocaleString("en-US", { timeZone: 'Asia/Kolkata', weekday: "short" });
         if (couponfound.validDays?.length > 0 && !couponfound.validDays?.includes(today)) {
             return res.status(409).json({ message: `Coupon not available today only these days - ${couponfound.validDays}` })
         }
@@ -267,4 +267,15 @@ const addvendorincoupon = async (req, res) => {
     }
 }
 
-export { applycoupon }
+const getallcoupons = async (req, res) => {
+    try {
+        const allcoupons = await Coupons.find();
+        return res.status(200).json({ message: "Coupons fetched", coupons: allcoupons })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
+
+export { applycoupon, getallcoupons, addcoupon, addvendorincoupon }
