@@ -150,7 +150,7 @@ const OrderStatus = () => {
                     return <Link href={`/CustomerTools/${Order?._id}`} key={Order?.orderid}> <Group order={Order} paynow={paynow} /></Link>
                 })}
             </div> : <div className='md:mx-18 mx-1.5 h-full'>
-                You don't have Any Active Orders</div>
+                You do not have Any Active Orders</div>
             }
         </div>
     )

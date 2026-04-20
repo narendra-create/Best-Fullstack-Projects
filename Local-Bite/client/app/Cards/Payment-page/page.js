@@ -45,7 +45,7 @@ const PaymentPage = ({ totalamount, loading, handleback, handlepayment, handleco
                         <option value="#">Select Payment Method</option>
                         <option value="cash-on-delivery">Cash On Delivery</option>
                         <option value="online-pay">Online Payment</option>
-                        <option value="#">"Card (currently not available)"</option>
+                        <option value="#">Card (currently not available)</option>
                     </select>
                 </div>
                 <button type='submit' className='py-2 px-5 text-2xl font-semibold font-sans text-white bg-lime-600 hover:bg-lime-800 rounded-2xl mt-10 w-[80%]'>Pay and order</button>

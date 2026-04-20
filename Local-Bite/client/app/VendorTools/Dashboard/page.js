@@ -14,14 +14,6 @@ const DashBoard = () => {
   const [isshopopen, setisshopopen] = useState(true);
   const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   //functions here
-  if (isLoading) {
-    return <div>Loading ....</div>
-  }
-
-  if (!User && !isLoading) {
-    return <div>Please Log in first</div>
-  }
-
   const loadreport = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/vendor/sales-data`, { credentials: 'include' })
@@ -107,6 +99,14 @@ const DashBoard = () => {
     loadshopstatus();
     loadstats();
   }, [])
+
+  if (isLoading) {
+    return <div>Loading ....</div>
+  }
+
+  if (!User && !isLoading) {
+    return <div>Please Log in first</div>
+  }
 
 
   // useEffect(() => {
