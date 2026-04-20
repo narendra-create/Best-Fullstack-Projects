@@ -6,6 +6,7 @@ const connectdb = async () => {
         console.log("Database connected ✅", conn.connection.host)
     }
     catch (error) {
+        console.log(`Here is env mongo uri - ${process.env.MONGO_URI}`)
         console.log(`Database Connection Error ${error.message}`)
         process.exit(1);
     }
