@@ -1,81 +1,33 @@
-import { Calendar, Percent, DollarSign, Plus } from "lucide-react"
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Calendar } from "lucide-react";
 
-export function CouponCard({ coupon, onAddRestaurant }) {
-    const formatDiscount = () => {
-        if (coupon.discountType === "percentage") {
-            return `${coupon.discount}% OFF`
-        }
-        return `$${coupon.discount} OFF`
-    }
-
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-        })
-    }
-
-    const isExpired = new Date(coupon.expiryDate) < new Date()
-
+export default function CouponCard({ coupon }) {
     return (
-        <Card className="group transition-all duration-200 hover:shadow-md hover:border-primary/20">
-            <CardHeader className="pb-3">
-                <div className="flex items-start justify-between gap-2">
-                    <CardTitle className="text-lg leading-tight">{coupon.title}</CardTitle>
-                    <Badge
-                        variant={isExpired ? "secondary" : "default"}
-                        className={
-                            isExpired
-                                ? "bg-muted text-muted-foreground"
-                                : "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                        }
-                    >
-                        {coupon.discountType === "percentage" ? (
-                            <Percent className="size-3" />
-                        ) : (
-                            <DollarSign className="size-3" />
-                        )}
-                        {formatDiscount()}
-                    </Badge>
-                </div>
-                <CardDescription className="line-clamp-2 mt-1">
-                    {coupon.description}
-                </CardDescription>
-            </CardHeader>
+        <div className="bg-white rounded-2xl shadow-sm border p-5 w-full max-w-lg hover:shadow-md transition">
 
-            <CardContent className="pb-3">
-                <div
-                    className={`flex items-center gap-1.5 text-sm ${isExpired ? "text-destructive" : "text-muted-foreground"
-                        }`}
-                >
-                    <Calendar className="size-4" />
-                    <span>
-                        {isExpired ? "Expired" : "Expires"}: {formatDate(coupon.expiryDate)}
-                    </span>
-                </div>
-            </CardContent>
+            {/* Header */}
+            <div className="flex justify-between items-start mb-2">
+                <h3 className="font-semibold text-lg md:text-xl">{coupon?.code}</h3>
 
-            <CardFooter>
-                <Button
-                    onClick={() => onAddRestaurant?.(coupon.id)}
-                    className="w-full transition-all duration-200 group-hover:bg-primary/90"
-                    disabled={isExpired}
-                >
-                    <Plus className="size-4" />
-                    Add My Restaurant
-                </Button>
-            </CardFooter>
-        </Card>
-    )
+                <span className="text-xs md:text-sm font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                    {coupon?.discountType === "percentage" ? `+ ${coupon?.discountValue}% OFF` : `₹ ${coupon?.discountValue} OFF`}
+                </span>
+            </div>
+
+            {/* Description */}
+            <p className="text-sm h-14 text-gray-500 mb-4">
+                {coupon?.description}
+            </p>
+
+            {/* Expiry */}
+            <div className="flex items-center text-sm text-gray-400 mb-4">
+                <Calendar size={16} className="mr-2" />
+                Expires: {coupon?.expiryDate}
+            </div>
+
+            {/* Button */}
+            <button className="w-full bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+                + Add My Restaurant
+            </button>
+        </div>
+    );
 }

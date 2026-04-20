@@ -12,7 +12,8 @@ const Navbar = ({ toggleDrawer }) => {
         '/VendorTools/Dashboard',
         '/VendorTools/Addproducts',
         '/VendorTools/CurrentOrders',
-        '/VendorTools/ManageProducts'
+        '/VendorTools/ManageProducts',
+        '/VendorTools/Coupons'
     ]
 
     const isRegisterpage = pathname === `/components/Register`;

@@ -118,3 +118,4 @@
 - [ ] make ui for coupon card
 - [ ] ui for coupon dashboard for vendor
 - [ ] ui for all coupons sidebar
+- [ ] take a look at coupons and couponcard and addcoupon pages
