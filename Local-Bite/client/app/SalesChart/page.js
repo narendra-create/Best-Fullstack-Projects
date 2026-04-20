@@ -32,7 +32,7 @@ import {
 const OrdersChart = ({ data }) => {
     return (
         //wraping Recharts in ResponsiveContainer to make it fit my div
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="100%" minHeight={280}>
             {/* passing the data here */}
             <LineChart
                 data={data}

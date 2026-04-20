@@ -43,7 +43,7 @@ const Cart = () => {
         setDeliveryCharge(data.data.deliverycharge || 0);
         setDiscount(data.data.discount);
         setPlatformFee(data.data.platformfee);
-        setinStock(data.data.items[0].product.stock);
+        setinStock(data?.data?.items?.[0]?.product?.stock);
         setGrandTotal(data.data.grandtotal);
         setvendordb(data.data.vendor)
       }
@@ -347,7 +347,7 @@ const Cart = () => {
           }
         },
         prefill: {
-          email: User.email
+          email: User?.email
         },
         theme: {
           color: "#F37254"

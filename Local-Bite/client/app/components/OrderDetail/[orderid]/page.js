@@ -148,7 +148,7 @@ const Order = ({ params }) => {
                                 />
 
                                 <button
-                                    onClick={() => submitreview(selectedRating, Order._id, tags, Review, Order.vendor)}
+                                    onClick={() => submitreview(selectedRating, Order?._id, tags, Review, Order?.vendor)}
                                     className="w-full bg-black text-white font-bold py-4 rounded-xl mt-6 hover:bg-gray-800"
                                 >
                                     Submit Review

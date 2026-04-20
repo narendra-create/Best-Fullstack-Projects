@@ -32,7 +32,7 @@ const OrderDetail = ({ params }) => {
     }
 
     const cancelorder = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/cancelorder/${Order._id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/order/cancelorder/${Order?._id}`, {
             credentials: "include",
             method: "PATCH"
         })
