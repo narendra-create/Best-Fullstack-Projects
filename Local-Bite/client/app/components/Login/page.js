@@ -96,9 +96,9 @@ const Login = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src='/vendorbg.jpg' alt="Background image" className='-z-20 h-screen md:h-full opacity-80 blur-xs object-cover' /></div>
+            <div className='absolute h-[130vh] -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src='/vendorbg.jpg' alt="Background image" className='-z-20 h-full md:h-full opacity-80 blur-xs object-cover' /></div>
             {User === null ? <div className='text-white mx-auto md:w-188 flex items-center justify-center mb-16 text-3xl md:text-6xl font-bold'>Login to get full access</div> : <div className='text-white mx-auto w-192 flex items-center justify-center mb-16 text-6xl font-bold'>You Are Already Logged in</div>}
-            {User === null ? <form className="max-w-sm mx-auto" onSubmit={handleLogin}>
+            {User === null ? <form className="max-w-sm w-[86vw] mx-auto" onSubmit={handleLogin}>
                 <div className="mb-5">
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Email</label>
                     <input type="email" id="email" name='email' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name123@.com" required />
