@@ -159,7 +159,7 @@ const Products = ({ params }) => {
 
 
                 {/* Rating box */}
-                <div className="absolute bottom-2 left-6 bg-white px-4 py-3 rounded-xl shadow-xl font-bold">
+                <div className="absolute bottom-2 left-2 md:left-6 bg-white px-4 py-3 rounded-xl text-xs md:text-md shadow-xl font-bold">
                     ⭐ {vendor?.averagerating ? vendor?.averagerating : "NEW"}<br />
                     {vendor?.totalratings ? vendor?.totalratings : "No"} reviews
                 </div>
