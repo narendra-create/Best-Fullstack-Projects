@@ -27,7 +27,7 @@ const Navbar = ({ toggleDrawer }) => {
     console.log(pathname)
 
     return (
-        <nav className='w-full h-24 absolute z-40 top-0'>
+        <nav className='md:w-full w-[99vw] h-24 absolute z-40 top-0'>
             {isLoading ? <div>.......</div> :
                 <div className='w-full md:px-10 px-6 mx-auto h-24 flex justify-between items-center'>
                     {!isvendorpage && <div><Link href={'/components/Register'} ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={bgcolor} className='cursor-pointer transition-all ease-in-out duration-200 hover:scale-108 size-10'>
