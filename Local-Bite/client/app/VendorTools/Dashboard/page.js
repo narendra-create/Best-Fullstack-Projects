@@ -117,10 +117,10 @@ const DashBoard = () => {
 
   //main page here
   return (
-    <div className='text-black mx-auto h-screen md:w-[99rem] flex gap-2 items-center justify-center'>
+    <div className='text-black mx-auto h-screen md:w-[99rem] w-[98vw] flex gap-2 items-center justify-center'>
       <section className='flex flex-col w-full h-screen pt-5'>
         <div className='w-full pl-4'>
-          <div className='text-4xl font-bold mb-3'>Dashboard</div>
+          <div className='md:text-4xl text-2xl font-bold mb-3'>Dashboard</div>
 
           <div className="inline-flex rounded-base -space-x-px shadow-[0_8px_30px_rgb(0,0,0,0.12)]" role="group">
             <button type="button" className="border border-gray-500 text-gray-600 hover:bg-neutral-500 hover:text-gray-200 focus:ring-3 focus:ring-neutral-tertiary-soft font-medium leading-5 rounded-l-xl text-sm px-3 py-2 focus:outline-none">
@@ -136,33 +136,33 @@ const DashBoard = () => {
 
         </div>
         <div className='w-full md:flex md:flex-row flex flex-col md:mb-5 mb-6 items-center justify-center md:justify-between pl-3 md:pl-5 md:pr-9 pr-3 gap-2 mt-10'>
-          <div id='upper-part' className='flex gap-3 md:gap-5'>
-            <div className='bg-gray-100 md:w-[23rem] w-[12rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
+          <div id='upper-part' className='flex gap-2 md:gap-5'>
+            <div className='bg-gray-100 md:w-[23rem] w-[46vw] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
               <div className='md:text-2xl text-md'>Active Orders</div>
-              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-xl font-bold'>+{Stats.activeorders}</div> : <div className='loader'></div>}
               <div className='absolute md:size-8 size-6  font-bold md:right-7 right-4 md:top-4 top-5'>
                 <img src="/note-fill.svg" alt="📝" />
               </div>
             </div>
-            <div className='bg-gray-100 md:w-[23rem] w-[12rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
+            <div className='bg-gray-100 md:w-[23rem] w-[46vw] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col md:gap-13 gap-5 py-5 px-6 rounded-2xl border-gray-300'>
               <div className='md:text-2xl text-md'>Sales</div>
-              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-xl font-bold'>+{Stats.totalsales}</div> : <div className='loader'></div>}
               <div className='absolute md:size-8 size-6 font-bold right-7 top-5'>
                 <img src="/tag-fill.svg" alt="💰" />
               </div>
             </div>
           </div>
           <div id='lower-part' className='md:flex flex md:flex-row flex-col gap-2 md:gap-5'>
-            <div className='bg-gray-100 md:w-[23rem] w-[25rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+            <div className='bg-gray-100 md:w-[23rem] w-[96vw] mx-auto border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
               <div className='md:text-2xl text-xl'>Total Revenue</div>
-              {Stats && !StatsLoading ? <div className='md:text-4xl text-2xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
+              {Stats && !StatsLoading ? <div className='md:text-4xl text-xl font-bold'>₹{Stats.totalrevenue}</div> : <div className='loader'></div>}
               <div className='absolute md:text-3xl text-2xl font-bold right-7 top-4'>₹</div>
             </div>
-            <div className='bg-gray-100 md:w-[23rem] w-[25rem] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
+            <div className='bg-gray-100 md:w-[23rem] w-[96vw] border-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative flex flex-col gap-13 py-5 px-6 rounded-2xl border-gray-300'>
               <div className='md:text-2xl text-xl'>Actions</div>
               <div className='md:text-4xl text-2xl font-bold md:pl-9 pl-12'>
                 <label className="inline-flex items-center cursor-pointer">
-                  <span className="md:text-xl text-lg font-medium">Close Shop</span>
+                  <span className="md:text-xl text-sm font-medium">Close Shop</span>
                   <input
                     type="checkbox"
                     className="sr-only peer"
@@ -175,7 +175,7 @@ const DashBoard = () => {
                   />
                   <div className="relative mx-3 w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-full">
                   </div>
-                  <span className="md:text-xl text-lg font-medium">Open Shop</span>
+                  <span className="md:text-xl text-sm font-medium">Open Shop</span>
                 </label>
               </div>
               <div className='absolute text-3xl font-bold right-7 top-4'>
@@ -189,14 +189,14 @@ const DashBoard = () => {
         </div>
         <div className='w-full flex md:flex-row flex-col md:px-5 px-1 h-full pb-13 gap-5 md:gap-2'>
           <div className='h-[70rem] bg-gray-50 border-3 border-gray-300 md:w-260 pt-10 pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl'>
-            <h3 className='md:text-4xl text-2xl font-bold md:pl-15 pl-8 mb-10'>OverView</h3>
+            <h3 className='md:text-4xl text-xl font-bold md:pl-15 pl-8 mb-10'>OverView</h3>
             <div className='w-full md:px-2 px-1 h-[90%]'>
               {report && !graphLoading ? <OrdersChart data={report} /> : <div>Loading chart....</div>}
             </div>
           </div>
 
-          <div className='rounded-2xl overflow-auto bg-gray-100 md:w-[30rem] w-[26.5rem] h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
-            <div className='md:text-3xl text-2xl font-semibold mb-6 md:mb-8'>Recent Sales</div>
+          <div className='rounded-2xl overflow-auto bg-gray-100 md:w-[30rem] w-[96vw] h-full border-2 pt-8 pb-3 px-8 border-gray-400 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'>
+            <div className='md:text-3xl text-xl font-semibold mb-6 md:mb-8'>Recent Sales</div>
             {Stats && !StatsLoading ? (Stats && Stats.recentsales.map((person) => {
               return <div key={person._id} className='flex mb-4 pb-4 border-b-3 border-gray-300 items-center w-full justify-between'>
                 <div className='flex items-center gap-2'>
