@@ -36,7 +36,7 @@ export default function VendorToolsLayout({ children }) {
 
     const handleLogout = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/logout`, { credentials: "include" })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/logout`, { credentials: "include", method: "GET" })
             if (res.ok) {
                 toast.success('Logout success ✔️', {
                     position: "top-center",

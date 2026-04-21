@@ -1,9 +1,16 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Providers from "./Providers/CachingProvider";
+import { Poppins } from "next/font/google";
 // import Navbar from "./components/Navbar/page";
 import { AuthProvider } from "./contexts/AuthContext";
 import Drawrwrapper from "./components/Drawrwrapper/page";
 import "./globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // ✅ REQUIRED
+  display: "swap"
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} antialiased w-full`}
       >
         <AuthProvider>
           {/* <Navbar /> */}

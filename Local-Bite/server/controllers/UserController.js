@@ -4,6 +4,9 @@ import Vendor from "../models/VendorSchema.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+
 const userregister = async (req, res) => {
     try {
         const { name, email, password, role, vendorDetails } = req.body;
@@ -72,8 +75,8 @@ const userlogin = async (req, res) => {
             });
             res.cookie("token", token, {
                 httpOnly: true, // <-- CRITICAL: Prevents JS access
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production only (HTTPS)
-                sameSite: 'none', // Helps prevent CSRF attacks
+                secure: isProduction, // Use secure cookies in production only (HTTPS)
+                sameSite: isProduction ? 'none' : 'lax', // Helps prevent CSRF attacks
                 maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
             });
             return res.status(200).json({ message: "Login Successful ✔️" })
@@ -90,10 +93,11 @@ const userlogin = async (req, res) => {
 
 const userlogout = async (req, res) => {
     try {
-        res.clearCookie("token", {
+        res.cookie("token", "", {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: "none"
+            secure: isProduction,
+            sameSite: isProduction ? 'none' : 'lax',
+            expires: new Date(0)
         });
         return res.status(200).json({ message: "Logout  Successfull" })
     }
