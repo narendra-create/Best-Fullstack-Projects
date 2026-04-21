@@ -14,7 +14,7 @@ export default function PhoneButtons({ logout }) {
     }
     return (
         <nav className="bg-gray-900 text-white border-neutral-200 fixed top-0 left-0 w-[99rem] border-b z-50">
-            <div className="flex w-[27%] items-center justify-between px-4 py-3">
+            <div className="flex w-[99vw] items-center justify-between px-4 py-3">
                 {/* Logo */}
                 <img
                     src="/Logo-LocalBite.png"
@@ -37,12 +37,12 @@ export default function PhoneButtons({ logout }) {
 
             {/* Mobile Menu */}
             {open && (
-                <div className="absolute top-full inset-x-0 w-[27%] bg-gray-900 shadow-lg px-4 pb-4 transition-all ease-in-out duration-200 space-y-4">
+                <div className="absolute w-[100vw] top-full inset-x-0 bg-gray-900 shadow-lg px-4 pb-4 transition-all ease-in-out duration-200 space-y-4">
 
                     {!isLoading && User ? <div className="flex gap-2">
-                        <Link href="#" onClick={logout} className="w-full text-center py-2 border rounded-lg">
+                        <a onClick={logout} className="w-full text-center py-2 border rounded-lg">
                             Logout
-                        </Link>
+                        </a>
                     </div> : <div className="flex gap-2">
                         <Link href="/components/Login" className="w-full text-center py-2 border rounded-lg">
                             Login
