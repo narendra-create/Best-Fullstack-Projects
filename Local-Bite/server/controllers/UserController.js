@@ -90,7 +90,12 @@ const userlogin = async (req, res) => {
 
 const userlogout = async (req, res) => {
     try {
-        return res.clearCookie('token').status(200).json({ message: "Logout  Successfull" })
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: "none"
+        });
+        return res.status(200).json({ message: "Logout  Successfull" })
     }
     catch (err) {
         return res.status(500).json({ message: "Server Error" })
