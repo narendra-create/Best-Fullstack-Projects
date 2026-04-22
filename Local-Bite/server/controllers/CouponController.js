@@ -1,6 +1,6 @@
-import Coupons from "../models/couponschema";
-import OrderModel from "../models/OrderSchema";
-import Vendor from "../models/VendorSchema";
+import Coupons from "../models/couponschema.js";
+import OrderModel from "../models/OrderSchema.js";
+import Vendor from "../models/VendorSchema.js";
 
 const applycoupon = async (req, res) => {
     try {

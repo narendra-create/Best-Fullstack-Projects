@@ -10,7 +10,8 @@ import cors from 'cors';
 import authMiddleware from "./middlewares/jwtcheck.js";
 import cartrouter from "./routes/CartRoutes.js";
 import verifyrouter from "./routes/PaymentRoutes.js";
-import reviewrouter from './routes/ReviewRoutes.js'
+import reviewrouter from './routes/ReviewRoutes.js';
+import couponrouter from "./routes/CouponRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -77,6 +78,7 @@ app.use('/api/product', ProductRoutes);
 app.use('/api/order', orderrouter);
 app.use('/api/cart', cartrouter);
 app.use('/api/payment', verifyrouter);
+app.use('/api/coupon', couponrouter);
 
 
 
