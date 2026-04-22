@@ -1,4 +1,4 @@
-import Coupons from "../models/couponschema.js";
+import Coupons from "../models/CouponSchema.js";
 import OrderModel from "../models/OrderSchema.js";
 import Vendor from "../models/VendorSchema.js";
 
