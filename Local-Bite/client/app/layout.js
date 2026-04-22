@@ -24,8 +24,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Local-Bites",
+  title: "Local-Thali",
   description: "Food delivery app for indian street vendors",
+   icons: {
+    icon: '/Logo-LocalBite.png',
+  }
 };
 
 export default function RootLayout({ children }) {
