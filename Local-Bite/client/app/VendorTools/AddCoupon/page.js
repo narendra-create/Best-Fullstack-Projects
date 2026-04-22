@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToastContainer, toast, Slide } from "react-toastify";
 
 export default function AddCouponForm() {
     const [form, setForm] = useState({
@@ -16,11 +17,16 @@ export default function AddCouponForm() {
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
 
         setForm((prev) => ({
             ...prev,
-            [name]: value,
+            [name]:
+                type === "number"
+                    ? value === ""
+                        ? ""
+                        : Number(value)
+                    : value,
         }));
     };
 
@@ -39,20 +45,81 @@ export default function AddCouponForm() {
             return;
         }
 
+        if (form.discountType === "percentage") {
+            if (!form.discountValue || !form.maxDiscountAmount) {
+                alert("Enter discount and max discount");
+                return;
+            }
+        }
+
+        if (form.discountType === "flat") {
+            if (!form.discountValue) {
+                alert("Enter flat discount value");
+                return;
+            }
+        }
+
+        if (new Date(form.expiryDate) <= new Date(form.startDate)) {
+            alert("Expiry must be after start date");
+            return;
+        }
+
+        const formattedForm = {
+            ...form,
+            startDate: new Date(form.startDate).toISOString(),
+            expiryDate: new Date(form.expiryDate).toISOString(),
+        };
+
         try {
-            const res = await fetch("/api/coupons/add", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/coupon/addcoupon`, {
+                credentials: "include",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(form),
+                body: JSON.stringify(formattedForm),
             });
-
             const data = await res.json();
-            alert(data.message);
+
+            if (!res.ok) {
+                toast.error(`${data.message}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Slide,
+                });
+                return;
+            }
+            toast.success('Added ✔️', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Slide,
+            });
+            return;
         } catch (err) {
             console.error(err);
-            alert("Error creating coupon");
+            toast.error(`Creation Failed`, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Slide,
+            });
         }
     };
 
@@ -61,6 +128,17 @@ export default function AddCouponForm() {
             onSubmit={handleSubmit}
             className="bg-white p-6 rounded-2xl md:mt-[12%] shadow-md max-w-3xl mx-auto"
         >
+            <ToastContainer position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Slide} />
             <h2 className="text-xl font-semibold mb-4">Create Coupon</h2>
 
             {/* Grid */}
@@ -76,6 +154,7 @@ export default function AddCouponForm() {
                 />
 
                 {/* Discount Type */}
+                <label htmlFor="discountType">Discount Type</label>
                 <select
                     name="discountType"
                     value={form.discountType}
@@ -88,6 +167,7 @@ export default function AddCouponForm() {
                 </select>
 
                 {/* Discount Value */}
+                <label htmlFor="discountValue">Value</label>
                 {form.discountType !== "free_delivery" && (
                     <input
                         name="discountValue"
@@ -112,6 +192,7 @@ export default function AddCouponForm() {
                 )}
 
                 {/* Min Order */}
+                <label htmlFor="minOrderAmount">Minimum Order Amount</label>
                 <input
                     name="minOrderAmount"
                     type="number"
@@ -122,6 +203,7 @@ export default function AddCouponForm() {
                 />
 
                 {/* User Type */}
+                <label htmlFor="userType">User Type</label>
                 <select
                     name="userType"
                     value={form.userType}
@@ -134,6 +216,7 @@ export default function AddCouponForm() {
                 </select>
 
                 {/* Usage Limit */}
+                <label htmlFor="usageLimit">Usage Limit</label>
                 <input
                     name="usageLimit"
                     type="number"
@@ -144,6 +227,7 @@ export default function AddCouponForm() {
                 />
 
                 {/* Per User Limit */}
+                <label htmlFor="perUserLimit">Peruser Limit</label>
                 <input
                     name="perUserLimit"
                     type="number"
@@ -154,6 +238,7 @@ export default function AddCouponForm() {
                 />
 
                 {/* Dates */}
+                <label htmlFor="startDate">Start Date</label>
                 <input
                     name="startDate"
                     type="date"
@@ -162,6 +247,7 @@ export default function AddCouponForm() {
                     className="border p-2 rounded-lg"
                 />
 
+                <label htmlFor="expiryDate">Expiry Date</label>
                 <input
                     name="expiryDate"
                     type="date"
