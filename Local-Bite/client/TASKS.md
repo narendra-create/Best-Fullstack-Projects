@@ -113,9 +113,12 @@
 - [x] implement address in orderstatus page of customer
 - [x] fix address not sent in cash order
 - [x] make a function for finding address acociated with specific order
-- [ ] make discount/coupon code working
+- [x] make discount/coupon code working
 - [x] make a api for discount copouns
-- [ ] make ui for coupon card
-- [ ] ui for coupon dashboard for vendor
+- [x] make ui for coupon card
+- [x] ui for coupon dashboard for vendor
+- [x] take a look at coupons and couponcard and addcoupon pages
+- [ ] upgrade coupons api -- take amount directly from orderschema and update it there
 - [ ] ui for all coupons sidebar
-- [ ] take a look at coupons and couponcard and addcoupon pages
+- [ ] implement coupons in cart
+- [ ] make two modes in coupon card - vendor and customer
