@@ -92,5 +92,5 @@ const couponschema = new Schema(
     { timestamps: true }
 );
 
-const Coupons = mongoose.models.Couponschema | mongoose.model("Coupons", couponschema);
+const Coupons = mongoose.models.Couponschema || mongoose.model("Coupons", couponschema);
 export default Coupons;
