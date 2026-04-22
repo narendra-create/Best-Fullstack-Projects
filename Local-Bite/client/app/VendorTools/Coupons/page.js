@@ -44,10 +44,10 @@ export default function CouponsPage() {
     }
 
     return (
-        <div className="p-6 bg-gray-50 w-[99vw] min-h-screen">
+        <div className="p-6 bg-gray-50 w-[99vw] md:w-full min-h-screen">
 
             {/* Header */}
-            <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-normal justify-between items-center mb-6">
+            <div className="flex flex-col md:flex-row gap-5 md:gap-5 justify-between items-center mb-6">
                 <div>
                     <h1 className="text-2xl md:text-4xl font-bold text-center">Coupons Management</h1>
                     <p className="text-xs md:text-lg text-gray-500">
