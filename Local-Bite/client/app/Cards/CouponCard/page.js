@@ -9,7 +9,7 @@ export default function CouponCard({ coupon }) {
                 <h3 className="font-semibold text-lg md:text-xl">{coupon?.code}</h3>
 
                 <span className="text-xs md:text-sm text-center font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                    {coupon?.discountType === "percentage" ? `+ ${coupon?.discountValue}% OFF` : `₹ ${coupon?.discountValue} OFF`}
+                    {coupon?.discountType === "percentage" ? `+ ${coupon?.discountValue}% OFF` : coupon?.discountType === "flat" ? `₹ ${coupon?.discountValue} OFF` : "Free Delivery"}
                 </span>
             </div>
 

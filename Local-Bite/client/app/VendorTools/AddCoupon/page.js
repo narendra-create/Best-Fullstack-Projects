@@ -14,6 +14,7 @@ export default function AddCouponForm() {
         perUserLimit: 1,
         startDate: "",
         expiryDate: "",
+        description: ""
     });
 
     const handleChange = (e) => {
@@ -151,6 +152,16 @@ export default function AddCouponForm() {
                     value={form.code}
                     onChange={handleChange}
                     className="border uppercase p-2 rounded-lg"
+                />
+                
+                {/* description */}
+                <label htmlFor="description">Description</label>
+                <textarea
+                    name="description"
+                    placeholder="Enter coupon description"
+                    value={form.description}
+                    onChange={handleChange}
+                    className="border p-2 rounded-lg md:col-span-2"
                 />
 
                 {/* Discount Type */}

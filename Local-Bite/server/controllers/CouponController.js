@@ -129,7 +129,8 @@ const addcoupon = async (req, res) => {
             startDate,
             expiryDate,
             validDays,
-            validTimeRange } = req.body;
+            validTimeRange,
+            description } = req.body;
 
 
         if (!code ||
@@ -137,7 +138,8 @@ const addcoupon = async (req, res) => {
             !userType ||
             perUserLimit <= 0 ||
             !startDate ||
-            !expiryDate) {
+            !expiryDate ||
+            !description) {
             return res.status(400).json({ message: "Please fill all the required details" })
         }
         if (!user || !role) {
@@ -217,6 +219,7 @@ const addcoupon = async (req, res) => {
                 expiryDate,
                 validDays,
                 validTimeRange,
+                description
             });
             await couponadded.save();
             return res.status(201).json({ message: "Coupon Created" })

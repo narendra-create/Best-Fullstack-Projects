@@ -63,6 +63,10 @@ const couponschema = new Schema(
                 usedAt: { type: Date, default: Date.now },
             },
         ],
+        description: {
+            type: String,
+            required: true
+        },
 
         // timing
         startDate: {
