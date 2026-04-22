@@ -21,7 +21,7 @@ export default function CouponCard({ coupon }) {
             {/* Expiry */}
             <div className="flex items-center text-sm text-gray-400 mb-4">
                 <Calendar size={16} className="mr-2" />
-                Expires: {new Date(coupon.expiryDate).toLocaleDateString("en-IN", {
+                Expires: {new Date(coupon?.expiryDate).toLocaleDateString("en-IN", {
                     day: "numeric",
                     month: "long",
                     year: "numeric"
