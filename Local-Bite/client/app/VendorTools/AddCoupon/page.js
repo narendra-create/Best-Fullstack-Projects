@@ -72,7 +72,7 @@ export default function AddCouponForm() {
                     placeholder="Coupon Code"
                     value={form.code}
                     onChange={handleChange}
-                    className="border p-2 rounded-lg"
+                    className="border uppercase p-2 rounded-lg"
                 />
 
                 {/* Discount Type */}

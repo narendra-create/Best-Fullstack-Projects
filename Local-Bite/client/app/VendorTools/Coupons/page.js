@@ -56,13 +56,13 @@ export default function CouponsPage() {
     ];
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 bg-gray-50 w-[99vw] min-h-screen">
 
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-2xl md:text-4xl font-bold">Coupons Management</h1>
-                    <p className="text-sm md:text-lg text-gray-500">
+                    <h1 className="text-2xl md:text-4xl font-bold text-center">Coupons Management</h1>
+                    <p className="text-xs md:text-lg text-gray-500">
                         Manage and add coupons to your restaurant
                     </p>
                 </div>
@@ -74,7 +74,7 @@ export default function CouponsPage() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-360 mx-auto md:mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-[92vw] md:w-360 mx-auto md:mt-14">
                 {coupons.map((coupon) => (
                     <CouponCard
                         key={coupon.id}
