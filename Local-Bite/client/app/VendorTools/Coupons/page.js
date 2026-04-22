@@ -56,14 +56,15 @@ export default function CouponsPage() {
                 </div>
                 <Link
                     href="/VendorTools/AddCoupon"
-                    className="bg-black z-80 text-white px-4 py-2 rounded-lg text-sm md:text-md hover:bg-gray-800 transition inline-block">
+                    className="bg-black z-50 text-white px-4 py-2 rounded-lg text-sm md:text-md hover:bg-gray-800 transition inline-block">
                     + Create New Coupon
                 </Link>
             </div>
 
             {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-[92vw] md:w-360 mx-auto md:mt-14">
-                {Coupons.map((coupon) => (
+                {Coupons?.length === 0 && <div>No coupons...</div>}
+                {Coupons?.map((coupon) => (
                     <CouponCard
                         key={coupon._id}
                         coupon={coupon}
