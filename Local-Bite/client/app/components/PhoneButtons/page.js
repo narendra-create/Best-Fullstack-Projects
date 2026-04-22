@@ -37,7 +37,7 @@ export default function PhoneButtons({ logout }) {
 
             {/* Mobile Menu */}
             {open && (
-                <div className="absolute w-[100vw] top-full inset-x-0 bg-gray-900 shadow-lg px-4 pb-4 transition-all ease-in-out duration-200 space-y-4">
+                <div className="absolute w-[100vw] z-90 top-full inset-x-0 bg-gray-900 shadow-lg px-4 pb-4 transition-all ease-in-out duration-200 space-y-4">
 
                     {!isLoading && User ? <div className="flex gap-2">
                         <a onClick={logout} className="w-full text-center py-2 border rounded-lg">
@@ -59,7 +59,7 @@ export default function PhoneButtons({ logout }) {
                         <NavItem title="Add items" href={'/VendorTools/Addproducts'} />
                         <NavItem title="Update Status" href={"/VendorTools/CurrentOrders"} />
                         <NavItem title="Settings" href={"#"} />
-                        <NavItem title="Support" href={"#"} />
+                        <NavItem title="Coupons" href={"/VendorTools/Coupons"} />
                     </div>
                 </div>
             )}
