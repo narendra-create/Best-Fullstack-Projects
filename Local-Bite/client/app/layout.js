@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 // import Navbar from "./components/Navbar/page";
 import { AuthProvider } from "./contexts/AuthContext";
 import Drawrwrapper from "./components/Drawrwrapper/page";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 const poppins = Poppins({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
             {children}
           </Providers>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
