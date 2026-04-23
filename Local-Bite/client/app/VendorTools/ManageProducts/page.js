@@ -55,8 +55,8 @@ const Manage = () => {
 
     return (
         <div className='flex flex-col'>
-            <div><h1 className='text-4xl font-bold pl-10 pt-5'>Manage Your Items</h1></div>
-            <div className='grid grid-cols-2 items-center justify-center gap-y-10 mx-auto mt-10 py-10 px-10 rounded-t-2xl bg-orange-50 mb-30 w-440'>
+            <div><h1 className='text-2xl md:text-4xl font-bold pl-4 md:pl-10 pt-5'>Manage Your Items</h1></div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-y-10 mx-auto mt-10 py-10 px-4 md:px-10 rounded-t-2xl bg-orange-50 mb-30 w-full max-w-[110rem]'>
                 {data && data.map((item) => {
                     return <ManageItems key={item._id} handlestock={(id, newval) => handlestock.mutate({ itemid: id, isopen: newval })} handleremove={(id) => handleremove.mutate(id)} product={item} />
                 })}
