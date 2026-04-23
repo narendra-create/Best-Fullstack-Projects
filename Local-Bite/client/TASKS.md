@@ -122,4 +122,4 @@
 - [ ] ui for all coupons sidebar
 - [ ] implement coupons in cart
 - [ ] make two modes in coupon card - vendor and customer
-- [ ] fix add items page in vendortools
+- [x] fix add items page in vendortools
