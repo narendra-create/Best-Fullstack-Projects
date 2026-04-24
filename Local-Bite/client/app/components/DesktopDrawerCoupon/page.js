@@ -41,24 +41,24 @@ export default function DesktopDrawerCoupon({ isOpen, onClose, coupons = [], onA
     }, [isOpen, onClose]);
 
     const handleApply = (coupon) => {
-        onApply?.(coupon._id, coupon.code);
+        onApply?.(coupon?._id, coupon?.code);
         onClose?.();
     };
 
     const renderMeta = (c) => {
-        const type = (c.discounttype || "").toLowerCase();
+        const type = (c?.discounttype || "").toLowerCase();
         const parts = [];
 
         if (type === "percentage") {
-            if (c.discountvalue != null) parts.push(`${c.discountvalue}% off`);
-            if (c.maxdiscountvalue != null) parts.push(`Up to ₹${c.maxdiscountvalue}`);
-            if (c.minimumordervalue != null) parts.push(`Min order ₹${c.minimumordervalue}`);
+            if (c?.discountvalue != null) parts.push(`${c?.discountvalue}% off`);
+            if (c?.maxdiscountvalue != null) parts.push(`Up to ₹${c?.maxdiscountvalue}`);
+            if (c?.minimumordervalue != null) parts.push(`Min order ₹${c?.minimumordervalue}`);
         } else if (type === "flat") {
-            if (c.discountvalue != null) parts.push(`Flat ₹${c.discountvalue} off`);
-            if (c.minimumordervalue != null) parts.push(`Min order ₹${c.minimumordervalue}`);
+            if (c?.discountvalue != null) parts.push(`Flat ₹${c?.discountvalue} off`);
+            if (c?.minimumordervalue != null) parts.push(`Min order ₹${c?.minimumordervalue}`);
         } else if (type === "free delivery") {
             parts.push("Free delivery");
-            if (c.minimumordervalue != null) parts.push(`Min order ₹${c.minimumordervalue}`);
+            if (c?.minimumordervalue != null) parts.push(`Min order ₹${c?.minimumordervalue}`);
         }
 
         return parts;
@@ -112,31 +112,31 @@ export default function DesktopDrawerCoupon({ isOpen, onClose, coupons = [], onA
 
                 {/* List */}
                 <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-gray-50">
-                    {coupons.length === 0 ? (
+                    {coupons?.length === 0 ? (
                         <div className="flex items-center justify-center h-full text-sm text-gray-500">
                             No coupons available
                         </div>
                     ) : (
-                        coupons.map((c, idx) => {
+                        coupons?.map((c, idx) => {
                             const meta = renderMeta(c);
                             return (
                                 <div
-                                    key={c._id || c.code || idx}
+                                    key={c?._id || c?.code || idx}
                                     className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow"
                                 >
                                     <div className="flex items-start justify-between gap-3">
                                         <div className="min-w-0">
                                             <div className="inline-block px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold tracking-wide border border-dashed border-emerald-300">
-                                                {c.code}
+                                                {c?.code}
                                             </div>
-                                            {meta.length > 0 && (
+                                            {meta?.length > 0 && (
                                                 <div className="mt-2 text-sm font-medium text-gray-900">
                                                     {meta.join(" • ")}
                                                 </div>
                                             )}
-                                            {c.description && (
+                                            {c?.description && (
                                                 <p className="mt-1 text-sm text-gray-500 leading-snug">
-                                                    {c.description}
+                                                    {c?.description}
                                                 </p>
                                             )}
                                         </div>
