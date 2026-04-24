@@ -119,7 +119,7 @@
 - [x] ui for coupon dashboard for vendor
 - [x] take a look at coupons and couponcard and addcoupon pages
 - [ ] upgrade coupons api -- take amount directly from orderschema and update it there
-- [ ] ui for all coupons sidebar
-- [ ] implement coupons in cart
+- [x] ui for all coupons sidebar
+- [x] implement coupons in cart
 - [x] make two modes in coupon card - vendor and customer
 - [x] fix add items page in vendortools
