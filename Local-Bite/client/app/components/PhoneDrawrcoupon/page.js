@@ -55,7 +55,7 @@ export default function MobileCouponDrawer({
 
                             <button
                                 onClick={() => {
-                                    onApply(c?._id);
+                                    onApply(c?._id, c?.code);
                                     onClose();
                                 }}
                                 className="text-green-600 text-sm font-semibold"
