@@ -1,6 +1,7 @@
 import { Calendar } from "lucide-react";
 
-export default function CouponCard({ coupon }) {
+export default function CouponCard({ coupon, role, onClick }) {
+
     return (
         <div className="bg-white rounded-2xl shadow-sm border p-5 w-full max-w-lg hover:shadow-md transition">
 
@@ -29,9 +30,11 @@ export default function CouponCard({ coupon }) {
             </div>
 
             {/* Button */}
-            <button className="w-full bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+            {role === 'vendor' ? <button onClick={onClick} className="w-full bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
                 + Add My Restaurant
-            </button>
+            </button> : <button onClick={onClick} className="w-full bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+                📃 Apply
+            </button>}
         </div>
     );
 }
