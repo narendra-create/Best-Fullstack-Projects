@@ -121,5 +121,5 @@
 - [ ] upgrade coupons api -- take amount directly from orderschema and update it there
 - [ ] ui for all coupons sidebar
 - [ ] implement coupons in cart
-- [ ] make two modes in coupon card - vendor and customer
+- [x] make two modes in coupon card - vendor and customer
 - [x] fix add items page in vendortools
