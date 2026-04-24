@@ -7,10 +7,16 @@ export default function CouponsPage() {
     const [Coupons, setCoupons] = useState();
     const [Loading, setLoading] = useState(true);
 
-    const fetchcoupons = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/coupon/getcoupons`);
-        const data = await res.json();
+
+
+    const handleaddvendor = async () => {
+        setLoading(true);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/coupon/addmyrestaurent`, {
+            credentials: "include",
+            method: "PATCH"
+        });
         if (!res.ok) {
+            const data = await res.json();
             toast.error(`${data.message}`, {
                 position: "top-center",
                 autoClose: 2000,
@@ -25,8 +31,18 @@ export default function CouponsPage() {
             setLoading(false);
             return;
         }
-        setCoupons(data.coupons);
-        setLoading(false);
+        toast.success('Added ✔️', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+        });
+        return;
     }
 
     useEffect(() => {
@@ -68,6 +84,8 @@ export default function CouponsPage() {
                     <CouponCard
                         key={coupon._id}
                         coupon={coupon}
+                        role={'vendor'}
+                        onClick={handleaddvendor}
                     />
                 ))}
             </div>
