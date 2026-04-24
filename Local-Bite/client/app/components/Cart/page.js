@@ -9,7 +9,9 @@ import PaymentPage from '@/app/Cards/Payment-page/page';
 import AddressSelector from '@/app/Cards/Cartaddresscard/page';
 import { fetchaddresses, handlesubmitaddress } from '@/lib/addresstool';
 import AddressPopup from '@/components/ui/AddressPopup/page';
-import { ToastContainer, Slide } from 'react-toastify';
+import { ToastContainer, Slide, toast } from 'react-toastify';
+import MobileCouponDrawer from '../PhoneDrawrcoupon/page';
+import { fetchCoupons } from '@/lib/coupontool';
 
 const Cart = () => {
   const [items, setitems] = useState([]);
@@ -29,6 +31,8 @@ const Cart = () => {
   const [selectedaddress, setselectedaddress] = useState(null);
   const [addresses, setaddresses] = useState();
   const [adding, setadding] = useState(false);
+  const [Coupons, setCoupons] = useState();
+  const [isOpen, setisOpen] = useState(false);
 
 
   const loadcart = async () => {
@@ -92,6 +96,15 @@ const Cart = () => {
     setCartLoading(false);
   }
 
+  const loadCoupons = async () => {
+    try {
+      const coupons = await fetchCoupons();
+      setCoupons(coupons);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   // useEffect(() => {
   //   console.log(items)
   //   console.log(inStock)
@@ -119,6 +132,7 @@ const Cart = () => {
   useEffect(() => {
     const loaddata = async () => {
       loadcart();
+      loadCoupons();
       const data = await fetchaddresses();
       setaddresses(data);
     }
@@ -134,7 +148,6 @@ const Cart = () => {
   const handlechange = (e) => {
     setinstructions(e.target.value)
   }
-
 
   const handleRemove = async (item) => {
     if (User) {
@@ -164,6 +177,10 @@ const Cart = () => {
       }
     }
   };
+
+  const handleapplycoupon = async () => {
+    alert("Applied")
+  }
 
   const plus = async (item) => {
 
@@ -452,43 +469,55 @@ const Cart = () => {
               return <CartProduct key={key ? key : item.cartid} items={item} vendor={vendordb?.name ?? ''} handleremove={handleRemove} plus={plus} minus={minus} />
             }) : <div className='text-black'>Your cart is empty</div>}
           </div>
+          <label htmlFor="coupon" className='mt-5 font-bold text-sm md:text-xl ml-1 md:ml-11'>Coupon Code</label>
           <div className='md:mx-12.5 mx-3 rounded-2xl gap-1 flex items-center justify-between px-2 py-2 mt-5 border border-gray-100 bg-gray-50'>
             <input type="text" id='coupon' name='coupon' placeholder='Coupon code' className='pl-5 md:py-0 py-3.5 md:w-113 h-full focus:outline-1 outline-gray-400 bg-gray-50 rounded-lg' />
             <button className='bg-sev-yellow py-3 transition-all ease-in-out duration-150 hover:bg-yellow-700 hover:text-gray-100 px-3 rounded-xl text-gray-900 font-semibold focus:outline-1 outline-gray-400'>Apply</button>
+            <button className="text-md transition-all ease-in-out duration-150 hidden md:block font-semibold py-3 px-2 hover:scale-105 text-lime-600 hover:underline">
+              [Show Available Coupons]
+            </button>
           </div>
-          <div className='flex flex-col md:mx-12 mt-5'>
-            <label htmlFor="instructions" className='font-semibold mb-3 text-md md:text-xl'>Special instructions for Restaurant</label>
-            <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-sm md:text-lg font-serif w-[88vw] md:w-154 py-2 px-5 h-44 bg-gray-50 border border-gray-100 resize-none rounded-lg ml-1 wrap-break-words whitespace-normal' />
-          </div>
+          <div className="md:hidden flex mt-3 pl-4 flex-row justify-start">
+            <button onClick={() => setisOpen(true)} className="text-sm font-semibold text-blue-600 hover:underline">
+            [Show Available Coupons]
+          </button>
         </div>
-        {addressclick ? (
-          <div className='md:w-[30%] w-full p-5'>
-            <AddressSelector onBack={() => {
-              setaddressclick(false)
-            }} onContinue={() => {
-              setaddressclick(false);
-              setmethodclick(true)
-            }} selectaddress={selectaddress} handlenewaddress={handleaddaddress} alladdresses={addresses} />
-          </div>
-        ) : methodclick ? (
-          <div className='md:w-[30%] w-full p-5'>
-            <h3 className='md:mb-12 mb-6 font-extrabold text-2xl md:text-4xl'>Choose Payment Method</h3>
-            <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
-              setmethodclick(false);
-              setaddressclick(true);
-            }} handlecod={handlecashpayment} />
-          </div>
-        ) : (
-          <div className='md:w-[30%] w-full p-5'>
-            <h3 className='md:mb-12 mb-0 font-extrabold text-xl md:text-4xl'>Order Summary</h3>
-            <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} addressclick={() => setaddressclick(!addressclick)} methodclick={() => {
-              setmethodclick(true)
-            }} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
-          </div>
-        )}
-        <AddressPopup isOpen={adding} currentaddress={null} mode={"newaddress"} onClose={() => setadding(false)} onSubmit={handlesubmitaddress} />
+        <div className='md:hidden'>
+          <MobileCouponDrawer coupons={Coupons} isOpen={isOpen} onClose={() => setisOpen(false)} onApply={handleapplycoupon} />
+        </div>
+        <div className='flex flex-col md:mx-12 mt-5'>
+          <label htmlFor="instructions" className='font-semibold mb-3 text-md md:text-xl'>Special instructions for Restaurant</label>
+          <textarea onChange={e => handlechange(e)} placeholder='type here (max 320)' name="instructions" id="instructions" maxLength={320} className='text-sm md:text-lg font-serif w-[88vw] md:w-154 py-2 px-5 h-44 bg-gray-50 border border-gray-100 resize-none rounded-lg ml-1 wrap-break-words whitespace-normal' />
+        </div>
       </div>
-    </Protect>
+      {addressclick ? (
+        <div className='md:w-[30%] w-full p-5'>
+          <AddressSelector onBack={() => {
+            setaddressclick(false)
+          }} onContinue={() => {
+            setaddressclick(false);
+            setmethodclick(true)
+          }} selectaddress={selectaddress} handlenewaddress={handleaddaddress} alladdresses={addresses} />
+        </div>
+      ) : methodclick ? (
+        <div className='md:w-[30%] w-full p-5'>
+          <h3 className='md:mb-12 mb-6 font-extrabold text-2xl md:text-4xl'>Choose Payment Method</h3>
+          <PaymentPage loading={checkoutloading} totalamount={grandTotal} handlepayment={handleCheckout} handleback={() => {
+            setmethodclick(false);
+            setaddressclick(true);
+          }} handlecod={handlecashpayment} />
+        </div>
+      ) : (
+        <div className='md:w-[30%] w-full p-5'>
+          <h3 className='md:mb-12 mb-0 font-extrabold text-xl md:text-4xl'>Order Summary</h3>
+          <Checkout loading={checkoutloading} isCartEmpty={items.length === 0} subTotal={subtotal} deliverycharge={deliveryCharge} addressclick={() => setaddressclick(!addressclick)} methodclick={() => {
+            setmethodclick(true)
+          }} grandtotal={grandTotal} discount={discount} platformfee={platformFee} />
+        </div>
+      )}
+      <AddressPopup isOpen={adding} currentaddress={null} mode={"newaddress"} onClose={() => setadding(false)} onSubmit={handlesubmitaddress} />
+    </div>
+    </Protect >
   )
 }
 
