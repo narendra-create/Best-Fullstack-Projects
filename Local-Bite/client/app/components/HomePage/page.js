@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import VendorCard from '../../Cards/VendorCard/page'
 import { useAuth } from '@/app/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 
 const HomePage = () => {
@@ -50,10 +51,11 @@ const HomePage = () => {
     <Protect>
       <div className='relative'>
         <div className="relative w-full h-[75vh] md:h-auto overflow-hidden">
-          <img
+          <Image
             src="/newhome-bg.png"
             className="w-full h-full object-cover object-center md:h-full"
             alt="Local-Bite"
+            priority
           />
         </div>{/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
         <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
