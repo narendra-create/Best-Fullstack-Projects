@@ -50,15 +50,17 @@ const HomePage = () => {
   return (
     <Protect>
       <div className='relative'>
-        <div className="relative w-full h-[75vh] md:h-auto overflow-hidden">
+        <div className="relative w-full h-[75vh] md:h-screen overflow-hidden">
           <Image
+            fill
             src="/newhome-bg.png"
             className="w-full h-full object-cover object-center md:h-full"
             alt="Local-Bite"
             priority
           />
+          <div className="absolute inset-0 bg-black/30 z-10"></div>
         </div>{/* <div className='w-full h-30 bg-black bg-linear-to-b from-black mb-12 to-hero-bg'></div> */}
-        <div className='pt-54 bg-linear-to-b from-black via-hero-bg to-white'>
+        <div className='md:pt-1 pt-20 bg-linear-to-b z-10 from-black to-white'>
           <div className='bg-hero-bg pt-8 md:pt-28 mx-1 rounded-t-3xl'>
             <div className='text-black mx-auto pl-5 md:pl-0 md:w-449 text-2xl md:text-3xl mb-9 md:mb-16 font-bold'>All Nearby Vendors 🔻</div>
             <div className='md:py-2 flex flex-col md:grid md:grid-cols-4 md:w-full md:px-35 mx-auto w-[92vw] gap-8 overflow-hidden pb-8'>
