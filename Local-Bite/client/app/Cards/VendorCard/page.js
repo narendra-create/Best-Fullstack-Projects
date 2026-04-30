@@ -6,7 +6,7 @@ import Image from 'next/image';
 const VendorCard = ({ vendor }) => {
     return (
         <Link href={`/Products/${vendor?._id}`}>
-            <section className='transition-all ease-in-out duration-150 hover:scale-102 cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden mx-auto md:w-96 h-65 md:h-70 text-black bg-white rounded-3xl'>
+            <section className='transition-all ease-in-out duration-150 hover:scale-102 cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden mx-auto md:w-full lg:w-full 2xl:w-96 h-65 md:h-70 text-black bg-white rounded-3xl'>
                 <Image
                     width={600}
                     height={400} 
