@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
     return (
         // i will change this div into Link tag later
         <div>
-            <section className='relative w-[94vw] shadow-[0_8px_30px_rgb(0,0,0,0.12)] md:w-200 mx-2 bg-white text-black md:mx-auto rounded-2xl flex flex-col md:flex-row md:h-57 md:gap-4 transition-all ease-in-out duration-200 hover:scale-102'>
+            <section className='relative w-[94vw] shadow-[0_8px_30px_rgb(0,0,0,0.12)] lg:w-180 2xl:w-200 mx-2 bg-white text-black md:mx-auto rounded-2xl flex flex-col md:flex-row md:h-57 md:gap-4 transition-all ease-in-out duration-200 hover:scale-102'>
                 <img src={product?.imageUrl || '/food-placeholder.jpeg'} alt="Food image" className='shadow-[0_8px_30px_rgb(0,0,0,0.12)] h-55 md:w-83 w-[24rem] self-center md:ml-1 rounded-xl text-center text-xl font-bold object-cover object-center' />
                 <div className='flex flex-col h-full justify-center'>
                     <div className='flex md:pl-0 pl-4 items-center justify-between h-18'>

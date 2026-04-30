@@ -169,7 +169,7 @@ const Products = ({ params }) => {
             <hr className='bg-gray-600 w-full h-1' />
             <div className='md:text-6xl text-3xl poppins-medium-italic mx-auto md:px-16 px-10 rounded-b-2xl w-fit text-black text-center md:pb-5 pb-3 pt-3 md:pt-5 font-sans bg-white/80 backdrop-blur-xl shadow-2xl border-b-0.5 border-x-0.5 border-gray-600 text-shadow-lg md:first-letter:text-7xl first-letter:uppercase first-letter:text-4xl'>{vendor?.name}</div>
             <div className='md:text-5xl text-2xl font-bold text-black md:ml-12 ml-4 mt-8 md:mt-10 font-sans'>Our Menu-</div>
-            <div className='flex flex-col gap-8 md:grid md:grid-cols-2 items-center justify-center md:gap-y-10 mx-auto mt-8 md:mt-44 mb-8 md:mb-30 md:w-422'>
+            <div className='flex flex-col gap-8 lg:gap-x-0 md:grid md:grid-cols-2 items-center justify-center md:gap-y-10 mx-auto mt-8 md:mt-44 mb-8 md:mb-30 2xl:w-422'>
                 {products && products.map((product) => {
                     return <ProductCard product={product} key={product._id} />
                 })}
