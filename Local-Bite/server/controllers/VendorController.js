@@ -1,6 +1,7 @@
 import Vendor from "../models/VendorSchema.js";
 import OrderModel from "../models/OrderSchema.js";
 import mongoose from "mongoose";
+import uploadtoCloudinary from "../utils/CloudinaryUpload.js";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -30,16 +31,24 @@ const getVendorbyId = async (req, res) => {
 }
 const AddVendor = async (req, res) => {
     try {
-        const { name, category, imageUrl, type } = req.body;
+        const { name, category, type } = req.body;
         if (!name || !category || !type) {
             throw new Error("Missing Required fields: name, category, type");
         }
+
+        let imageUrl;
+
+        if (req.file) {
+            const result = await uploadtoCloudinary(req.file.buffer, "vendors");
+            imageUrl = result.secure_url;
+        }
+
         const currentName = await Vendor.findOne({ name: name })
         if (!currentName) {
             const newVendor = new Vendor({
                 name: name,
                 category: category,
-                imageUrl: imageUrl,
+                ...(imageUrl && { imageUrl }),
                 isOpen: true,
                 type: type
             })

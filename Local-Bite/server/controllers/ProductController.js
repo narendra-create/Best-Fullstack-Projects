@@ -1,6 +1,7 @@
 import Product from "../models/ProductSchema.js";
 import UserModel from "../models/UserSchema.js";
 import Vendor from "../models/VendorSchema.js";
+import uploadtoCloudinary from "../utils/CloudinaryUpload.js";
 
 const AddProduct = async (req, res) => {
     try {
@@ -8,12 +9,20 @@ const AddProduct = async (req, res) => {
         if (role !== "vendor") {
             return res.status(403).json({ message: "Only Vendors Can add products" })
         }
-        const { name, description, price, imageUrl, quantity, type } = req.body;
+        const { name, description, price, quantity, type } = req.body;
         if (!name || !description || !price || !type || !quantity) {
             return res.status(400).json({ message: "Please provide all required fields." });
         }
+
+        if (!req.file) {
+            return res.status(400).json({ message: "Image is required" });
+        }
+
+        const result = await uploadtoCloudinary(req.file.buffer, "products");
+        const imageUrl = result.secure_url;
+
         const vendorprofile = await Vendor.findOne({ user: user });
-        console.log(vendorprofile, user)
+        // console.log(vendorprofile, user)
         if (!vendorprofile) {
             return res.status(404).json({ message: "Vendor Not Found" })
         }
@@ -21,7 +30,7 @@ const AddProduct = async (req, res) => {
             name: name,
             description: description,
             price: price,
-            imageUrl: imageUrl,
+            imageUrl,
             quantity: quantity,
             type: type,
             vendor: vendorprofile._id,
@@ -91,7 +100,7 @@ const setstock = async (req, res) => {
             return res.status(404).json({ message: "Vendor not found" })
         }
         const productfound = await Product.findOneAndUpdate({ vendor: vendorfound._id, _id: itemid }, { $set: { stock: isinstock } }, { new: true })
-        console.log(productfound.stock)
+        // console.log(productfound.stock)
         return res.status(200).json({ message: "Update success" })
     }
     catch (err) {
