@@ -1,5 +1,6 @@
 import express from 'express';
 import authMiddleware from '../middlewares/jwtcheck.js';
+import upload from '../config/multer.js';
 import { getProductbyVendor, AddProduct, getAllProducts, getProductsbyUser, setstock, removeproduct } from '../controllers/ProductController.js';
 //productcontroller functions import
 
@@ -15,6 +16,6 @@ router.delete('/delete/:itemid', authMiddleware, removeproduct)
 //get all products of vendor
 router.get('/:vendorId', getProductbyVendor);
 //Add product (admin/vendor only)
-router.post('/:vendorId', authMiddleware, AddProduct); //remove vendor id and secure it after testing
+router.post('/:vendorId', authMiddleware, upload.single("image"), AddProduct); //remove vendor id and secure it after testing
 
 export default router;

@@ -1,4 +1,5 @@
 import { getAllVendors, getVendorbyId, AddVendor, getVendorByUserid, VendorAnalytics, NumberReport, shopstatus, loadshopstatus } from '../controllers/VendorController.js'
+import upload from '../config/multer.js';
 import express from 'express';
 import authMiddleware from '../middlewares/jwtcheck.js';
 
@@ -6,7 +7,7 @@ const router = express.Router();
 //get all vendors
 router.get('/all', getAllVendors);
 //Add vendor
-router.post('/', AddVendor);
+router.post('/',upload.single("image"), AddVendor);
 //get reports about sales
 router.get('/sales-data', authMiddleware, VendorAnalytics);
 router.get('/number-data', authMiddleware, NumberReport);
