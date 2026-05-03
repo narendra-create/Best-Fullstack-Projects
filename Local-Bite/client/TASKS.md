@@ -123,6 +123,6 @@
 - [x] implement coupons in cart
 - [x] make two modes in coupon card - vendor and customer
 - [x] fix add items page in vendortools
-- [ ] Implement image upload using cloudinary and multer in backend
+- [x] Implement image upload using cloudinary and multer in backend
 - [ ] add image upload in front end
 - [ ] add image field instead of ImageUrl in frontend while uploading image 
