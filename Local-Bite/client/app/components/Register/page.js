@@ -10,32 +10,46 @@ const Register = () => {
     const router = useRouter();
     const [role, setrole] = useState("customer")
     const { User, isLoading } = useAuth();
+    const [CoverFile, setCoverFile] = useState(null);
+
 
     const handlerole = (e) => {
         setrole(e.target.value)
     }
+
+    const handlefilechange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('Image must be less than 5MB', {
+                position: "top-center", autoClose: 2000, theme: "colored", transition: Slide,
+            });
+            e.target.value = '';
+            setCoverFile(null);
+            return;
+        }
+        setCoverFile(file);
+    }
+
     const handlesubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
 
+        const payload = new FormData();
+        payload.append("name", formProps.name);
+        payload.append("email", formProps.email);
+        payload.append("password", formProps.password);
+        payload.append("role", formProps.role);
+        payload.append("category", formProps.category);
+        payload.append("image", formProps.image);
+        payload.append("type", formProps.type);
+
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKENDURL}/api/auth/`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: formProps.name,
-                email: formProps.email,
-                password: formProps.password,
-                role: formProps.role,
-                vendorDetails: {
-                    category: formProps.category,
-                    imageUrl: formProps.imageUrl,
-                    type: formProps.type
-                }
-            })
+            body: payload
         }).then(async res => {
             const data = await res.json();
             if (res.ok) {
@@ -52,6 +66,7 @@ const Register = () => {
                     transition: Slide,
                 });
                 e.target.reset();
+                setCoverFile(null);
                 setTimeout(() => {
                     router.push('/components/Login')
                 }, 2000);
@@ -143,8 +158,39 @@ const Register = () => {
                             </select>
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Your Cover Picture(Url)</label>
-                            <input type="text" id="imageUrl" name='imageUrl' className="shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <label className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Your Cover Picture</label>
+                            <label
+                                htmlFor="image"
+                                className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-200 
+                               ${CoverFile ? 'border-green-400 bg-green-900/20' : 'border-gray-500 bg-gray-800/40 hover:bg-gray-700/50 hover:border-gray-400'}`}
+                            >
+                                {CoverFile ? (
+                                    <div className="flex flex-col items-center gap-1 px-3 text-center">
+                                        <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-green-400 font-medium truncate max-w-[200px]">{CoverFile.name}</span>
+                                        <span className="text-xs text-gray-400">{(CoverFile.size / (1024 * 1024)).toFixed(2)} MB</span>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col items-center gap-1 text-gray-400">
+                                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span className="text-sm">Click to upload cover image</span>
+                                        <span className="text-xs text-gray-500">PNG, JPG, WEBP · Max 5MB</span>
+                                    </div>
+                                )}
+                                <input
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    accept="image/png, image/jpeg, image/webp"
+                                    className="hidden"
+                                    required
+                                    onChange={(e) => handlefilechange(e)}
+                                />
+                            </label>
                         </div>
                     </>}
 
