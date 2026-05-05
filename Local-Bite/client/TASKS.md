@@ -125,4 +125,4 @@
 - [x] fix add items page in vendortools
 - [x] Implement image upload using cloudinary and multer in backend
 - [ ] add image upload in front end
-- [ ] add image field instead of ImageUrl in frontend while uploading image 
+- [ ] add image field instead of ImageUrl in frontend while uploading image

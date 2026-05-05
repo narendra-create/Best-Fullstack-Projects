@@ -86,7 +86,7 @@ const Register = () => {
     }
 
     return (
-        <div className='w-full md:h-screen md:pb-0 pb-5 mt-33 md:mt-40'>
+        <div className='w-full min-h-screen md:pb-0 pb-5 mt-33 md:mt-40'>
             <ToastContainer position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
@@ -99,7 +99,7 @@ const Register = () => {
                 theme="colored"
                 transition={Slide} />
 
-            <div className='absolute h-[140vh] md:h-full w-full -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-full md:h-full opacity-80 object-cover object-center blur-xs transition-all ease-in-out duration-200 w-full' /></div>
+            <div className='fixed h-screen w-full -z-10 top-0'> <div className='bg-black h-full w-full absolute'></div><img src={role === "vendor" ? '/vendorbg.jpg' : '/customerbg.jpg'} alt="Background image" className='-z-20 h-screen opacity-80 object-cover scale-110 object-center blur-xs w-full' /></div>
             {User === null ? <div className='text-white mx-auto md:w-265 w-80vw] flex items-center justify-center mb-9 md:mb-16 text-center text-3xl md:text-6xl font-bold'>Register now To {role === "vendor" ? "take massive orders" : "to satisfy your cravings"}</div> : <div className='text-white mx-auto w-full flex items-center justify-center mb-9 md:mb-16 text-6xl font-bold'>You Are Already Registered</div>}
             {User === null ? <form className="max-w-sm w-[84vw] mx-auto" onSubmit={handlesubmit}>
                 <div className="mb-5">
