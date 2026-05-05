@@ -37,7 +37,6 @@ const AddVendor = async (req, res) => {
         }
 
         let imageUrl;
-
         if (req.file) {
             const result = await uploadtoCloudinary(req.file.buffer, "vendors");
             imageUrl = result.secure_url;

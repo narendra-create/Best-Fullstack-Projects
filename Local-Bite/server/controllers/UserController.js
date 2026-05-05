@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import Vendor from "../models/VendorSchema.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import uploadtoCloudinary from "../utils/CloudinaryUpload.js";
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 
 const userregister = async (req, res) => {
     try {
-        const { name, email, password, role, vendorDetails } = req.body;
+        const { name, email, password, role, type, category } = req.body;
         if (!name || !email || !password || !role) {
             throw new Error("Missing Required fields !")
         }
@@ -30,15 +31,17 @@ const userregister = async (req, res) => {
         await newuser.save();
 
         if (role === "vendor") {
-            if (!vendorDetails) return res.status(400).json({ message: "vendor details missing - category and imageUrl" })
-            const { category, imageUrl, type } = vendorDetails;
             if (!category) return res.status(400).json({ message: "Vendor details required" })
-
+            let imageUrl;
+            if (req.file) {
+                const result = await uploadtoCloudinary(req.file.buffer, "vendors");
+                imageUrl = result.secure_url;
+            }
             const newvendor = new Vendor({
                 user: newuser._id,
                 name: newuser.name,
                 category: category,
-                imageUrl: imageUrl,
+                ...(imageUrl && { imageUrl }),
                 type: type
             })
             await newvendor.save();
